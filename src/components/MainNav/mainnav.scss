@@ -1,0 +1,31 @@
+@import "../../scss/variables.scss";
+
+.mainnav {
+  text-align: center;
+  margin: 30px 0;
+  &__list {
+    list-style: none;
+    display: inline-block;
+    background-color: $background-color-card;
+    box-shadow: 0px 2px 3px 0px rgb(0 0 0 / 7%);
+    padding: 0 15px;
+
+    &__item {
+      display: inline-block;
+      padding: 15px 13px;
+      margin-right: 20px;
+      padding-right: 15px;
+      &--link {
+        text-decoration: none;
+        font-size: 15px;
+        line-height: 1.25;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        color: $text-primary;
+        &:hover {
+          color: $color-primary;
+        }
+      }
+    }
+  }
+}

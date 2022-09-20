@@ -1,0 +1,50 @@
+@import "../../scss/variables.scss";
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__icon {
+    margin-right: 18px;
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  &__icon--facebook {
+    color: $facebook;
+  }
+  &__icon--twitter {
+    color: $twitter;
+  }
+
+  &__icon--insta {
+    color: $insta;
+  }
+
+  .logo {
+    &__name {
+      text-decoration: none;
+      color: $text-primary;
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    &__word {
+      color: $color-primary;
+    }
+  }
+
+  &__search--icon {
+    font-size: 25px;
+    background-color: $color-primary;
+    color: #fff;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: $icon-shadow;
+    cursor: pointer;
+  }
+}
