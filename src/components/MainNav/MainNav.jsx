@@ -6,10 +6,14 @@ const MainNav = () => {
     <nav className="mainnav">
       <ul className="mainnav__list">
         <li className="mainnav__list__item">
-          <NavLink className="mainnav__list__item--link">Home</NavLink>
+          <NavLink to="/" className="mainnav__list__item--link">
+            Home
+          </NavLink>
         </li>
         <li className="mainnav__list__item">
-          <NavLink className="mainnav__list__item--link">Blogs</NavLink>
+          <NavLink to="/blogs" className="mainnav__list__item--link">
+            Blogs
+          </NavLink>
         </li>
         <li className="mainnav__list__item">
           <NavLink className="mainnav__list__item--link">#Tags</NavLink>
@@ -18,7 +22,9 @@ const MainNav = () => {
           <NavLink className="mainnav__list__item--link">Dashboard</NavLink>
         </li>
         <li className="mainnav__list__item">
-          <NavLink className="mainnav__list__item--link">LogIn</NavLink>
+          <NavLink to="/login" className="mainnav__list__item--link">
+            LogIn
+          </NavLink>
         </li>
       </ul>
     </nav>

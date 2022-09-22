@@ -1,0 +1,56 @@
+@import "../../scss/variables.scss";
+
+.login {
+  box-shadow: $box-shadow;
+  background-color: $background-color-card;
+  max-width: 80%;
+  margin: auto;
+  margin-top: 30px;
+  padding: 40px;
+  position: relative;
+
+  &__title {
+    letter-spacing: 0.5px;
+    color: $text-primary;
+    text-align: center;
+  }
+
+  &__form {
+    margin-top: 30px;
+
+    .form-group {
+      margin: 20px 0;
+    }
+  }
+
+  &__label {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  &__input {
+    border: 1px solid $text-primary;
+    border-radius: 0;
+    outline: none;
+    &:focus {
+      box-shadow: none;
+      border: 1px solid $color-primary;
+    }
+  }
+
+  &__btn {
+    position: absolute;
+    left: 30%;
+    bottom: -15px;
+    padding: 10px 25px;
+    width: 30%;
+    background-color: $text-primary;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    &:hover {
+      background-color: $color-primary;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import "./homeLayout.scss";
-import { outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 import Header from "../components/Header/Header";
 import TopBar from "../components/TopBar/TopBar";
@@ -16,7 +16,7 @@ const HomeLayout = () => {
         </Header>
         <main className="main">
           <div className="col-md-8">
-            <outlet />
+            <Outlet />
           </div>
           <div className="col-md-4">
             <RightNav />
