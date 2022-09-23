@@ -9,13 +9,15 @@ const PostCard = () => {
   return (
     <article className="postcard">
       <div className="top">
-        <Link className="thumb" to="/">
+        <Link className="thumb" to={`/posts/${123}`}>
           <span className="fullimg cover"></span>
           <span className="fullimg fakelayout cover"></span>
         </Link>
         <div className="info">
           <h1 className="title underline-effect">
-            <Link to="/">Far far away, behind the word mountains</Link>
+            <Link to={`/posts/${123}`}>
+              Far far away, behind the word mountains
+            </Link>
           </h1>
           <div className="meta">
             <span className="datetime"> August 15, 2019</span>
@@ -51,9 +53,9 @@ const PostCard = () => {
             <Tag text="Football" />
           </div>
         </div>
-        <div className="user .col-md-4">
+        <div className="user col-md-4 underline-effect">
           <img src={avatar} alt="avatar" />
-          <span>Tajul Isalm Refath</span>
+          <Link>Tajul Isalm Refath</Link>
         </div>
       </div>
     </article>

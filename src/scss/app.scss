@@ -12,4 +12,17 @@
   background-repeat: no-repeat;
   background-position: left 70%;
   transition: all 0.4s ease;
+
+  &:hover {
+    color: #454360;
+    background-size: 100% 13%;
+    background-position: left 80%;
+  }
+}
+
+.hover-effect {
+  transition: transform 0.8s;
+  &:hover {
+    transform: translateY(-6px);
+  }
 }

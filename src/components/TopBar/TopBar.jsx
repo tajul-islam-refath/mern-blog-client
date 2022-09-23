@@ -7,13 +7,13 @@ import { AiOutlineSearch } from "react-icons/ai";
 
 const TopBar = () => {
   return (
-    <div id="topbar" className="topbar">
+    <div id="topbar" className="topbar ">
       <div className="icons-groups">
-        <FaFacebookF className="topbar__icon topbar__icon--facebook" />
-        <AiOutlineTwitter className="topbar__icon topbar__icon--twitter" />
-        <FaInstagramSquare className="topbar__icon topbar__icon--insta" />
+        <FaFacebookF className="topbar__icon topbar__icon--facebook hover-effect" />
+        <AiOutlineTwitter className="topbar__icon topbar__icon--twitter hover-effect" />
+        <FaInstagramSquare className="topbar__icon topbar__icon--insta hover-effect" />
       </div>
-      <div className="logo">
+      <div className="logo hover-effect">
         <Link to="/" className="logo__name">
           <span className="logo__word">M</span>
           ind
@@ -21,7 +21,7 @@ const TopBar = () => {
           hare
         </Link>
       </div>
-      <div className="search-box">
+      <div className="search-box hover-effect">
         <AiOutlineSearch className="topbar__search--icon" />
       </div>
     </div>

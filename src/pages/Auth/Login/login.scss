@@ -1,4 +1,4 @@
-@import "../../scss/variables.scss";
+@import "../../../scss/variables.scss";
 
 .login {
   box-shadow: $box-shadow;
@@ -39,10 +39,15 @@
     }
   }
 
+  &__link {
+    text-decoration: none;
+    color: $color-primary;
+  }
+
   &__btn {
     position: absolute;
     left: 30%;
-    bottom: -15px;
+    bottom: -20px;
     padding: 10px 25px;
     width: 30%;
     background-color: $text-primary;
