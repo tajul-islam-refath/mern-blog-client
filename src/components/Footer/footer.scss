@@ -1,0 +1,17 @@
+@import "../../scss//variables.scss";
+.footer {
+  padding: 40px 0;
+
+  .authorName {
+    text-align: center;
+    p {
+      font-size: 22px;
+      font-weight: 600;
+      color: $text-primary;
+    }
+    a {
+      margin-left: 10px;
+      color: $color-primary;
+    }
+  }
+}
