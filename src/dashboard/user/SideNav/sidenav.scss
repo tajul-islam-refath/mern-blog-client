@@ -1,0 +1,18 @@
+@import "../../../scss//variables.scss";
+.user-sidenav {
+  .logo {
+    margin-top: 20px;
+    text-align: center;
+    &__name {
+      text-decoration: none;
+      color: $text-primary;
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    &__word {
+      color: $color-primary;
+    }
+  }
+}

@@ -1,11 +1,11 @@
 import "./homeLayout.scss";
 import { Outlet } from "react-router-dom";
 
-import Header from "../components/Header/Header";
-import TopBar from "../components/TopBar/TopBar";
-import MainNav from "../components/MainNav/MainNav";
-import RightNav from "../components/RightNav/RightNav";
-import Footer from "../components/Footer/Footer";
+import Header from "../../components/Header/Header";
+import TopBar from "../../components/TopBar/TopBar";
+import MainNav from "../../components/MainNav/MainNav";
+import RightNav from "../../components/RightNav/RightNav";
+import Footer from "../../components/Footer/Footer";
 
 const HomeLayout = () => {
   return (

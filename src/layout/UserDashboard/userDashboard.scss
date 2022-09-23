@@ -1,0 +1,29 @@
+@import "../../scss//variables.scss";
+
+.dashboardLayout {
+  display: flex;
+  &__sidenav {
+    max-height: 100vh;
+    width: 200px;
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    // box-shadow: 1px 0px 2px rgba(191, 191, 191, 0.5);
+    box-shadow: $box-shadow;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    transition: 0.5s;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__main {
+    width: calc(100% - 200px);
+    overflow-x: hidden;
+    min-height: 100vh;
+    background: #eeeeee;
+  }
+}

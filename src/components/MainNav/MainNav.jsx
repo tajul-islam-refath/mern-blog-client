@@ -19,7 +19,9 @@ const MainNav = () => {
           <NavLink className="mainnav__list__item--link">#Tags</NavLink>
         </li>
         <li className="mainnav__list__item">
-          <NavLink className="mainnav__list__item--link">Dashboard</NavLink>
+          <NavLink to="/user" className="mainnav__list__item--link">
+            Dashboard
+          </NavLink>
         </li>
         <li className="mainnav__list__item">
           <NavLink to="/login" className="mainnav__list__item--link">
