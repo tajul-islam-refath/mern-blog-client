@@ -5,7 +5,7 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Auth/Login/Login.jsx";
 import Registration from "./pages/Auth/Registration/Registration";
 import SinglePost from "./pages/SinglePost/SinglePost";
-import UserDashboard from "./layout/UserDashboard/UserDashboard";
+import UserDashboard from "./layout/UserDashboard/UserLayout";
 
 function App() {
   return (

@@ -15,4 +15,58 @@
       color: $color-primary;
     }
   }
+
+  .list {
+    list-style: none;
+    padding: 0 !important;
+    margin-top: 30px;
+
+    &__link {
+      display: block;
+      text-decoration: none;
+      margin: 10px 0;
+      text-transform: capitalize;
+      font-size: 13px;
+      padding: 10px;
+      padding-left: 15px;
+      padding-right: 0;
+      border-right: 4px solid #fa4a6f;
+      background: linear-gradient(90deg, #fa4a6f 36%, #dd8c9f 100%);
+
+      &:hover {
+        text-decoration: none;
+        cursor: pointer;
+        border-right: 4px solid #fa4a6f;
+        background: linear-gradient(90deg, #fa4a6f 36%, #dd8c9f 100%);
+        p,
+        svg {
+          color: #fff;
+        }
+      }
+    }
+
+    &__icon {
+      font-size: 18px;
+      font-weight: 500;
+      margin-right: 15px;
+      margin-top: -6px;
+      line-height: 30px;
+      width: 30px;
+      text-align: center;
+      color: #fff;
+      display: inline-block;
+    }
+
+    &__name {
+      margin: 0;
+      line-height: 30px;
+      font-size: 18px;
+      font-weight: 500;
+      position: relative;
+      display: inline-block;
+      height: auto;
+      white-space: nowrap;
+      color: #fff;
+    }
+  }
 }
