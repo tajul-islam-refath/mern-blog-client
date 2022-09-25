@@ -6,6 +6,7 @@ import Login from "./pages/Auth/Login/Login.jsx";
 import Registration from "./pages/Auth/Registration/Registration";
 import SinglePost from "./pages/SinglePost/SinglePost";
 import UserDashboard from "./layout/UserDashboard/UserLayout";
+import CreateProfile from "./pages/CreateProfile/CreateProfile";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
 
           {/* user dashboard */}
           <Route path="user" element={<UserDashboard />}></Route>
+          <Route path="create-profile" element={<CreateProfile />} />
         </Routes>
       </BrowserRouter>
     </div>
