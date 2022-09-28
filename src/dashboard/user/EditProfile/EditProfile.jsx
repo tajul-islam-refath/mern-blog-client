@@ -1,20 +1,20 @@
-import "./createProfile.scss";
+import "./EditProfile.scss";
 import { FaInternetExplorer } from "react-icons/fa";
 import { AiFillLinkedin } from "react-icons/ai";
 import { AiFillGithub } from "react-icons/ai";
 
-import avatar from "../../assets/img/default.png";
-import AppTitle from "../../components/Common/AppTitle";
+import avatar from "../../../assets/img/default.png";
+import AppTitle from "../../../components/Common/AppTitle";
 
-const CreateProfile = () => {
+const EditProfile = () => {
   return (
     <>
-      <AppTitle title="MindShare-Create Profile" />
-      <section className="createProfile">
+      <AppTitle title="Dashboard-Edit Profile" />
+      <section className="editProfile">
         <div className="container">
           <form className="form">
             <div className="col-md-8 offset-md-3">
-              <h4 className="form__title">Create Profile</h4>
+              <h4 className="form__title">Update Profile</h4>
 
               <div className="form__profile-pics">
                 <img src={avatar} alt="Avatar" className="image-thumble" />
@@ -107,7 +107,7 @@ const CreateProfile = () => {
                 />
               </div>
 
-              <button className="form__btn">Create</button>
+              <button className="form__btn dashboard-hover">Update</button>
             </div>
           </form>
         </div>
@@ -116,4 +116,4 @@ const CreateProfile = () => {
   );
 };
 
-export default CreateProfile;
+export default EditProfile;

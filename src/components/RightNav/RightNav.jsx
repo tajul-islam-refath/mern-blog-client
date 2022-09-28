@@ -1,5 +1,6 @@
 import React from "react";
 import RecentPost from "../RecentPost/RecentPost";
+import Social from "../Social/Social";
 import TagCloud from "../TagCloud/TagCloud";
 
 function RightNav() {
@@ -7,6 +8,7 @@ function RightNav() {
     <section>
       <RecentPost />
       <TagCloud />
+      <Social />
     </section>
   );
 }

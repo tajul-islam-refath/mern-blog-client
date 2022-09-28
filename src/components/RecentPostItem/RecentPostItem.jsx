@@ -2,7 +2,6 @@ import "./recentpostitem.scss";
 import { Link } from "react-router-dom";
 
 function RecentPostItem({ item }) {
-  console.log(item);
   return (
     <article className="recentPostItem">
       <Link className="thumb" to="/">

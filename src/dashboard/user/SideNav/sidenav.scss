@@ -30,8 +30,15 @@
       padding: 10px;
       padding-left: 15px;
       padding-right: 0;
-      border-right: 4px solid #fa4a6f;
-      background: linear-gradient(90deg, #fa4a6f 36%, #dd8c9f 100%);
+
+      p,
+      svg {
+        color: $dashboard-color-secondary;
+      }
+      // border-right: 4px solid #fa4a6f;
+      // background: linear-gradient(90deg, #fa4a6f 36%, #dd8c9f 100%);
+      // border-right: 4px solid #4b4870;
+      // background: linear-gradient(90deg, #4b4870 36%, #6e69a5 100%);
 
       &:hover {
         text-decoration: none;
@@ -66,6 +73,15 @@
       display: inline-block;
       height: auto;
       white-space: nowrap;
+      color: #fff;
+    }
+  }
+
+  .active {
+    border-right: 4px solid #fa4a6f;
+    background: linear-gradient(90deg, #fa4a6f 36%, #dd8c9f 100%);
+    p,
+    svg {
       color: #fff;
     }
   }

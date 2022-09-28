@@ -20,8 +20,18 @@ function Registration() {
           {next ? (
             <>
               <div className="form-group">
+                <label className="login__label" for="userName">
+                  User Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control login__input"
+                  placeholder="user name"
+                />
+              </div>
+              <div className="form-group">
                 <label className="login__label" for="otp">
-                  Password
+                  OTP
                 </label>
                 <input
                   type="text"
