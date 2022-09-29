@@ -1,0 +1,36 @@
+.social-icon {
+  width: 22%;
+  margin-left: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  font-size: 22px;
+  font-weight: 600;
+  background: #fff !important;
+  color: #fff !important;
+  position: relative;
+  border-radius: 8px;
+  transition: 0.5s ease-in-out;
+  &:hover {
+    transform: translateY(4px);
+  }
+  svg {
+    font-size: 33px;
+  }
+}
+
+.social-twitter {
+  background: #63cdf1 !important;
+}
+
+.social-facebook {
+  background: #3563c2 !important;
+}
+
+.social-linkdin {
+  background: #63cdf1 !important;
+}
+.social-insta {
+  background: #e62ba9 !important;
+}

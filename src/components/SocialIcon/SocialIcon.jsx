@@ -1,7 +1,8 @@
 import "./socialIcon.scss";
+import { Link } from "react-router-dom";
 
 const SocialIcon = ({ children, name }) => {
-  return <div className={`social-icon ${name}`}>{children}</div>;
+  return <Link className={`social-icon ${name}`}>{children}</Link>;
 };
 
 export default SocialIcon;

@@ -12,26 +12,21 @@ const Social = () => {
     <section>
       <NavTitle text="Social" />
       <div className="row">
-        <div className="col-md-3">
-          <SocialIcon name="social-twitter">
-            <FaTwitter />
-          </SocialIcon>
-        </div>
-        <div className="col-md-3">
-          <SocialIcon>
-            <FaLinkedin />
-          </SocialIcon>
-        </div>
-        <div className="col-md-3">
-          <SocialIcon>
-            <FaFacebookSquare />
-          </SocialIcon>
-        </div>
-        <div className="col-md-3">
-          <SocialIcon>
-            <FaInstagramSquare />
-          </SocialIcon>
-        </div>
+        <SocialIcon name="social-twitter">
+          <FaTwitter />
+        </SocialIcon>
+
+        <SocialIcon name="social-twitter">
+          <FaLinkedin />
+        </SocialIcon>
+
+        <SocialIcon name="social-facebook">
+          <FaFacebookSquare />
+        </SocialIcon>
+
+        <SocialIcon name="social-insta">
+          <FaInstagramSquare />
+        </SocialIcon>
       </div>
     </section>
   );
