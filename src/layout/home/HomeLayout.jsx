@@ -8,6 +8,7 @@ import RightNav from "../../components/RightNav/RightNav";
 import Footer from "../../components/Footer/Footer";
 
 const HomeLayout = () => {
+  console.log("Render dashboard...");
   return (
     <div className="home">
       <div className="container grid">

@@ -27,7 +27,7 @@ const CreatePost = React.lazy(() =>
 );
 
 const EditProfile = React.lazy(() =>
-  import("./dashboard/user/CreatePost/CreatePost")
+  import("./dashboard/user/EditProfile/EditProfile")
 );
 
 const Dashboard = React.lazy(() =>
