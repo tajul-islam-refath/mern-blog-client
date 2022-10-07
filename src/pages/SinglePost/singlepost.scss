@@ -1,4 +1,5 @@
 @import "../../scss/variables.scss";
+@import "../../scss/mixins.scss";
 
 .singlePost {
   .article {
@@ -12,7 +13,9 @@
         width: 100%;
         height: 400px;
         position: relative;
-
+        @include break(xsmall) {
+          height: 300px !important;
+        }
         .fullimg {
           width: 100%;
           height: 100% !important;
@@ -25,10 +28,12 @@
       }
 
       .info {
-        font-size: 15px;
         margin-bottom: 5px;
         letter-spacing: 0.25px;
         text-align: center;
+        @include break(xsmall) {
+          padding: 0 3px;
+        }
         .title a {
           font-size: 28px;
           margin-bottom: 5px;
@@ -41,6 +46,10 @@
           text-decoration: none;
           &:hover {
             color: #454360;
+          }
+
+          @include break(xsmall) {
+            font-size: 22px;
           }
         }
 
@@ -87,6 +96,9 @@
         line-height: 1.8;
         font-weight: 500;
         color: #596172;
+        @include break(xsmall) {
+          font-size: 16px;
+        }
       }
     }
 

@@ -1,7 +1,23 @@
-.grid {
-  padding-top: 70px;
+@import "../../scss/mixins.scss";
 
-  .main {
-    display: flex;
+.home {
+  @include break(small) {
+    .container {
+      max-width: 100% !important;
+    }
+  }
+  .grid {
+    padding-top: 70px;
+
+    .main {
+      display: flex;
+      // #Small devices - Smartphones - landscape 📱- 767.98px and ⬇
+      @include break(small) {
+        display: block;
+        &__nav {
+          display: none;
+        }
+      }
+    }
   }
 }

@@ -11,7 +11,7 @@ const Social = () => {
   return (
     <section>
       <NavTitle text="Social" />
-      <div className="row">
+      <div className="row Social__row">
         <SocialIcon name="social-twitter">
           <FaTwitter />
         </SocialIcon>

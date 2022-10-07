@@ -1,0 +1,9 @@
+@import "../../scss/mixins.scss";
+
+.Social__row {
+  @include break(xsmall) {
+    // #Small devices - Smartphones portrait 📱- 576px and ⬇
+    flex-direction: column;
+    align-items: center;
+  }
+}

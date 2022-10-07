@@ -1,4 +1,5 @@
 @import "../../scss/variables.scss";
+@import "../../scss/mixins.scss";
 
 .postcard {
   margin: 20px 20px;
@@ -9,10 +10,19 @@
   z-index: 2;
   .top {
     display: flex;
+
+    @include break(xsmall) {
+      // #Small devices - Smartphones portrait 📱- 576px and ⬇
+      flex-direction: column;
+    }
+
     .thumb {
       min-width: 150px;
       min-height: 150px;
       position: relative;
+      @include break(xsmall) {
+        min-height: 250px;
+      }
       &::before {
         top: 4px;
         left: 4px;
@@ -79,14 +89,24 @@
           background-size: 100% 13%;
           background-position: left 80%;
         }
+
+        @include break(xsmall) {
+          font-size: 18px;
+        }
       }
 
       .meta {
         display: flex;
-
+        @include break(xsmall) {
+          flex-direction: column;
+          align-items: center;
+        }
         .datetime {
           font-size: 16px;
           color: #596172;
+          @include break(xsmall) {
+            font-size: 18px;
+          }
         }
 
         .read-time {
@@ -101,12 +121,18 @@
             vertical-align: middle;
             margin-right: 8px;
           }
+          @include break(xsmall) {
+            font-size: 18px;
+          }
         }
 
         &__row {
           margin-left: 15px;
           display: flex;
           align-items: center;
+          @include break(xsmall) {
+            font-size: 18px;
+          }
           .icon {
             color: $color-primary;
             margin-right: 3px;
@@ -123,6 +149,9 @@
       line-height: 1.8;
       font-weight: 500;
       color: #596172;
+      @include break(xsmall) {
+        font-size: 16px;
+      }
     }
   }
 
@@ -130,7 +159,9 @@
     margin-top: 50px;
     display: flex;
     align-items: center;
-
+    @include break(xsmall) {
+      flex-direction: column;
+    }
     .tags {
       display: flex;
     }
@@ -138,7 +169,9 @@
     .user {
       display: flex;
       align-items: center;
-
+      @include break(xsmall) {
+        margin-top: 10px;
+      }
       img {
         width: 40px;
         height: 40px;

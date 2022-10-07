@@ -1,4 +1,5 @@
 import React, { Suspense } from "react";
+import { ToastContainer } from "react-toastify";
 import "./scss/app.scss";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -37,6 +38,18 @@ const Dashboard = React.lazy(() =>
 function App() {
   return (
     <div className="App">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+
       <Suspense fallback={<Loader />}>
         <BrowserRouter>
           <Routes>

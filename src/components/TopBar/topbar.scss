@@ -1,4 +1,5 @@
 @import "../../scss/variables.scss";
+@import "../../scss/mixins.scss";
 
 .topbar {
   display: flex;
@@ -46,5 +47,18 @@
     padding: 10px;
     box-shadow: $icon-shadow;
     cursor: pointer;
+  }
+
+  // responsive
+
+  // #Small devices - Smartphones - landscape 📱- 767.98px and ⬇
+  @include break(small) {
+    flex-direction: column;
+    &__icon {
+      margin-bottom: 10px;
+    }
+    .logo {
+      margin-bottom: 10px;
+    }
   }
 }

@@ -1,6 +1,9 @@
+@import "../../scss/mixins.scss";
+
 .social-icon {
   width: 22%;
   margin-left: 8px;
+  margin-bottom: 6px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,6 +15,10 @@
   position: relative;
   border-radius: 8px;
   transition: 0.5s ease-in-out;
+
+  @include break(xsmall) {
+    width: 40%;
+  }
   &:hover {
     transform: translateY(4px);
   }
