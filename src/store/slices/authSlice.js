@@ -16,7 +16,7 @@ const initialState = {
   otpInfo:
     localStorage.getItem("MS_otp") !== null
       ? JSON.parse(localStorage.getItem("MS_otp"))
-      : {},
+      : null,
   message: "",
 };
 
@@ -30,10 +30,10 @@ const authSlice = createSlice({
     authSendOtpAction: (state, action) => {
       console.log(action.payload);
       state.isLoading = false;
-      state.message = action.payload.data.message;
+      state.message = action.payload.message;
       state.otpInfo = {
-        hash: action.payload.data.hash,
-        email: action.payload.data.email,
+        hash: action.payload.hash,
+        email: action.payload.email,
       };
     },
     authLoginAction: (state, action) => {
