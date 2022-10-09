@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify";
 import "./scss/app.scss";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
+import PrivateRoute from "./routes/PrivateRoute.jsx";
 // import loader
 import Loader from "./components/Loader/Loader.jsx";
 
@@ -72,6 +73,7 @@ function App() {
               <Route path="edit-profile" element={<EditProfile />} />
             </Route>
             <Route path="create-profile" element={<CreateProfile />} />
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </BrowserRouter>
       </Suspense>

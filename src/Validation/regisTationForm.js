@@ -5,18 +5,38 @@ export const emailValiadtion = (email) => {
   return regex.test(email);
 };
 
-export const registationFormValidator = (event, setFormErrors, formErrors) => {
+export const registationFormValidator = (form) => {
   let error = {};
-  if ((event.target.name = "userName")) {
+  if (!form.userName) {
     error.userName = "User name is required";
-    setFormErrors({ ...formErrors, ...error });
-  } else if ((event.target.name = "otp")) {
+  } else if (!form.otp) {
     error.otp = "OTP is required";
-    setFormErrors({ ...formErrors, ...error });
-  } else if ((event.target.name = "password")) {
+  } else if (!form.password) {
     error.password = "Password is required";
-    setFormErrors({ ...formErrors, ...error });
+  } else if (form.password.length < 8) {
+    error.password = "Password length must be at least 8 characters";
   }
 
-  return Object.keys(formErrors).length === 0 ? true : false;
+  const isValidationError = Object.keys(error).length != 0 ? true : false;
+  return {
+    isValidationError,
+    error,
+  };
+};
+
+export const loginFormValidator = (form) => {
+  let error = {};
+  if (!form.email) {
+    error.email = "Email is required";
+  } else if (!form.password) {
+    error.password = "Password is required";
+  } else if (form.password.length < 8) {
+    error.password = "Password must be at least 8 characters";
+  }
+
+  const isValidationError = Object.keys(error).length != 0 ? true : false;
+  return {
+    isValidationError,
+    error,
+  };
 };

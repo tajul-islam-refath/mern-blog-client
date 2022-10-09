@@ -6,6 +6,7 @@ const initialState = {
       ? JSON.parse(localStorage.getItem("token"))
       : "",
   isLogedIn: localStorage.getItem("token") !== null ? true : false,
+  isRegisterd: false,
   isLoading: false,
   isError: false,
   errors: {},
@@ -28,7 +29,6 @@ const authSlice = createSlice({
       state.isLoading = true;
     },
     authSendOtpAction: (state, action) => {
-      console.log(action.payload);
       state.isLoading = false;
       state.message = action.payload.message;
       state.otpInfo = {
@@ -37,18 +37,28 @@ const authSlice = createSlice({
       };
     },
     authLoginAction: (state, action) => {
-      console.log(action.payload);
+      state.isLoading = false;
+      state.isLogedIn = true;
+      state.token = action.payload.token;
+      state.user = action.payload.user;
+      state.message = action.payload.message;
     },
-    authRegisterAction: (state, action) => {},
+    authRegisterAction: (state, action) => {
+      state.isLoading = false;
+      state.isRegisterd = true;
+      state.message = action.payload.message;
+    },
     authLogoutAction: (state, action) => {},
     authErrorAction: (state, action) => {
       state.isError = true;
+      state.isLoading = false;
       state.message = action.payload.message;
     },
     authStateResetAction: (state, action) => {
       state.isError = false;
       state.message = "";
       state.isLoading = false;
+      state.isRegisterd = false;
     },
   },
 });
