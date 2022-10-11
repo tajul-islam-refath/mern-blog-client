@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
 import { Navigate, useLocation, Outlet } from "react-router-dom";
 
-const PrivateRoute = () => {
+const PrivateRoute = ({ children }) => {
   const { userProfile } = useSelector((state) => state.user);
   const { isLogedIn } = useSelector((state) => state.auth);
   const history = useLocation();
 
+  console.log(userProfile);
   console.log(history);
 
   if (!userProfile) {
@@ -13,7 +14,7 @@ const PrivateRoute = () => {
   } else if (!isLogedIn) {
     return <Navigate to="/login" state={{ from: history.location }} />;
   }
-  return <Outlet />;
+  return children;
 };
 
 export default PrivateRoute;

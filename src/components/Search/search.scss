@@ -3,5 +3,26 @@
   height: 100vh;
   position: fixed;
   z-index: 999;
-  background-color: #000;
+  background-color: #fff;
+  padding: 50px 0;
+  &__close {
+    text-align: end;
+  }
+
+  &__container {
+    margin-top: 20px;
+    &__box {
+      width: 60%;
+      margin: auto;
+      &--input {
+        border: 1px solid #ccc;
+        border-radius: 0;
+        outline: none;
+        &:focus {
+          box-shadow: none;
+          border: 1px solid green;
+        }
+      }
+    }
+  }
 }

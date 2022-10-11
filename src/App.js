@@ -46,9 +46,6 @@ function App() {
         newestOnTop={false}
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
       />
 
       <Suspense fallback={<Loader />}>
@@ -63,7 +60,13 @@ function App() {
             </Route>
 
             {/* user dashboard */}
-            <Route path="user" element={<UserDashboard />}>
+            <Route
+              path="user"
+              element={
+                <PrivateRoute>
+                  <UserDashboard />
+                </PrivateRoute>
+              }>
               <Route
                 index
                 element={<Navigate to="/user/dashboard" replace={true} />}

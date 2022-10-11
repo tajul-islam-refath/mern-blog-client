@@ -14,7 +14,9 @@ const HomeLayout = () => {
 
   return (
     <div className="home">
-      {searchOpen ? <Search /> : null}
+      {searchOpen ? (
+        <Search searchOpen={searchOpen} setSearchOpen={setSearchOpen} />
+      ) : null}
 
       <div className="container grid">
         <Header>
