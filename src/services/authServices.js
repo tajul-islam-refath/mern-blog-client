@@ -63,3 +63,8 @@ export const authRegitation = (body) => async (dispatch) => {
     }
   }
 };
+
+export const authLogout = () => (dispatch) => {
+  localStorage.clear();
+  dispatch(authLogoutAction());
+};

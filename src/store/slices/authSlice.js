@@ -48,7 +48,11 @@ const authSlice = createSlice({
       state.isRegisterd = true;
       state.message = action.payload.message;
     },
-    authLogoutAction: (state, action) => {},
+    authLogoutAction: (state, action) => {
+      state.isLogedIn = false;
+      state.user = {};
+      state.token = {};
+    },
     authErrorAction: (state, action) => {
       state.isError = true;
       state.isLoading = false;
