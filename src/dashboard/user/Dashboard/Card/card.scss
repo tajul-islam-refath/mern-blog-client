@@ -1,0 +1,93 @@
+@import "../../../../scss/variables.scss";
+
+.dashboardCard {
+  box-shadow: $box-shadow;
+  background-color: $background-color-card;
+  min-height: 180px;
+  padding: 22px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  position: relative;
+  &:hover {
+    cursor: pointer;
+  }
+
+  .base-icon {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1;
+    font-size: 100px;
+    opacity: 0.4;
+  }
+
+  &__hader {
+    display: flex;
+    justify-content: space-between;
+    h4 {
+      color: #fff;
+      font-size: 32px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      span {
+        margin-bottom: 7px;
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: capitalize;
+        display: block;
+      }
+    }
+  }
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 28px;
+  padding: 8px;
+}
+
+.green {
+  background: linear-gradient(to left, #4eda89, #1a9f53);
+  &--icon {
+    color: #89ecb3;
+    background: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      from(#27bf68),
+      to(#1a9f53)
+    );
+    background: linear-gradient(#27bf68, #1a9f53);
+  }
+
+  &--base-icon {
+    color: #89ecb3;
+  }
+}
+
+.red {
+  background: linear-gradient(90deg, #fa4a6f 36%, #dd8c9f 100%);
+  &--icon {
+    color: #f0a1b4;
+    background: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      from(#fa4a6f),
+      to(#fa4a6f)
+    );
+    background: linear-gradient(#f35b7f, #fa4a6f);
+  }
+  &--base-icon {
+    color: #f0a1b4;
+  }
+}
+
+.purple {
+  background: linear-gradient(to left, #ed68ff, #be0ee1);
+}
