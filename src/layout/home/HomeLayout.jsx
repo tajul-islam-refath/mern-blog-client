@@ -1,5 +1,6 @@
 import "./homeLayout.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 
 import Header from "../../components/Header/Header";
@@ -9,8 +10,21 @@ import RightNav from "../../components/RightNav/RightNav";
 import Footer from "../../components/Footer/Footer";
 import Search from "../../components/Search/Search";
 
+import { getMyProfile } from "../../services/userService";
+
 const HomeLayout = () => {
   const [searchOpen, setSearchOpen] = useState(false);
+
+  const { isLogedIn } = useSelector((state) => state.auth);
+  const { myProfile } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isLogedIn && !myProfile) {
+      dispatch(getMyProfile());
+    }
+  }, []);
 
   return (
     <div className="home">
