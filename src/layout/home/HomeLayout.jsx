@@ -11,6 +11,7 @@ import Footer from "../../components/Footer/Footer";
 import Search from "../../components/Search/Search";
 
 import { getMyProfile } from "../../services/userService";
+import { getWebContent } from "../../services/webService";
 
 const HomeLayout = () => {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -24,6 +25,10 @@ const HomeLayout = () => {
     if (isLogedIn && !myProfile) {
       dispatch(getMyProfile());
     }
+  }, [dispatch, isLogedIn, myProfile]);
+
+  useEffect(() => {
+    dispatch(getWebContent());
   }, []);
 
   return (

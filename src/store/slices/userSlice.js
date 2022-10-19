@@ -19,7 +19,7 @@ const userSlice = createSlice({
     },
     getMyProfileAction: (state, action) => {
       state.isLoading = false;
-      state.user = action.payload.profile;
+      state.myProfile = action.payload.profile;
     },
     createUserProfileAction: (state, action) => {
       state.isProfileCreated = true;

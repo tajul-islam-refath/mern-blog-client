@@ -38,19 +38,19 @@ const SideNav = () => {
           </NavLink>
         </li>
         <li className="list__listItem">
-          <NavLink to="/user/create-post" className="list__link">
+          <NavLink to="/user/my-posts" className="list__link">
             <FaList className="list__icon" />
             <p className="list__name">My Posts</p>
           </NavLink>
         </li>
         <li className="list__listItem">
-          <NavLink to="/user/create-post" className="list__link">
+          <NavLink to="/user/bookmarks" className="list__link">
             <BsFillBookmarkCheckFill className="list__icon" />
             <p className="list__name">Bookmarks Post</p>
           </NavLink>
         </li>
         <li className="list__listItem">
-          <NavLink to="/user/create-post" className="list__link">
+          <NavLink to="/user/change-password" className="list__link">
             <MdOutlinePassword className="list__icon" />
             <p className="list__name">Change Password</p>
           </NavLink>

@@ -9,6 +9,8 @@ import {
   authSendOtpAction,
 } from "../store/slices/authSlice";
 
+import { getMyProfileAction } from "../store/slices/userSlice";
+
 export const authLogin = (body) => async (dispatch) => {
   try {
     dispatch(authLoadingAction);
@@ -17,7 +19,10 @@ export const authLogin = (body) => async (dispatch) => {
     localStorage.setItem("token", JSON.stringify(data.token));
     localStorage.setItem("MS_User", JSON.stringify(data.user));
 
+    axios.defaults.headers.common["Authorization"] = data.token;
+
     dispatch(authLoginAction(data));
+    dispatch(getMyProfileAction(data));
   } catch (error) {
     if (error.response.status === 500) {
       dispatch(authErrorAction({ message: "Error ! Please try again" }));
