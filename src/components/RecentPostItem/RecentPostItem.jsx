@@ -8,15 +8,18 @@ function RecentPostItem({ item }) {
         <span
           className="fullimg cover"
           style={{
-            backgroundImage: `url(${item.image})`,
+            backgroundImage: `url(${item.thumbail})`,
           }}></span>
         <span className="fullimg fakelayout cover"></span>
       </Link>
       <div className="info">
         <h4 className="title underline-effect">
-          <Link to="/">{item.title}</Link>
+          <Link to={`/posts/${item._id}`}>{item.title}</Link>
         </h4>
-        <span className="datetime"> {item.date} </span>
+        <span className="datetime">
+          {" "}
+          {new Date(item.createdAt).toDateString()}
+        </span>
       </div>
     </article>
   );

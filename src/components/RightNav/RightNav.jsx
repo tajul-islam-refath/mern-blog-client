@@ -6,7 +6,7 @@ import TagCloud from "../TagCloud/TagCloud";
 function RightNav() {
   return (
     <section>
-      <RecentPost />
+      <RecentPost title="Recent Post" />
       <TagCloud />
       <Social />
     </section>

@@ -47,9 +47,11 @@ const PostCard = ({ post }) => {
           </div>
           <div className="body">
             <div className="body__content">
-              Far far away, behind the word mountains, far from the countries
-              Vokalia and Consonantia, there live the blind texts. Separated
-              they live in Bookmarksgrove right…
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: post.body.slice(0, 300),
+                }}
+              />
             </div>
           </div>
           <div className="footer">

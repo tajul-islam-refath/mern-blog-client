@@ -1,12 +1,9 @@
-# Getting Started with Create React App
+# This Is A Multi Author MERN Blog Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Some key Feature of this project is !
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- OTP send by email for user registration
+- UI Develop by using React-js
+- Use Reduex-toolkit for store management
+- Every user can create a post
+- For writing post body I use TinyMCE text editor

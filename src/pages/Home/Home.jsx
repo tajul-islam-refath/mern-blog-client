@@ -13,11 +13,6 @@ const Home = () => {
         {posts.length > 0
           ? posts.map((post, i) => <PostCard key={i} post={post} />)
           : null}
-        {/* <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard /> */}
       </section>
     </>
   );
