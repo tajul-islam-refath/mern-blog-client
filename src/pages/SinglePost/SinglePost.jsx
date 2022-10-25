@@ -1,12 +1,11 @@
 import "./singlepost.scss";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { BsChat } from "react-icons/bs";
 import { AiOutlineFire } from "react-icons/ai";
 
-import Loader from "../../components/Loader/Loader";
 import Tag from "../../components/Tag/Tag";
 import AppTitle from "../../components/Common/AppTitle";
 
@@ -15,18 +14,25 @@ const SinglePost = () => {
   const { postId } = useParams();
 
   const dispatch = useDispatch();
-  const { post, isPostLoading } = useSelector((state) => state.post);
+  const { post } = useSelector((state) => state.post);
 
   useEffect(() => {
-    dispatch(getSinglePost(postId));
+    let load = false;
+
+    if (!load) {
+      dispatch(getSinglePost(postId));
+      console.log("load");
+    }
+
+    return () => {
+      load = true;
+    };
   }, [postId, dispatch]);
 
   return (
     <>
       <AppTitle title={"Far far away.."} />
-      {isPostLoading ? (
-        <Loader />
-      ) : (
+      {post && (
         <section className="singlePost">
           <article className="article">
             <div className="top">

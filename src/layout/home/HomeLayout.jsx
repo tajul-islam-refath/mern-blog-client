@@ -9,6 +9,7 @@ import MainNav from "../../components/MainNav/MainNav";
 import RightNav from "../../components/RightNav/RightNav";
 import Footer from "../../components/Footer/Footer";
 import Search from "../../components/Search/Search";
+import Loader from "../../components/Loader/Loader";
 
 import { getMyProfile } from "../../services/userService";
 import { getWebContent } from "../../services/webService";

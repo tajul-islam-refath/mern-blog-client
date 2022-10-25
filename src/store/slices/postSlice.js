@@ -4,7 +4,7 @@ let initialState = {
   isPostLoading: false,
   isPostCreated: false,
   isPostUpdated: false,
-  post: {},
+  post: null,
   posts: [],
   message: "",
 };
