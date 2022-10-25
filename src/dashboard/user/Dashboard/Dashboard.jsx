@@ -1,9 +1,29 @@
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { BsFileEarmarkPost } from "react-icons/bs";
 import { FaStreetView } from "react-icons/fa";
 import Card from "./Card/Card";
 import "./dashboard.scss";
 
+import {
+  getDashboardContent,
+  clearDashboardState,
+} from "../../../services/dashboardServices";
+
 const Dashboard = () => {
+  const { totalPosts, totalViews, latestPosts } = useSelector(
+    (state) => state.dashboard
+  );
+  const dispatch = useDispatch();
+
+  const flag = useRef(true);
+  useEffect(() => {
+    if (flag.current) {
+      flag.current = false;
+      dispatch(getDashboardContent());
+    }
+  }, []);
+
   return (
     <div className="userDashboard">
       <div className="container">
@@ -11,7 +31,7 @@ const Dashboard = () => {
           <div className="col-md-4">
             <Card
               title="Total posts"
-              count="20"
+              count={totalPosts}
               className="green"
               Icon={BsFileEarmarkPost}
             />
@@ -19,7 +39,7 @@ const Dashboard = () => {
           <div className="col-md-4">
             <Card
               title="Total Views"
-              count="150"
+              count={totalViews}
               className="red"
               Icon={FaStreetView}
             />

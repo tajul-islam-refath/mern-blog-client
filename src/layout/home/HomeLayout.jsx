@@ -1,5 +1,5 @@
 import "./homeLayout.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 
@@ -28,8 +28,12 @@ const HomeLayout = () => {
     }
   }, [dispatch, isLogedIn, myProfile]);
 
+  const logger = useRef(true);
   useEffect(() => {
-    dispatch(getWebContent());
+    if (logger.current) {
+      logger.current = false;
+      dispatch(getWebContent());
+    }
   }, []);
 
   return (

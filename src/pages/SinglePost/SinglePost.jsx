@@ -1,5 +1,5 @@
 import "./singlepost.scss";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -16,17 +16,12 @@ const SinglePost = () => {
   const dispatch = useDispatch();
   const { post } = useSelector((state) => state.post);
 
+  let log = useRef(true);
   useEffect(() => {
-    let load = false;
-
-    if (!load) {
+    if (log.current) {
+      log.current = false;
       dispatch(getSinglePost(postId));
-      console.log("load");
     }
-
-    return () => {
-      load = true;
-    };
   }, [postId, dispatch]);
 
   return (
