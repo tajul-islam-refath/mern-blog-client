@@ -37,13 +37,6 @@ const CreatePost = () => {
 
   const onSubmitPost = (event) => {
     event.preventDefault();
-
-    // const formData = new FormData();
-    // formData.append("thumbnail", thumbnail);
-    // formData.append("title", title);
-    // formData.append("body", body);
-    // formData.append("tags", tags);
-
     const formData = {
       thumbnail,
       title,

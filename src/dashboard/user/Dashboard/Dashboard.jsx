@@ -9,6 +9,7 @@ import {
   getDashboardContent,
   clearDashboardState,
 } from "../../../services/dashboardServices";
+import LatestPost from "./LatestPost/LatestPost";
 
 const Dashboard = () => {
   const { totalPosts, totalViews, latestPosts } = useSelector(
@@ -48,6 +49,7 @@ const Dashboard = () => {
             <Card className="purple" />
           </div> */}
         </div>
+        <LatestPost />
       </div>
     </div>
   );

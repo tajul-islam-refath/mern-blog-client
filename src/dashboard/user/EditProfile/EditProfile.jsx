@@ -12,11 +12,29 @@ const EditProfile = () => {
   const [profile, setProfile] = useState({});
   const { myProfile } = useSelector((state) => state.user);
 
+  const onProfileChange = (event) => {
+    const file = event.target.files[0];
+    console.log(event.target.name);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setProfile((prev) => ({ ...prev, profilePic: e.target.result }));
+    };
+
+    reader.readAsDataURL(file);
+  };
+
   useEffect(() => {
     if (myProfile) {
       setProfile(myProfile);
     }
   }, [myProfile]);
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log(profile);
+  };
+
+  console.log(profile);
 
   return (
     <>
@@ -24,17 +42,22 @@ const EditProfile = () => {
       <section className="editProfile">
         <div className="container">
           {profile && (
-            <form className="form">
+            <form className="form" onSubmit={onSubmit}>
               <div className="col-md-8 offset-md-3">
                 <h4 className="form__title">Update Profile</h4>
 
                 <div className="form__profile-pics">
-                  <img src={avatar} alt="Avatar" className="image-thumble" />
+                  <img
+                    src={profile.profilePic ? profile.profilePic : avatar}
+                    alt="Avatar"
+                    className="image-thumble"
+                  />
                   <input
                     type="file"
-                    name="profilePics"
+                    name="profilePic"
                     id="profilePicFile"
                     accept="image/*"
+                    onChange={onProfileChange}
                   />
                 </div>
 
@@ -45,9 +68,16 @@ const EditProfile = () => {
                   <input
                     type="text"
                     id="name"
+                    name="name"
                     className="form__input form-control"
                     placeholder="Enter your name"
                     value={profile.name}
+                    onChange={(event) =>
+                      setProfile((prev) => ({
+                        ...prev,
+                        name: event.target.value,
+                      }))
+                    }
                   />
                 </div>
 
@@ -58,9 +88,16 @@ const EditProfile = () => {
                   <input
                     type="text"
                     id="title"
+                    name="title"
                     className="form__input form-control"
                     placeholder="Enter a short title"
                     value={profile.title}
+                    onChange={(event) =>
+                      setProfile((prev) => ({
+                        ...prev,
+                        title: event.target.value,
+                      }))
+                    }
                   />
                 </div>
 
@@ -72,6 +109,13 @@ const EditProfile = () => {
                     class="form-control form__input"
                     id="bio"
                     rows="5"
+                    name="bio"
+                    onChange={(event) =>
+                      setProfile((prev) => ({
+                        ...prev,
+                        bio: event.target.value,
+                      }))
+                    }
                     value={profile.bio}></textarea>
                 </div>
                 <label className="form__label">Social Links</label>
@@ -82,9 +126,16 @@ const EditProfile = () => {
                   <input
                     type="text"
                     id="website"
+                    name="website"
                     className="form__input form-control"
                     placeholder="Website link"
                     value={profile.links?.website}
+                    onChange={(event) =>
+                      setProfile((prev) => ({
+                        ...prev,
+                        links: { website: event.target.value },
+                      }))
+                    }
                   />
                 </div>
                 <div class="form-group icon-box">
@@ -94,9 +145,16 @@ const EditProfile = () => {
                   <input
                     type="text"
                     id="linkdin"
+                    name="linkdin"
                     className="form__input form-control"
-                    placeholder="Website link"
+                    placeholder="linkdin link"
                     value={profile.links?.linkdin}
+                    onChange={(event) =>
+                      setProfile((prev) => ({
+                        ...prev,
+                        links: { linkdin: event.target.value },
+                      }))
+                    }
                   />
                 </div>
 
@@ -107,13 +165,22 @@ const EditProfile = () => {
                   <input
                     type="text"
                     id="github"
+                    name="github"
                     className="form__input form-control"
                     placeholder="Website link"
                     value={profile.links?.github}
+                    onChange={(event) =>
+                      setProfile((prev) => ({
+                        ...prev,
+                        links: { github: event.target.value },
+                      }))
+                    }
                   />
                 </div>
 
-                <button className="form__btn dashboard-hover">Update</button>
+                <button type="submit" className="form__btn dashboard-hover">
+                  Update
+                </button>
               </div>
             </form>
           )}
