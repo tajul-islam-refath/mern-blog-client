@@ -1,0 +1,144 @@
+@import "../../../scss/variables.scss";
+@import "../../../scss/mixins.scss";
+
+.my-posts {
+  margin: 30px 0;
+  &__title {
+    text-transform: uppercase;
+  }
+
+  .postcard {
+    background: #fff;
+    padding: 20px 30px;
+    margin-top: 20px;
+
+    box-shadow: $box-shadow;
+    position: relative;
+    z-index: 2;
+    .top {
+      display: flex;
+
+      .thumb {
+        min-width: 100%;
+        min-height: 250px;
+        position: relative;
+        @include break(xsmall) {
+          min-height: 250px;
+        }
+        &::before {
+          top: 4px;
+          left: 4px;
+          right: 4px;
+          bottom: 4px;
+          z-index: 2;
+          background: #fff;
+        }
+
+        .fullimg {
+          // background-image: url("../../assets/img/img1.jpg");
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100% !important;
+          z-index: 1;
+          box-shadow: 0 3px 5px -2px rgb(7 10 25 / 20%);
+        }
+
+        .fakelayout {
+          transition: all 0.4s ease;
+          right: auto !important;
+          bottom: auto !important;
+          z-index: 4 !important;
+
+          &::before {
+            content: "";
+            border: 1px solid #fff;
+            position: absolute;
+            left: 3px;
+            top: 3px;
+            right: 3px;
+            bottom: 3px;
+            z-index: 5;
+            transition: all 0.3s ease;
+          }
+        }
+
+        .cover {
+          background-repeat: no-repeat !important;
+          background-position: center center !important;
+          background-size: cover !important;
+        }
+      }
+    }
+
+    .info {
+      margin-left: 20px;
+      font-size: 15px;
+      margin-bottom: 5px;
+      letter-spacing: 0.25px;
+      .title a {
+        font-size: 22px;
+        margin-bottom: 5px;
+        word-break: break-word;
+        letter-spacing: 0.25px;
+        font-weight: 700;
+        line-height: 1.45;
+        letter-spacing: 0px;
+        color: $text-primary;
+        text-decoration: none;
+        &:hover {
+          color: #454360;
+          background-size: 100% 13%;
+          background-position: left 80%;
+        }
+
+        @include break(xsmall) {
+          font-size: 18px;
+        }
+      }
+
+      .meta {
+        display: flex;
+        .datetime {
+          font-size: 16px;
+          color: #596172;
+          @include break(xsmall) {
+            font-size: 18px;
+          }
+        }
+
+        .read-time {
+          color: #596172;
+          margin-left: 15px;
+          &::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 2px;
+            background: $color-primary;
+            vertical-align: middle;
+            margin-right: 8px;
+          }
+          @include break(xsmall) {
+            font-size: 18px;
+          }
+        }
+
+        &__row {
+          margin-left: 15px;
+          display: flex;
+          align-items: center;
+          @include break(xsmall) {
+            font-size: 18px;
+          }
+          .card-icon {
+            color: $color-primary;
+            margin-right: 3px;
+            font-size: 18px !important;
+          }
+        }
+      }
+    }
+  }
+}

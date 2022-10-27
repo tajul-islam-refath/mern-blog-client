@@ -4,13 +4,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { FaInternetExplorer } from "react-icons/fa";
 import { AiFillLinkedin } from "react-icons/ai";
 import { AiFillGithub } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 import avatar from "../../../assets/img/default.png";
 import AppTitle from "../../../components/Common/AppTitle";
 
+import {
+  updateUserProfile,
+  clearUserState,
+} from "../../../services/userService";
+
 const EditProfile = () => {
   const [profile, setProfile] = useState({});
-  const { myProfile } = useSelector((state) => state.user);
+  const { myProfile, isProfileUpdated, message } = useSelector(
+    (state) => state.user
+  );
+  const dispatch = useDispatch();
 
   const onProfileChange = (event) => {
     const file = event.target.files[0];
@@ -23,18 +32,32 @@ const EditProfile = () => {
     reader.readAsDataURL(file);
   };
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    // console.log(profile);
+
+    const updatedProfile = {
+      name: profile.name,
+      title: profile.title,
+      profilePic: profile.profilePic,
+      bio: profile.bio,
+      links: profile.links,
+    };
+    dispatch(updateUserProfile(updatedProfile));
+  };
+
   useEffect(() => {
     if (myProfile) {
       setProfile(myProfile);
     }
   }, [myProfile]);
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    console.log(profile);
-  };
-
-  console.log(profile);
+  useEffect(() => {
+    if (isProfileUpdated) {
+      dispatch(clearUserState());
+      toast(message);
+    }
+  }, [isProfileUpdated, message, dispatch]);
 
   return (
     <>

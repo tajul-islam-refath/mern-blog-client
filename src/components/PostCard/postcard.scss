@@ -97,6 +97,7 @@
 
       .meta {
         display: flex;
+        align-items: center;
         @include break(xsmall) {
           flex-direction: column;
           align-items: center;
@@ -133,10 +134,18 @@
           @include break(xsmall) {
             font-size: 18px;
           }
-          .icon {
+          .card-icon {
             color: $color-primary;
             margin-right: 3px;
+            font-size: 18px;
           }
+        }
+
+        .bookmark-icon {
+          color: $color-primary;
+          margin-left: 8px;
+          font-size: 22px;
+          cursor: pointer;
         }
       }
     }
@@ -173,10 +182,11 @@
         margin-top: 10px;
       }
       img {
-        width: 40px;
-        height: 40px;
+        width: 70px;
+        height: 70px;
         border-radius: 50%;
         box-shadow: $icon-shadow;
+        object-fit: cover;
       }
 
       a {
@@ -184,6 +194,7 @@
         text-decoration: none;
         margin-left: 8px;
         color: #596172;
+        font-size: 22px;
       }
     }
   }

@@ -18,15 +18,13 @@ const HomeLayout = () => {
   const [searchOpen, setSearchOpen] = useState(false);
 
   const { isLogedIn } = useSelector((state) => state.auth);
-  const { myProfile } = useSelector((state) => state.user);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isLogedIn && !myProfile) {
+    if (isLogedIn) {
       dispatch(getMyProfile());
     }
-  }, [dispatch, isLogedIn, myProfile]);
+  }, [dispatch, isLogedIn]);
 
   const logger = useRef(true);
   useEffect(() => {

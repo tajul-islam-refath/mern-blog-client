@@ -24,6 +24,10 @@ const dashboardReducer = createSlice({
       state.totalViews = action.payload.totalViews;
       state.latestPosts = action.payload.latestPosts;
     },
+    getMyPostsAction: (state, action) => {
+      state.isDashboardLoading = false;
+      state.myPosts = action.payload.posts;
+    },
     errorDashboardAction: (state, action) => {
       state.isDashboardLoading = false;
       state.message = action.payload.message;
@@ -40,6 +44,7 @@ const dashboardReducer = createSlice({
 export const {
   loadingDashboardAction,
   getDashboardAction,
+  getMyPostsAction,
   errorDashboardAction,
   clearDashboardAction,
 } = dashboardReducer.actions;

@@ -32,6 +32,8 @@ const EditProfile = React.lazy(() =>
   import("./dashboard/user/EditProfile/EditProfile")
 );
 
+const MyPosts = React.lazy(() => import("./dashboard/user/MyPosts/MyPosts"));
+
 const Dashboard = React.lazy(() =>
   import("./dashboard/user/Dashboard/Dashboard")
 );
@@ -74,6 +76,7 @@ function App() {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="create-post" element={<CreatePost />} />
               <Route path="edit-profile" element={<EditProfile />} />
+              <Route path="my-posts" element={<MyPosts />} />
             </Route>
             <Route path="create-profile" element={<CreateProfile />} />
             <Route path="*" element={<Navigate to="/" />} />

@@ -37,7 +37,7 @@ const SinglePost = () => {
               </div>
               <div className="info">
                 <h1 className="title underline-effect">
-                  <Link to={`/posts/${123}`}>{post.title}</Link>
+                  {<a>{post.title}</a>}
                 </h1>
                 <div className="meta">
                   <span className="datetime">

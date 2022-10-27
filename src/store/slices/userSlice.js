@@ -27,6 +27,12 @@ const userSlice = createSlice({
       state.myProfile = action.payload.profile;
       state.message = action.payload.message;
     },
+    updateUserProfileAction: (state, action) => {
+      state.isLoading = false;
+      state.isProfileUpdated = true;
+      state.myProfile = action.payload.profile;
+      state.message = action.payload.message;
+    },
     clearUserStateAction: (state, action) => {
       state.isLoading = false;
       state.isProfileCreated = false;
@@ -44,6 +50,7 @@ export const {
   userLoadingAction,
   getMyProfileAction,
   createUserProfileAction,
+  updateUserProfileAction,
   clearUserStateAction,
   userErrorAction,
 } = userSlice.actions;

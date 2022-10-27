@@ -1,11 +1,25 @@
 import "./postcard.scss";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { BsChat } from "react-icons/bs";
 import { AiOutlineFire } from "react-icons/ai";
+import { BsFillBookmarkFill } from "react-icons/bs";
+import { BsBookmark } from "react-icons/bs";
+
 import avatar from "../../assets/img/avatar-10.jpg";
 import Tag from "../Tag/Tag";
 
+import { bookmarkPost } from "../../services/webService";
+
 const PostCard = ({ post }) => {
+  const bookmarks = useSelector((state) => state.web.bookmarks);
+  const dispatch = useDispatch();
+
+  const bookmarksAdd = () => {
+    dispatch(bookmarkPost({ id: post._id }));
+  };
+
   return (
     <>
       {post && (
@@ -34,14 +48,23 @@ const PostCard = ({ post }) => {
                 </div>
 
                 <div className="meta__row">
-                  <BsChat className="icon" />
+                  <BsChat className="card-icon" />
                   <span>1</span>
                 </div>
 
                 <div className="meta__row">
-                  <AiOutlineFire className="icon" />
+                  <AiOutlineFire className="card-icon" />
                   <span>{post.totalViews}</span>
                 </div>
+
+                {bookmarks.includes(post._id) ? (
+                  <BsFillBookmarkFill className="bookmark-icon " />
+                ) : (
+                  <BsBookmark
+                    className="bookmark-icon "
+                    onClick={() => bookmarksAdd()}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -66,7 +89,10 @@ const PostCard = ({ post }) => {
               </div> */}
             </div>
             <div className="user col-md-4 underline-effect">
-              <img src={avatar} alt="avatar" />
+              <img
+                src={post.author.profilePic ? post.author.profilePic : avatar}
+                alt="avatar"
+              />
               <Link>{post.author.userName}</Link>
             </div>
           </div>
