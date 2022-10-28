@@ -8,7 +8,7 @@
 - Every user can create a post
 - For writing post body I use TinyMCE text editor
 - User saved post as bookmarks
-- User can search posts using
+- User can search posts by tagname or text
 
 <a  href="#" style="display: flex;">
    <img  width="50%"  height="50%"  src="./src/assets/login.png">
