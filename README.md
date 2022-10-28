@@ -10,17 +10,17 @@
 - User saved post as bookmarks
 - User can search posts using
 
-<a  href="#">
+<a  href="#" style="display: flex;">
    <img  width="50%"  height="50%"  src="./src/assets/login.png">
    <img  width="50%"  height="50%"  src="./src/assets/sfullPage.png">
 </a>
 
-<a  href="#">
+<a  href="#" style="display: flex;">
    <img  width="50%"  height="50%"  src="./src/assets/singlePost.png">
    <img  width="50%"  height="50%"  src="./src/assets/Dashboard.png">
 </a>
 
-<a  href="#">
+<a  href="#" style="display: flex;">
    <img  width="50%"  height="50%"  src="./src/assets/Create post.png">
    <img  width="50%"  height="50%"  src="./src/assets/update profile.png">
 </a>
