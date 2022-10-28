@@ -7,3 +7,20 @@
 - Use Reduex-toolkit for store management
 - Every user can create a post
 - For writing post body I use TinyMCE text editor
+- User saved post as bookmarks
+- User can search posts using
+
+<a  href="#">
+   <img  width="50%"  height="50%"  src="./src/assets/login.png">
+   <img  width="50%"  height="50%"  src="./src/assets/sfullPage.png">
+</a>
+
+<a  href="#">
+   <img  width="50%"  height="50%"  src="./src/assets/singlePost.png">
+   <img  width="50%"  height="50%"  src="./src/assets/Dashboard.png">
+</a>
+
+<a  href="#">
+   <img  width="50%"  height="50%"  src="./src/assets/Create post.png">
+   <img  width="50%"  height="50%"  src="./src/assets/update profile.png">
+</a>

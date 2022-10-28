@@ -5,6 +5,7 @@ const initialState = {
   posts: [],
   latestPosts: [],
   bookmarks: [],
+  searchResults: [],
   isBookmarked: false,
   message: "",
 };
@@ -33,6 +34,9 @@ const webSlice = createSlice({
       );
       state.message = action.payload.message;
     },
+    getSearchResultAction: (state, action) => {
+      state.searchResults = action.payload.searchResults;
+    },
     clearWebStateAction: (state, action) => {
       state.isContentLoading = false;
       state.isBookmarked = false;
@@ -46,6 +50,7 @@ export const {
   webContentGetAction,
   bookMarksPostAction,
   bookMarksDeleteAction,
+  getSearchResultAction,
   clearWebStateAction,
 } = webSlice.actions;
 
