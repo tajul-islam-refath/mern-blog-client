@@ -84,6 +84,13 @@
               margin-right: 3px;
             }
           }
+
+          .bookmark-icon {
+            color: $color-primary;
+            margin-left: 8px;
+            font-size: 22px;
+            cursor: pointer;
+          }
         }
       }
     }

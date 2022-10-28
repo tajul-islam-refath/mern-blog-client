@@ -10,7 +10,7 @@ import { BsBookmark } from "react-icons/bs";
 import avatar from "../../assets/img/avatar-10.jpg";
 import Tag from "../Tag/Tag";
 
-import { bookmarkPost } from "../../services/webService";
+import { bookmarkPost, bookmarkDelete } from "../../services/webService";
 
 const PostCard = ({ post }) => {
   const bookmarks = useSelector((state) => state.web.bookmarks);
@@ -20,6 +20,9 @@ const PostCard = ({ post }) => {
     dispatch(bookmarkPost({ id: post._id }));
   };
 
+  const bookmarksDelete = () => {
+    dispatch(bookmarkDelete({ id: post._id }));
+  };
   return (
     <>
       {post && (
@@ -58,7 +61,10 @@ const PostCard = ({ post }) => {
                 </div>
 
                 {bookmarks.includes(post._id) ? (
-                  <BsFillBookmarkFill className="bookmark-icon " />
+                  <BsFillBookmarkFill
+                    className="bookmark-icon "
+                    onClick={() => bookmarksDelete()}
+                  />
                 ) : (
                   <BsBookmark
                     className="bookmark-icon "

@@ -1,4 +1,5 @@
 import "./sidenav.scss";
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
 import { AiFillEdit } from "react-icons/ai";
@@ -8,6 +9,7 @@ import { FaList } from "react-icons/fa";
 import { MdOutlinePassword } from "react-icons/md";
 
 const SideNav = () => {
+  const profile = useSelector((state) => state.user.myProfile);
   return (
     <nav className="user-sidenav">
       <div className="logo hover-effect">
@@ -18,6 +20,7 @@ const SideNav = () => {
           hare
         </Link>
       </div>
+
       <ul className="list">
         <li className="list__listItem">
           <NavLink to="/user/dashboard" className="list__link">
@@ -56,6 +59,13 @@ const SideNav = () => {
           </NavLink>
         </li>
       </ul>
+
+      {/* {profile && (
+        <div className="profile">
+          <img src={profile.profilePic} alt="profile" />
+          <p>{profile.name}</p>
+        </div>
+      )} */}
     </nav>
   );
 };

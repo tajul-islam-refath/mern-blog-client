@@ -3,6 +3,7 @@ import {
   webContentLoadingAction,
   webContentGetAction,
   bookMarksPostAction,
+  bookMarksDeleteAction,
   clearWebStateAction,
 } from "../store/slices/webSlice";
 
@@ -25,10 +26,23 @@ export const getWebContent =
   };
 
 export const bookmarkPost = (formData) => async (dispatch) => {
-  console.log(formData);
   try {
     const { data } = await axios.post(`/user/bookmark-post`, formData);
     dispatch(bookMarksPostAction(data));
+  } catch (error) {
+    console.log(error);
+    if (error.response.status === 500) {
+      // dispatch(authErrorAction({ message: "Error ! Please try again" }));
+    } else {
+      // dispatch(authErrorAction(error.response.data));
+    }
+  }
+};
+
+export const bookmarkDelete = (formData) => async (dispatch) => {
+  try {
+    const { data } = await axios.post(`/user/bookmark-delete`, formData);
+    dispatch(bookMarksDeleteAction(data));
   } catch (error) {
     console.log(error);
     if (error.response.status === 500) {

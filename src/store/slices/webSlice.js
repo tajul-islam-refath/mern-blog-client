@@ -26,6 +26,13 @@ const webSlice = createSlice({
       state.bookmarks.push(action.payload.id);
       state.message = action.payload.message;
     },
+    bookMarksDeleteAction: (state, action) => {
+      state.isBookmarked = true;
+      state.bookmarks = state.bookmarks.filter(
+        (bookmark) => bookmark !== action.payload.id
+      );
+      state.message = action.payload.message;
+    },
     clearWebStateAction: (state, action) => {
       state.isContentLoading = false;
       state.isBookmarked = false;
@@ -38,6 +45,7 @@ export const {
   webContentLoadingAction,
   webContentGetAction,
   bookMarksPostAction,
+  bookMarksDeleteAction,
   clearWebStateAction,
 } = webSlice.actions;
 

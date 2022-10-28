@@ -2,19 +2,30 @@ import "./singlepost.scss";
 import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { BsChat } from "react-icons/bs";
 import { AiOutlineFire } from "react-icons/ai";
+import { BsFillBookmarkFill } from "react-icons/bs";
+import { BsBookmark } from "react-icons/bs";
 
 import Tag from "../../components/Tag/Tag";
 import AppTitle from "../../components/Common/AppTitle";
 
 import { getSinglePost } from "../../services/postServices";
+import { bookmarkPost, bookmarkDelete } from "../../services/webService";
 const SinglePost = () => {
   const { postId } = useParams();
 
   const dispatch = useDispatch();
   const { post } = useSelector((state) => state.post);
+  const bookmarks = useSelector((state) => state.web.bookmarks);
+
+  const bookmarksAdd = () => {
+    dispatch(bookmarkPost({ id: post._id }));
+  };
+
+  const bookmarksDelete = () => {
+    dispatch(bookmarkDelete({ id: post._id }));
+  };
 
   let log = useRef(true);
   useEffect(() => {
@@ -57,6 +68,18 @@ const SinglePost = () => {
                     <AiOutlineFire className="icon" />
                     <span>{post.totalViews}</span>
                   </div>
+
+                  {bookmarks.includes(post._id) ? (
+                    <BsFillBookmarkFill
+                      className="bookmark-icon "
+                      onClick={() => bookmarksDelete()}
+                    />
+                  ) : (
+                    <BsBookmark
+                      className="bookmark-icon "
+                      onClick={() => bookmarksAdd()}
+                    />
+                  )}
                 </div>
               </div>
             </div>
