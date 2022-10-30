@@ -14,7 +14,8 @@ import { Provider } from "react-redux";
 
 // set base url and header
 // https://mind-share.onrender.com
-axios.defaults.baseURL = "http://localhost:5000/api/v1";
+//http://localhost:5000
+axios.defaults.baseURL = "https://mind-share.onrender.com/api/v1";
 
 axios.defaults.headers.common["Authorization"] =
   localStorage.getItem("token") !== null
