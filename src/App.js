@@ -53,14 +53,20 @@ function App() {
       <Suspense fallback={<Loader />}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<HomeLayout />}>
+            <Route path="/">
               <Route index element={<Navigate to="home" replace={true} />} />
-              <Route path="home" element={<Home />} />
+              <Route
+                path="home"
+                element={
+                  <HomeLayout>
+                    <Home />
+                  </HomeLayout>
+                }
+              />
+              <Route path="posts/:postId" element={<SinglePost />} />
               <Route path="login" element={<Login />} />
               <Route path="sign-up" element={<Registration />} />
-              <Route path="posts/:postId" element={<SinglePost />} />
             </Route>
-
             {/* user dashboard */}
             <Route
               path="user"

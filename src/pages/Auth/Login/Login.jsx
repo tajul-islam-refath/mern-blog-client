@@ -82,12 +82,12 @@ const Login = () => {
 
   return (
     <>
-      <AppTitle title="Login to mindshare account" />
+      <AppTitle title="Welcome! - DEVCRAFT 💖" />
       {isLoading ? (
         <Loader />
       ) : (
         <div className="login">
-          <h2 className="login__title">Login Your Mind</h2>
+          <h2 className="login__title">Join the DEVCRAFT Community 🔥</h2>
           <form className="login__form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label className="login__label" for="email">
@@ -130,7 +130,7 @@ const Login = () => {
 
             <p className="underline-effect">
               <Link to="/sign-up" className=" login__link">
-                Don't Have An Account?
+                New to DEVCRAFT Community? Create account.
               </Link>
             </p>
 

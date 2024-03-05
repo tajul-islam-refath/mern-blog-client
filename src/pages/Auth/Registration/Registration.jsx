@@ -110,12 +110,12 @@ function Registration() {
 
   return (
     <>
-      <AppTitle title="MindShare-Registration" />
+      <AppTitle title="Welcome! - DEVCRAFT 💖" />
       {isLoading ? (
         <Loader />
       ) : (
         <section className="signup">
-          <h2 className="signup__title">Share Your Knowledge</h2>
+          <h2 className="signup__title">Join the DEVCRAFT Community 🔥</h2>
           <form className="signup__form" onSubmit={handleSubmit}>
             {next ? (
               <>

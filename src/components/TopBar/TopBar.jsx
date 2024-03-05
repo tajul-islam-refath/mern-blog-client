@@ -10,17 +10,12 @@ const TopBar = ({ setSearchOpen }) => {
   return (
     <>
       <div id="topbar" className="topbar ">
-        <div className="icons-groups">
-          <FaFacebookF className="topbar__icon topbar__icon--facebook hover-effect" />
-          <AiOutlineTwitter className="topbar__icon topbar__icon--twitter hover-effect" />
-          <FaInstagramSquare className="topbar__icon topbar__icon--insta hover-effect" />
-        </div>
         <div className="logo hover-effect">
           <Link to="/" className="logo__name">
-            <span className="logo__word">M</span>
-            ind
-            <span className="logo__word">S</span>
-            hare
+            <span className="logo__word">D</span>
+            EV
+            <span className="logo__word">C</span>
+            RAFT
           </Link>
         </div>
         <div className="search-box hover-effect">

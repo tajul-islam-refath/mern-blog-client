@@ -1,13 +1,12 @@
 @import "../../../scss/variables.scss";
 
 .login {
-  box-shadow: $box-shadow;
   background-color: $background-color-card;
-  max-width: 80%;
+  max-width: 60%;
   margin: auto;
-  margin-top: 30px;
   padding: 40px;
   position: relative;
+  border-radius: $border-radius;
 
   &__title {
     letter-spacing: 0.5px;

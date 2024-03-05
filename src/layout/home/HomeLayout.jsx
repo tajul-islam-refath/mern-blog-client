@@ -14,7 +14,7 @@ import Loader from "../../components/Loader/Loader";
 import { getMyProfile } from "../../services/userService";
 import { getWebContent } from "../../services/webService";
 
-const HomeLayout = () => {
+const HomeLayout = ({ children }) => {
   const [searchOpen, setSearchOpen] = useState(false);
 
   const { isLogedIn } = useSelector((state) => state.auth);
@@ -35,28 +35,16 @@ const HomeLayout = () => {
   }, []);
 
   return (
-    <div className="home">
-      {searchOpen ? (
-        <Search searchOpen={searchOpen} setSearchOpen={setSearchOpen} />
-      ) : null}
-
-      <div className="container grid">
+    <>
+      <div className="container">
         <Header>
           <TopBar searchOpen={searchOpen} setSearchOpen={setSearchOpen} />
           <MainNav />
         </Header>
-        <main className="main">
-          <div className="col-md-8 main__body">
-            <Outlet />
-          </div>
-          <div className="col-md-4 main__nav">
-            <RightNav />
-          </div>
-        </main>
+        <main className="main">{children}</main>
       </div>
-
       <Footer />
-    </div>
+    </>
   );
 };
 
