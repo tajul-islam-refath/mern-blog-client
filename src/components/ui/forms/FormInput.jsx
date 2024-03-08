@@ -1,11 +1,10 @@
-import React from "react";
-
 const FormInput = ({
   type,
   className,
   placeholder,
   name,
-  value,
+  register,
+  validation,
   isError,
   errorMessage,
   ...props
@@ -17,7 +16,7 @@ const FormInput = ({
         placeholder={placeholder}
         name={name}
         className={`${className} form-control  ${isError ? "is-invalid" : ""}`}
-        value={value}
+        {...register(name, { ...validation })}
         {...props}
       />
       {isError && (
