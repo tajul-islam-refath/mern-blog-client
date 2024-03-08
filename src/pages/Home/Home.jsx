@@ -1,41 +1,46 @@
 import "./home.scss";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 
 import AppTitle from "../../components/Common/AppTitle";
 import PostCard from "../../components/PostCard/PostCard";
 
-import { getWebContent } from "../../services/webService";
-import { clearWebState } from "../../services/webService";
+import { getArticlesService } from "../../services/webService";
+import { getArticlesAction } from "../../store/slices/postSlice";
 
 const Home = () => {
-  const { posts } = useSelector((state) => state.web);
-  const { message, isBookmarked } = useSelector((state) => state.web);
   const dispatch = useDispatch();
 
-  const logger = useRef(true);
-  useEffect(() => {
-    if (logger.current) {
-      logger.current = false;
-      dispatch(getWebContent());
+  let [page, setPage] = useState(1);
+  let [limit, setLimit] = useState(15);
+  const posts = useSelector((state) => state.post.posts);
+
+  const getArticles = async () => {
+    let {
+      data: { articles, pagination },
+      error,
+    } = await getArticlesService(page, limit);
+    // console.log(pagination);
+    if (articles) {
+      dispatch(getArticlesAction(articles));
     }
-  }, []);
+
+    if (pagination.next) {
+      setPage(pagination.next);
+    }
+  };
 
   useEffect(() => {
-    if (isBookmarked) {
-      toast(message);
-      dispatch(clearWebState());
-    }
-  }, [message, isBookmarked]);
+    getArticles();
+  }, []);
 
   return (
     <>
-      <AppTitle title="MindShare-Home" />
+      <AppTitle title="DevCraft" />
       <section className="home">
-        {posts.length > 0
-          ? posts.map((post, i) => <PostCard key={i} post={post} />)
-          : null}
+        {posts.map((post, i) => (
+          <PostCard key={i} post={post} />
+        ))}
       </section>
     </>
   );

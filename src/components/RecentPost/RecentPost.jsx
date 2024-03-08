@@ -6,7 +6,7 @@ import RecentPostItem from "../RecentPostItem/RecentPostItem";
 import { items } from "../../data/PostListItem";
 
 function RecentPost({ title }) {
-  const { latestPosts } = useSelector((state) => state.web);
+  let latestPosts = [];
   return (
     <div className="recent-post">
       <NavTitle text={title} />

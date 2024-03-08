@@ -12,11 +12,11 @@
   line-height: 1.2;
   background: #fff;
   &:hover {
-    color: $color-primary;
+    color: $primary-color;
   }
   &::before {
     content: "#";
-    color: $color-primary;
+    color: $primary-color;
     margin-right: 3px;
     backface-visibility: hidden;
   }

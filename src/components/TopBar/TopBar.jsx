@@ -19,10 +19,7 @@ const TopBar = ({ setSearchOpen }) => {
           </Link>
         </div>
         <div className="search-box hover-effect">
-          <AiOutlineSearch
-            className="topbar__search--icon"
-            onClick={() => setSearchOpen(true)}
-          />
+          <AiOutlineSearch className="search--icon" />
         </div>
       </div>
     </>

@@ -10,19 +10,11 @@ import { BsBookmark } from "react-icons/bs";
 import avatar from "../../assets/img/avatar-10.jpg";
 import Tag from "../Tag/Tag";
 
-import { bookmarkPost, bookmarkDelete } from "../../services/webService";
-
 const PostCard = ({ post }) => {
-  const bookmarks = useSelector((state) => state.web.bookmarks);
+  let bookmarks = [];
   const dispatch = useDispatch();
-
-  const bookmarksAdd = () => {
-    dispatch(bookmarkPost({ id: post._id }));
-  };
-
-  const bookmarksDelete = () => {
-    dispatch(bookmarkDelete({ id: post._id }));
-  };
+  const bookmarksAdd = () => {};
+  const bookmarksDelete = () => {};
   return (
     <>
       {post && (
@@ -31,16 +23,14 @@ const PostCard = ({ post }) => {
             <Link className="thumb" to={`/posts/${123}`}>
               <span
                 className="fullimg cover"
-                style={{ backgroundImage: `url(${post.thumbail})` }}></span>
+                style={{ backgroundImage: `url(${post.cover.url})` }}></span>
               <span
                 className="fullimg fakelayout cover"
-                style={{ backgroundImage: `url(${post.thumbail})` }}></span>
+                style={{ backgroundImage: `url(${post.cover.url})` }}></span>
             </Link>
             <div className="info">
               <h1 className="title underline-effect">
-                <Link to={`/posts/${post._id}`}>
-                  {post.title.slice(0, 30) + "..."}
-                </Link>
+                <Link to={`/posts/${post._id}`}>{post.title}</Link>
               </h1>
               <div className="meta">
                 <span className="datetime">
@@ -74,15 +64,7 @@ const PostCard = ({ post }) => {
               </div>
             </div>
           </div>
-          <div className="body">
-            <div className="body__content">
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: post.body.slice(0, 300),
-                }}
-              />
-            </div>
-          </div>
+
           <div className="footer">
             <div className="tags col-md-8 row">
               {post.tags?.map((tag, i) => (
@@ -96,10 +78,14 @@ const PostCard = ({ post }) => {
             </div>
             <div className="user col-md-4 underline-effect">
               <img
-                src={post.author.profilePic ? post.author.profilePic : avatar}
+                src={
+                  post.author.profileImage
+                    ? post.author.profileImage.url
+                    : avatar
+                }
                 alt="avatar"
               />
-              <Link>{post.author.userName}</Link>
+              <Link>{post.author.username}</Link>
             </div>
           </div>
         </article>

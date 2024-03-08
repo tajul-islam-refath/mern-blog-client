@@ -1,35 +1,63 @@
 @import "../../scss/variables.scss";
+@import "../../scss/mixins.scss";
 
 .mainnav {
-  text-align: center;
-  margin: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .logo {
+    &__name {
+      text-decoration: none;
+      color: $text-primary;
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    &__word {
+      color: $primary-color;
+    }
+  }
   &__list {
     list-style: none;
     display: inline-block;
-    background-color: $background-color-card;
-    box-shadow: 0px 2px 3px 0px rgb(0 0 0 / 7%);
     padding: 0 15px;
+    margin: 0;
+    display: flex;
+    align-items: center;
 
     &__item {
-      display: inline-block;
       padding: 15px 13px;
       margin-right: 20px;
       padding-right: 15px;
       &--link {
         text-decoration: none;
-        font-size: 15px;
-        line-height: 1.25;
+        text-transform: uppercase;
+        font-size: 18px;
+
         font-weight: 600;
         letter-spacing: 0.3px;
         color: $text-primary;
         &:hover {
-          color: $color-primary;
+          color: $primary-color;
         }
       }
     }
   }
 
+  .search--icon {
+    font-size: 25px;
+    background-color: $primary-color;
+    color: #fff;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: $icon-shadow;
+    cursor: pointer;
+  }
+
   .active {
-    color: $color-primary;
+    color: $primary-color;
   }
 }

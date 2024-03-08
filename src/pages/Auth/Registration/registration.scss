@@ -34,27 +34,22 @@
     outline: none;
     &:focus {
       box-shadow: none;
-      border: 1px solid $color-primary;
+      border: 1px solid $primary-color;
     }
   }
 
   &__link {
     text-decoration: none;
-    color: $color-primary;
+    color: $primary-color;
   }
 
-  &__btn {
-    position: absolute;
-    left: 30%;
-    bottom: -20px;
-    padding: 10px 25px;
-    width: 30%;
-    background-color: $text-primary;
-    border: none;
+  .signup-button {
+    width: 20%;
+    border-radius: $button-radius;
+    background-color: $primary-color;
     color: #fff;
-    font-size: 18px;
     &:hover {
-      background-color: $color-primary;
+      background-color: $secondary-color;
     }
   }
 }

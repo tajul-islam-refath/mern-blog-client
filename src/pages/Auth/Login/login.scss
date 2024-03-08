@@ -34,13 +34,13 @@
     outline: none;
     &:focus {
       box-shadow: none;
-      border: 1px solid $color-primary;
+      border: 1px solid $primary-color;
     }
   }
 
   &__link {
     text-decoration: none;
-    color: $color-primary;
+    color: $primary-color;
   }
 
   &__btn {
@@ -54,7 +54,7 @@
     color: #fff;
     font-size: 18px;
     &:hover {
-      background-color: $color-primary;
+      background-color: $primary-color;
     }
   }
 }

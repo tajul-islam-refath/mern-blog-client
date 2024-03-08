@@ -1,35 +1,30 @@
 import "./mainnav.scss";
+import { AiOutlineSearch } from "react-icons/ai";
 import { NavLink, Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+
 import { useSelector, useDispatch } from "react-redux";
 
 import { authLogout } from "../../services/authServices";
+
 const MainNav = () => {
   const { isLogedIn } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const logOut = () => {
     dispatch(authLogout());
   };
   return (
     <nav className="mainnav">
+      <div className="logo hover-effect">
+        <Link to="/" className="logo__name">
+          <span className="logo__word">D</span>
+          EV
+          <span className="logo__word">C</span>
+          RAFT
+        </Link>
+      </div>
       <ul className="mainnav__list">
-        <li className="mainnav__list__item">
-          <NavLink to="/home" className="mainnav__list__item--link">
-            Home
-          </NavLink>
-        </li>
-        <li className="mainnav__list__item">
-          <NavLink to="/blogs" className="mainnav__list__item--link">
-            Blogs
-          </NavLink>
-        </li>
-        <li className="mainnav__list__item">
-          <NavLink className="mainnav__list__item--link">#Tags</NavLink>
-        </li>
-
         {isLogedIn ? (
           <li className="mainnav__list__item">
             <NavLink to="/user" className="mainnav__list__item--link">
@@ -54,6 +49,7 @@ const MainNav = () => {
             </NavLink>
           </li>
         )}
+        <AiOutlineSearch className="search--icon" />
       </ul>
     </nav>
   );

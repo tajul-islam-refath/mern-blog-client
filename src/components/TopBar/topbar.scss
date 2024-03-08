@@ -6,23 +6,6 @@
   justify-content: space-between;
   align-items: center;
 
-  &__icon {
-    margin-right: 18px;
-    font-size: 25px;
-    cursor: pointer;
-  }
-
-  &__icon--facebook {
-    color: $facebook;
-  }
-  &__icon--twitter {
-    color: $twitter;
-  }
-
-  &__icon--insta {
-    color: $insta;
-  }
-
   .logo {
     &__name {
       text-decoration: none;
@@ -33,13 +16,13 @@
     }
 
     &__word {
-      color: $color-primary;
+      color: $primary-color;
     }
   }
 
-  &__search--icon {
+  .search--icon {
     font-size: 25px;
-    background-color: $color-primary;
+    background-color: $primary-color;
     color: #fff;
     width: 45px;
     height: 45px;

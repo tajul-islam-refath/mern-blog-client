@@ -9,7 +9,7 @@ let initialState = {
   message: "",
 };
 const postSlice = createSlice({
-  name: "post",
+  name: "article",
   initialState,
   reducers: {
     postLoadingAction: (state, action) => {
@@ -20,6 +20,11 @@ const postSlice = createSlice({
       state.isPostLoading = false;
       state.message = action.payload.message;
     },
+
+    getArticlesAction: (state, action) => {
+      state.posts = action.payload;
+    },
+
     singlePostGetAction: (state, action) => {
       state.isPostLoading = false;
       state.post = action.payload.post;
@@ -43,5 +48,6 @@ export const {
   postErrorAction,
   clearPostStateAction,
   singlePostGetAction,
+  getArticlesAction,
 } = postSlice.actions;
 export default postSlice.reducer;
