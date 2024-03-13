@@ -8,14 +8,14 @@
   .logo {
     &__name {
       text-decoration: none;
-      color: $text-primary;
+      color: $primary-color;
       font-size: 40px;
       font-weight: 900;
       letter-spacing: 3px;
     }
 
     &__word {
-      color: $primary-color;
+      color: $secondary-color;
     }
   }
   &__list {
@@ -39,7 +39,7 @@
         letter-spacing: 0.3px;
         color: $text-primary;
         &:hover {
-          color: $primary-color;
+          color: $secondary-color;
         }
       }
     }
@@ -58,6 +58,6 @@
   }
 
   .active {
-    color: $primary-color;
+    color: $secondary-color;
   }
 }

@@ -1,8 +1,8 @@
-import React from "react";
+import "./Form.scss";
 
 const FormLabel = ({ classname, text, ...props }) => {
   return (
-    <label className={`label ${classname}`} {...props}>
+    <label className={` ${classname} form-label`} {...props}>
       {text}
     </label>
   );

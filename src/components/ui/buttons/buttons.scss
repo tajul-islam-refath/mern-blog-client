@@ -1,5 +1,7 @@
-.button {
+@import "../../../scss/variables.scss";
+.primary-button {
   border: none;
   padding: 8px 25px;
   font-size: 16px;
+  border-radius: $button-radius;
 }

@@ -1,20 +1,23 @@
 import "./registration.scss";
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-
-import { authSendOtp, authRegitation } from "../../../services/authServices";
-import { authStateResetAction } from "../../../store/slices/authSlice";
-import AppTitle from "../../../components/Common/AppTitle";
-import Loader from "../../../components/Loader/Loader";
 
 import Button from "../../../components/ui/buttons/Button";
 import FormGroup from "../../../components/ui/forms/FormGroup";
 import FormLabel from "../../../components/ui/forms/FormLabel";
 import FormInput from "../../../components/ui/forms/FormInput";
 import Form from "../../../components/ui/forms/Form";
+import AppTitle from "../../../components/Common/AppTitle";
+import Loader from "../../../components/Loader/Loader";
+
+import { regitation } from "../../../services/authServices";
+import { authRegisterAction } from "../../../store/slices/authSlice";
+import { getErrorMessage } from "../../../utils/Error";
+import storage from "../../../utils/Storage";
+import { log } from "../../../utils/Log";
+import { decodeJwt } from "../../../utils/jwt";
+import toastService from "../../../utils/Toast";
 
 function Registration() {
   const {
@@ -24,29 +27,48 @@ function Registration() {
     formState: { errors },
   } = useForm();
 
-  const { isLoading } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.settings);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [formErrors, setFormErrors] = useState({});
+  const onSubmit = async (data) => {
+    let formData = new FormData();
+    formData.append("username", data.username);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+    formData.append("profileImage", data.profileImage[0]);
+    let { payload, error } = await regitation(formData);
 
-  const onSubmit = (data) => {};
-  console.log(errors);
-
-  const getErrorMessage = ({ name, options = [], messages }) => {
-    if (errors[name]?.type && options.includes(errors[name]?.type)) {
-      return messages[errors[name]?.type];
+    if (payload) {
+      log("Registration", "info", payload);
+      const decoded = decodeJwt(payload.token);
+      storage.set("token", payload.token);
+      storage.set("dc_user", decoded);
+      dispatch(
+        authRegisterAction({
+          token: payload.token,
+          user: decoded,
+        })
+      );
+      toastService.success("Registration Success!");
+      navigate("/home");
+    }
+    if (error) {
+      toastService.error("Registration Faild!");
+      log("Registration", "error", error);
     }
   };
+
   return (
     <>
       <AppTitle title="Welcome! - DEVCRAFT 💖" />
-      {isLoading ? (
+
+      {loading ? (
         <Loader />
       ) : (
         <section className="signup">
-          <h2 className="signup__title">Join the DEVCRAFT Community 🔥</h2>
           <Form className="signup__form" onSubmit={handleSubmit(onSubmit)}>
+            <h2 className="signup__title">Join the DEVCRAFT Community 🔥</h2>
             <FormGroup>
               <FormLabel
                 text="Username"
@@ -60,10 +82,10 @@ function Registration() {
                 className="signup__input"
                 register={register}
                 validation={{ required: true, maxLength: 10 }}
-                isError={errors.username ? true : false}
                 errorMessage={getErrorMessage({
+                  errors: errors,
                   name: "username",
-                  options: ["required", "maxLength"],
+                  errorTypes: ["required", "maxLength"],
                   messages: {
                     required: "Username is required",
                     maxLength: "Length cannot be greater then 10",
@@ -86,29 +108,16 @@ function Registration() {
                 placeholder="example@gmail.com"
                 register={register}
                 validation={{ required: true }}
-                isError={errors.email ? true : false}
                 errorMessage={getErrorMessage({
+                  errors: errors,
                   name: "email",
-                  options: ["required"],
+                  errorTypes: ["required"],
                   messages: {
                     required: "Email is required",
                   },
                 })}
               />
-
-              {/* <input
-                type="email"
-                className={`form-control signup__input ${
-                  formErrors.email ? "is-invalid" : ""
-                }`}
-                id="email"
-                placeholder="example@gmail.com"
-                value={email}
-                onChange={onChangeEmail}
-                onFocus={emailOnFocus}
-              /> */}
             </FormGroup>
-
             <FormGroup>
               <FormLabel
                 text="Password"
@@ -124,10 +133,10 @@ function Registration() {
                 placeholder="********"
                 register={register}
                 validation={{ required: true, minLength: 8 }}
-                isError={errors.password ? true : false}
                 errorMessage={getErrorMessage({
+                  errors: errors,
                   name: "password",
-                  options: ["required", "minLength"],
+                  errorTypes: ["required", "minLength"],
                   messages: {
                     required: "Password is required",
                     minLength: "Length cannot less than 8",
@@ -135,14 +144,27 @@ function Registration() {
                 })}
               />
             </FormGroup>
+            <FormGroup>
+              <FormLabel
+                text="Profile Image"
+                className="signup__label"
+                htmlFor="profileImage"
+              />
 
-            <p className="underline-effect">
+              <FormInput
+                type="file"
+                className="signup__input"
+                id="profileImage"
+                name="profileImage"
+                register={register}
+              />
+            </FormGroup>
+            <Button type="submit" text="SIGNUP" className="signup__button" />
+            <p className="underline-effect text-center my-2">
               <Link to="/login" className=" signup__link">
                 Already Have An Account?
               </Link>
             </p>
-
-            <Button type="submit" text="SIGNUP" className="signup-button" />
           </Form>
         </section>
       )}

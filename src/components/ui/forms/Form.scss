@@ -1,0 +1,20 @@
+@import "../../../scss/variables.scss";
+.form-group {
+  margin: 20px 0;
+  width: 100%;
+}
+
+.form-input {
+  border-radius: 0;
+  border-radius: $form-field-radius;
+  outline: none;
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.form-label {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}

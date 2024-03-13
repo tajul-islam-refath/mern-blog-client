@@ -1,4 +1,5 @@
 import axios from "axios";
+import api from "../utils/Interceptors";
 import {
   authLoadingAction,
   authLoginAction,
@@ -11,24 +12,27 @@ import {
 
 import { getMyProfileAction } from "../store/slices/userSlice";
 
-export const authLogin = (body) => async (dispatch) => {
+export const regitation = async (payload) => {
   try {
-    dispatch(authLoadingAction);
-
-    const { data } = await axios.post("/auth/login", body);
-    localStorage.setItem("token", JSON.stringify(data.token));
-    localStorage.setItem("MS_User", JSON.stringify(data.user));
-
-    axios.defaults.headers.common["Authorization"] = data.token;
-
-    dispatch(authLoginAction(data));
-    dispatch(getMyProfileAction(data));
+    const { data } = await api.post("/auth/signup", payload);
+    return { payload: data.data, error: null };
   } catch (error) {
-    if (error.response.status === 500) {
-      dispatch(authErrorAction({ message: "Error ! Please try again" }));
-    } else {
-      dispatch(authErrorAction(error.response.data));
-    }
+    return {
+      payload: null,
+      error: error?.response?.data,
+    };
+  }
+};
+
+export const login = async (payload) => {
+  try {
+    const { data } = await api.post("/auth/signin", payload);
+    return { payload: data.data, error: null };
+  } catch (error) {
+    return {
+      payload: null,
+      error: error?.response?.data,
+    };
   }
 };
 
@@ -47,22 +51,6 @@ export const authSendOtp = (body) => async (dispatch) => {
     console.log(error.response);
     if (error.response.status === 500) {
       dispatch(authErrorAction({ message: "Error ! Please try again" }));
-    } else {
-      dispatch(authErrorAction(error.response.data));
-    }
-  }
-};
-
-export const authRegitation = (body) => async (dispatch) => {
-  try {
-    dispatch(authLoadingAction());
-
-    const { data } = await axios.post("/auth/registation", body);
-    dispatch(authRegisterAction(data));
-  } catch (error) {
-    console.log(error.response);
-    if (error.response.status === 500) {
-      dispatch(authErrorAction({ message: "Error ! Please try again later" }));
     } else {
       dispatch(authErrorAction(error.response.data));
     }

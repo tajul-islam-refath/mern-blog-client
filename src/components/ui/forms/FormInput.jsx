@@ -1,12 +1,13 @@
+import "./Form.scss";
 const FormInput = ({
   type,
   className,
   placeholder,
   name,
   register,
-  validation,
-  isError,
-  errorMessage,
+  validation = {},
+
+  errorMessage = null,
   ...props
 }) => {
   return (
@@ -15,11 +16,13 @@ const FormInput = ({
         type={type}
         placeholder={placeholder}
         name={name}
-        className={`${className} form-control  ${isError ? "is-invalid" : ""}`}
+        className={`${className} form-input form-control  ${
+          errorMessage ? "is-invalid" : ""
+        }`}
         {...register(name, { ...validation })}
         {...props}
       />
-      {isError && (
+      {errorMessage && (
         <div id={`validation-${name}`} className="invalid-feedback">
           {errorMessage}
         </div>

@@ -1,146 +1,131 @@
 import "./login.scss";
-import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
-import { authLogin } from "../../../services/authServices";
-import { authStateResetAction } from "../../../store/slices/authSlice";
 import AppTitle from "../../../components/Common/AppTitle";
 import Loader from "../../../components/Loader/Loader";
+import Button from "../../../components/ui/buttons/Button";
+import FormGroup from "../../../components/ui/forms/FormGroup";
+import FormLabel from "../../../components/ui/forms/FormLabel";
+import FormInput from "../../../components/ui/forms/FormInput";
+import Form from "../../../components/ui/forms/Form";
 
-import {
-  emailValiadtion,
-  loginFormValidator,
-} from "../../../Validation/regisTationForm";
+import { login } from "../../../services/authServices";
+import { authLoginAction } from "../../../store/slices/authSlice";
+import { getErrorMessage } from "../../../utils/Error";
+import storage from "../../../utils/Storage";
+import { log } from "../../../utils/Log";
+import { decodeJwt } from "../../../utils/jwt";
+import toastService from "../../../utils/Toast";
 
 const Login = () => {
-  const { isLoading, isLogedIn, message } = useSelector((state) => state.auth);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const { loading } = useSelector((state) => state.settings);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [formErrors, setFormErrors] = useState({});
+  const onSubmit = async (data) => {
+    let { payload, error } = await login(data);
 
-  const emailOnFocus = (event) => {
-    let error = {};
-    const value = event.target.value;
-    if (!emailValiadtion(value)) {
-      error.email = "Please provide a valid email";
-      setFormErrors({ ...formErrors, ...error });
-    }
-    setEmail(value);
-  };
-
-  const onChangeEmail = (event) => {
-    let error = {};
-    const value = event.target.value;
-    if (!emailValiadtion(value)) {
-      error.email = "Please provide a valid email";
-      setFormErrors({ ...formErrors, ...error });
-    } else {
-      error.email = "";
-      setFormErrors({ ...formErrors, ...error });
-    }
-    setEmail(value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    let { isValidationError, error } = loginFormValidator({
-      email,
-      password,
-    });
-
-    if (isValidationError) {
-      setFormErrors(error);
-    } else {
+    if (payload) {
+      log("Login", "info", payload);
+      const decoded = decodeJwt(payload.token);
+      storage.set("token", payload.token);
+      storage.set("dc_user", decoded);
       dispatch(
-        authLogin({
-          email,
-          password,
+        authLoginAction({
+          token: payload.token,
+          user: decoded,
         })
       );
-    }
-  };
-
-  useEffect(() => {
-    if (message) {
-      toast(message);
-    }
-
-    if (isLogedIn) {
-      setEmail("");
-      setPassword("");
-
+      toastService.success("Login Success!");
       navigate("/home");
     }
-
-    dispatch(authStateResetAction());
-  }, [message, dispatch, isLogedIn]);
+    if (error) {
+      toastService.error("Login Faild!");
+      log("Login", "error", error);
+    }
+  };
 
   return (
     <>
       <AppTitle title="Welcome! - DEVCRAFT 💖" />
-      {isLoading ? (
+      {loading ? (
         <Loader />
       ) : (
         <div className="login">
-          <h2 className="login__title">Join the DEVCRAFT Community 🔥</h2>
-          <form className="login__form" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label className="login__label" for="email">
-                Email address
-              </label>
-              <input
-                type="email"
-                className={`form-control login__input ${
-                  formErrors.email ? "is-invalid" : ""
-                }`}
-                id="email"
-                placeholder="example@gmail.com"
-                onFocus={emailOnFocus}
-                onChange={onChangeEmail}
+          <Form className="login__form" onSubmit={handleSubmit(onSubmit)}>
+            <h2 className="login__title">Join the DEVCRAFT Community 🔥</h2>
+            <FormGroup>
+              <FormLabel
+                text="Email"
+                className="signup__label"
+                htmlFor="email"
               />
-              {formErrors.email && (
-                <div id="validationServerEmail" className="invalid-feedback">
-                  {formErrors.email}
-                </div>
-              )}
-            </div>
-            <div className="form-group">
-              <label className="login__label" for="password">
-                Password
-              </label>
-              <input
-                type="password"
-                className={`form-control login__input ${
-                  formErrors.password ? "is-invalid" : ""
-                }`}
-                placeholder="********"
-                onChange={(event) => setPassword(event.target.value)}
-              />
-              {formErrors.password && (
-                <div id="validationServerPassword" className="invalid-feedback">
-                  {formErrors.password}
-                </div>
-              )}
-            </div>
 
-            <p className="underline-effect">
+              <FormInput
+                type="email"
+                className="signup__input"
+                id="email"
+                name="email"
+                placeholder="example@gmail.com"
+                register={register}
+                validation={{ required: true }}
+                errorMessage={getErrorMessage({
+                  errors: errors,
+                  name: "email",
+                  errorTypes: ["required"],
+                  messages: {
+                    required: "Email is required",
+                  },
+                })}
+              />
+            </FormGroup>
+            <FormGroup>
+              <FormLabel
+                text="Password"
+                className="signup__label"
+                htmlFor="Password"
+              />
+
+              <FormInput
+                type="password"
+                className="signup__input"
+                id="password"
+                name="password"
+                placeholder="********"
+                register={register}
+                validation={{ required: true, minLength: 8 }}
+                errorMessage={getErrorMessage({
+                  errors: errors,
+                  name: "password",
+                  errorTypes: ["required", "minLength"],
+                  messages: {
+                    required: "Password is required",
+                    minLength: "Length cannot less than 8",
+                  },
+                })}
+              />
+            </FormGroup>
+
+            <Button
+              type="submit"
+              text="Login"
+              className="login__btn hover-effect"
+            />
+            <p className="underline-effect text-center my-2">
               <Link to="/sign-up" className=" login__link">
                 New to DEVCRAFT Community? Create account.
               </Link>
             </p>
-
-            <button
-              type="submit"
-              data-title="Login"
-              className="login__btn hover-effect">
-              Login
-            </button>
-          </form>
+          </Form>
         </div>
       )}
     </>
