@@ -1,31 +1,38 @@
 import "./myPost.scss";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { BsChat } from "react-icons/bs";
 import { AiOutlineFire } from "react-icons/ai";
-
-import { getMyPosts } from "../../../services/dashboardServices";
+import { getUserArticles } from "../../../services/postServices";
 
 const MyPosts = () => {
-  const myPosts = useSelector((state) => state.dashboard.myPosts);
-  const dispatch = useDispatch();
+  const [posts, setPosts] = useState(null);
+  const [page, setPage] = useState(1);
 
-  let flag = useRef(true);
-  useEffect(() => {
-    if (flag.current) {
-      flag.current = false;
-      dispatch(getMyPosts());
+  const getPosts = async () => {
+    let { payload, error } = await getUserArticles();
+    if (payload) {
+      setPosts(payload.articles);
     }
+  };
+
+  useEffect(() => {
+    getPosts();
   }, []);
 
   return (
     <div className="my-posts">
       <div className="container">
-        <h1 className="my-posts__title">My Posts</h1>
+        <div className="header">
+          <h1 className="header__title">Posts</h1>
+          <Link className="header__btn" to="/user/new-post">
+            New Post
+          </Link>
+        </div>
         <div className="row">
-          {myPosts &&
-            myPosts.map((post, i) => (
+          {posts &&
+            posts.map((post, i) => (
               <div className="col-md-6">
                 <article className="postcard " key={i}>
                   <div className="top">

@@ -4,11 +4,11 @@ import SideNav from "../../dashboard/user/SideNav/SideNav";
 
 const UserDashboard = () => {
   return (
-    <section className="dashboardLayout">
-      <div className="dashboardLayout__sidenav">
+    <section className="dashboard">
+      <div className="dashboard__sidenav">
         <SideNav />
       </div>
-      <div className="dashboardLayout__main">
+      <div className="dashboard__main">
         <Outlet />
       </div>
     </section>

@@ -80,9 +80,9 @@ function App() {
                 element={<Navigate to="/user/dashboard" replace={true} />}
               />
               <Route path="dashboard" element={<Dashboard />} />
-              <Route path="create-post" element={<CreatePost />} />
+              <Route path="new-post" element={<CreatePost />} />
               <Route path="edit-profile" element={<EditProfile />} />
-              <Route path="my-posts" element={<MyPosts />} />
+              <Route path="posts" element={<MyPosts />} />
             </Route>
             <Route path="create-profile" element={<CreateProfile />} />
             <Route path="*" element={<Navigate to="/" />} />

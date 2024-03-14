@@ -1,7 +1,7 @@
 import "./login.scss";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import AppTitle from "../../../components/Common/AppTitle";
 import Loader from "../../../components/Loader/Loader";
@@ -28,6 +28,7 @@ const Login = () => {
   } = useForm();
 
   const { loading } = useSelector((state) => state.settings);
+  const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -46,7 +47,8 @@ const Login = () => {
         })
       );
       toastService.success("Login Success!");
-      navigate("/home");
+      const { from } = location.state || { from: { pathname: "/" } };
+      navigate(from);
     }
     if (error) {
       toastService.error("Login Faild!");

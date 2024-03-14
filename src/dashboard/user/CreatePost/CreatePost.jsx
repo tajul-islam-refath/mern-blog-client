@@ -1,5 +1,7 @@
 import "./createPost.scss";
+import { useForm } from "react-hook-form";
 import { useRef, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Editor } from "@tinymce/tinymce-react";
 import { toast } from "react-toastify";
@@ -10,11 +12,27 @@ import Loader from "../../../components/Loader/Loader";
 
 import { createNewPost, clearPostState } from "../../../services/postServices";
 
+import Button from "../../../components/ui/buttons/Button";
+import FormGroup from "../../../components/ui/forms/FormGroup";
+import FormLabel from "../../../components/ui/forms/FormLabel";
+import FormInput from "../../../components/ui/forms/FormInput";
+import Form from "../../../components/ui/forms/Form";
+
+import toastService from "../../../utils/Toast";
+import { getErrorMessage } from "../../../utils/Error";
+
 const CreatePost = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
   const [thumbnail, setThumbnail] = useState("");
-  const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [tags, setTags] = useState("");
+  const [tags, setTags] = useState([]);
+  const [tag, setTag] = useState("");
   const [value, setValue] = useState("");
 
   const editorRef = useRef(null);
@@ -35,43 +53,28 @@ const CreatePost = () => {
     reader.readAsDataURL(file);
   };
 
-  const onSubmitPost = (event) => {
-    event.preventDefault();
-    const formData = {
-      thumbnail,
-      title,
-      body,
-      tags,
-    };
-
-    dispatch(createNewPost(formData));
-  };
-
-  useEffect(() => {
-    if (isPostCreated) {
-      toast(message);
-      setThumbnail("");
-      setBody("");
-      setTitle("");
-      setTags("");
-      setValue("");
+  const onkeydown = (e) => {
+    if (e.key === "Enter") {
+      setTags((prev) => [...prev, tag]);
+      setTag("");
     }
-
-    dispatch(clearPostState());
-  }, [isPostCreated, message, dispatch]);
+  };
 
   return (
     <>
-      <AppTitle title="Dashboard-Create New Post" />
+      <AppTitle title="New Post" />
       {isPostLoading ? (
         <Loader />
       ) : (
         <section className="createPost">
           <div className="container">
-            <form
-              className="form"
-              onSubmit={onSubmitPost}
-              encType="multipart/form-data">
+            <div className="header">
+              <h1 className="header__title">New Post</h1>
+              <Link className="header__btn" to="/user/posts">
+                Back
+              </Link>
+            </div>
+            <Form className="form" encType="multipart/form-data">
               <div className="col-md-10 offset-md-1">
                 <div className="form__profile-pics">
                   {thumbnail && (
@@ -81,35 +84,39 @@ const CreatePost = () => {
                       className="image-thumble"
                     />
                   )}
-                  <label className="form__label" htmlFor="post-thumb">
-                    Post thumbnail*
-                  </label>
-                  <input
+                </div>
+
+                <FormGroup>
+                  <FormLabel text="Cover" htmlFor="cover" />
+                  <FormInput
                     type="file"
-                    name=" thumbnail"
-                    id="post-thumb"
-                    accept="image/*"
-                    onChange={onThumbnailImage}
+                    id="cover"
+                    name="cover"
+                    register={register}
                   />
-                </div>
-
-                <div className="form-group">
-                  <label className="form__label" htmlFor="title">
-                    Post Title*
-                  </label>
-                  <input
+                </FormGroup>
+                <FormGroup>
+                  <FormLabel text="Title" htmlFor="title" />
+                  <FormInput
                     type="text"
-                    id="title"
-                    className="form__input form-control"
-                    placeholder="Enter a short title"
-                    value={title}
-                    onChange={(event) => setTitle(event.target.value)}
+                    placeholder="Enter title"
+                    name="title"
+                    register={register}
+                    validation={{ required: true, maxLength: 10 }}
+                    errorMessage={getErrorMessage({
+                      errors: errors,
+                      name: "title",
+                      errorTypes: ["required"],
+                      messages: {
+                        required: "Title is required",
+                      },
+                    })}
                   />
-                </div>
+                </FormGroup>
 
-                <div class="form-group">
+                {/* <div class="form-group">
                   <label className="form__label" htmlFor="bio">
-                    Post Body
+                    Body
                   </label>
                   <Editor
                     apiKey="your-api-key"
@@ -152,27 +159,31 @@ const CreatePost = () => {
                         "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                     }}
                   />
-                </div>
+                </div> */}
 
                 <div class="form-group mb-5">
                   <label className="form__label" htmlFor="tages">
-                    Post Tages* (Max 10)
+                    Tages* (Max 10)
                   </label>
-                  <input
-                    type="text"
-                    id="tages"
-                    className="form__input form-control"
-                    placeholder="tag1, tag2 etc"
-                    value={tags}
-                    onChange={(event) => setTags(event.target.value)}
-                  />
+                  <div className="input-container">
+                    {tags.map((tag) => (
+                      <div className="tag">{tag} &#x2718;</div>
+                    ))}
+                    <input
+                      type="text"
+                      id="tages"
+                      className="form__input form-control"
+                      placeholder="Enter tag"
+                      value={tag}
+                      onChange={(event) => setTag(event.target.value)}
+                      onKeyDown={onkeydown}
+                    />
+                  </div>
                 </div>
 
-                <button type="submit" className="form__btn dashboard-hover">
-                  Create
-                </button>
+                <Button type="button" text="Create" />
               </div>
-            </form>
+            </Form>
           </div>
         </section>
       )}

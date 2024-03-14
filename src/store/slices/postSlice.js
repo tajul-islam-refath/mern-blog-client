@@ -1,15 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 let initialState = {
-  isPostLoading: false,
-  isPostCreated: false,
-  isPostUpdated: false,
   post: null,
   posts: [],
-  message: "",
 };
 const postSlice = createSlice({
-  name: "article",
+  name: "post",
   initialState,
   reducers: {
     postLoadingAction: (state, action) => {

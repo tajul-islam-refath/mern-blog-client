@@ -61,7 +61,7 @@ const EditProfile = () => {
 
   return (
     <>
-      <AppTitle title="Dashboard-Edit Profile" />
+      <AppTitle title="Edit Profile" />
       <section className="editProfile">
         <div className="container">
           {profile && (

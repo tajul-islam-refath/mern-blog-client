@@ -14,58 +14,45 @@ const SideNav = () => {
     <nav className="user-sidenav">
       <div className="logo hover-effect">
         <Link to="/" className="logo__name">
-          <span className="logo__word">M</span>
-          ind
-          <span className="logo__word">S</span>
-          hare
+          <span className="logo__word">D</span>
+          EV
+          <span className="logo__word">C</span>
+          RAFT
         </Link>
       </div>
 
       <ul className="list">
-        <li className="list__listItem">
+        <li className="list__item">
           <NavLink to="/user/dashboard" className="list__link">
             <MdDashboard className="list__icon" />
             <p className="list__name">Dashboard</p>
           </NavLink>
         </li>
-        <li className="list__listItem">
+        <li className="list__item">
           <NavLink to="/user/edit-profile" className="list__link">
             <AiFillEdit className="list__icon" />
-            <p className="list__name">Edit Profile</p>
+            <p className="list__name">Profile</p>
           </NavLink>
         </li>
-        <li className="list__listItem">
-          <NavLink to="/user/create-post" className="list__link">
-            <IoIosCreate className="list__icon" />
-            <p className="list__name">Create New Post</p>
-          </NavLink>
-        </li>
-        <li className="list__listItem">
-          <NavLink to="/user/my-posts" className="list__link">
+        <li className="list__item">
+          <NavLink to="/user/posts" className="list__link">
             <FaList className="list__icon" />
-            <p className="list__name">My Posts</p>
+            <p className="list__name">Posts</p>
           </NavLink>
         </li>
-        <li className="list__listItem">
+        <li className="list__item">
           <NavLink to="/user/bookmarks" className="list__link">
             <BsFillBookmarkCheckFill className="list__icon" />
-            <p className="list__name">Bookmarks Post</p>
+            <p className="list__name">Bookmarks</p>
           </NavLink>
         </li>
-        <li className="list__listItem">
+        <li className="list__item">
           <NavLink to="/user/change-password" className="list__link">
             <MdOutlinePassword className="list__icon" />
             <p className="list__name">Change Password</p>
           </NavLink>
         </li>
       </ul>
-
-      {/* {profile && (
-        <div className="profile">
-          <img src={profile.profilePic} alt="profile" />
-          <p>{profile.name}</p>
-        </div>
-      )} */}
     </nav>
   );
 };

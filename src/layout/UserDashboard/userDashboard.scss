@@ -1,29 +1,23 @@
 @import "../../scss//variables.scss";
 
-.dashboardLayout {
-  display: flex;
+.dashboard {
   &__sidenav {
+    position: fixed;
     max-height: 100vh;
     width: 220px;
-    position: sticky;
     z-index: 1;
-    top: 0;
+    top: 20;
     left: 0;
-    overflow-y: auto;
-    // box-shadow: 1px 0px 2px rgba(191, 191, 191, 0.5);
-    box-shadow: $box-shadow;
-    overflow-x: hidden;
     overflow-y: scroll;
-    transition: 0.5s;
     &::-webkit-scrollbar {
       display: none;
     }
   }
 
   &__main {
-    width: calc(100% - 220px);
-    overflow-x: hidden;
+    margin-left: 220px;
     min-height: 100vh;
-    background: #eeeeee;
+    background: #ececec;
+    padding: 30px;
   }
 }

@@ -1,57 +1,33 @@
 @import "../../../scss/variables.scss";
 
 .createPost {
-  padding: 50px 0;
-
-  .form {
-    width: 90%;
-    margin: auto;
-    box-shadow: $box-shadow;
-    background-color: #fff;
-    padding: 10px 15px;
-    position: relative;
-    padding-top: 10px;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     &__title {
       text-transform: uppercase;
-      text-align: center;
-      margin-bottom: 40px;
     }
-
-    &__profile-pics {
-      display: flex;
-      flex-direction: column;
-      img {
-        width: 100%;
-        height: 350px;
-
-        margin-bottom: 15px;
-      }
-    }
-
-    .form-group {
-      margin: 20px 0;
-    }
-
-    &__label {
-      font-size: 16px;
-      font-weight: 500;
-      margin-bottom: 4px;
-    }
-
-    &__input {
-      border: 1px solid $dashboard-color-secondary;
-      border-radius: 0;
-      outline: none;
-      &:focus {
-        box-shadow: none;
-        border: 1px solid $dashboard-color-primary;
-      }
-    }
-
-    &__link {
+    &__btn {
       text-decoration: none;
-      color: $dashboard-color-primary;
+      padding: 8px 25px;
+      font-size: 16px;
+      border-radius: $button-radius;
+      background-color: $primary-color;
+      color: #fff;
+      &:hover {
+        background-color: $secondary-color;
+      }
     }
+  }
+
+  .form {
+    width: 100%;
+    margin: auto;
+    background-color: #fff;
+    position: relative;
+    border-radius: 16px;
+    padding: 15px;
 
     &__btn {
       position: absolute;
@@ -67,20 +43,31 @@
         background-color: $dashboard-color-primary;
       }
     }
+  }
 
-    .icon-box {
-      display: flex;
-      align-items: center;
-    }
-
-    &__icon {
-      color: #fff;
-      background-color: $dashboard-color-secondary;
-      padding: 8px 8px;
-      cursor: pointer;
-      &:hover {
-        background-color: $dashboard-color-primary;
+  .input-container {
+    border: 1px solid;
+    border-radius: 45px;
+    padding: 6px 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    cursor: pointer;
+    input {
+      width: 150px;
+      border: none;
+      border-radius: 45px;
+      &:focus {
+        outline: none;
+        border: none;
+        box-shadow: none;
       }
+    }
+    .tag {
+      background-color: #000;
+      border-radius: 45px;
+      padding: 6px 10px;
+      color: #fff;
     }
   }
 }

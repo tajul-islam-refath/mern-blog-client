@@ -13,7 +13,7 @@ let numberOfRequest = 0;
 api.interceptors.request.use(
   (config) => {
     numberOfRequest++;
-    store.dispatch(loadingStart());
+    // store.dispatch(loadingStart());
     console.log("request -- ", numberOfRequest);
     const token = storage.get("token");
     if (token) {

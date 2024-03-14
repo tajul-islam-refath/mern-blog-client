@@ -45,9 +45,6 @@ const Dashboard = () => {
               Icon={FaStreetView}
             />
           </div>
-          {/* <div className="col-md-4">
-            <Card className="purple" />
-          </div> */}
         </div>
         <LatestPost />
       </div>

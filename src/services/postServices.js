@@ -1,3 +1,4 @@
+import api from "../utils/Interceptors";
 import axios from "axios";
 import {
   postLoadingAction,
@@ -6,6 +7,18 @@ import {
   postErrorAction,
   clearPostStateAction,
 } from "../store/slices/postSlice";
+
+export const getUserArticles = async () => {
+  try {
+    const { data } = await api.get("/articles/author/self");
+    return { payload: data.data, error: null };
+  } catch (error) {
+    return {
+      payload: null,
+      error: error?.response?.data,
+    };
+  }
+};
 
 export const createNewPost = (formData) => async (dispatch) => {
   try {
