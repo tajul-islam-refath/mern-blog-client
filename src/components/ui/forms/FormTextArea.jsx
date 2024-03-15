@@ -1,5 +1,5 @@
 import "./Form.scss";
-const FormInput = ({
+const FormTextArea = ({
   type,
   className,
   placeholder,
@@ -7,12 +7,13 @@ const FormInput = ({
   register,
   validation = {},
   errorMessage = null,
+  cols = "30",
+  rows = "10",
   ...props
 }) => {
   return (
     <>
-      <input
-        type={type}
+      <textarea
         placeholder={placeholder}
         name={name}
         className={`${className} form-input form-control  ${
@@ -30,4 +31,4 @@ const FormInput = ({
   );
 };
 
-export default FormInput;
+export default FormTextArea;

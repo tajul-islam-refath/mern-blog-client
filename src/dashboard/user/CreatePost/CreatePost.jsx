@@ -1,25 +1,23 @@
 import "./createPost.scss";
 import { useForm } from "react-hook-form";
-import { useRef, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { Editor } from "@tinymce/tinymce-react";
-import { toast } from "react-toastify";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import avatar from "../../../assets/img/thumbnail.jpg";
 import AppTitle from "../../../components/Common/AppTitle";
 import Loader from "../../../components/Loader/Loader";
 
-import { createNewPost, clearPostState } from "../../../services/postServices";
-
 import Button from "../../../components/ui/buttons/Button";
 import FormGroup from "../../../components/ui/forms/FormGroup";
 import FormLabel from "../../../components/ui/forms/FormLabel";
 import FormInput from "../../../components/ui/forms/FormInput";
+import FormTextArea from "../../../components/ui/forms/FormTextArea";
 import Form from "../../../components/ui/forms/Form";
-
 import toastService from "../../../utils/Toast";
 import { getErrorMessage } from "../../../utils/Error";
+import { log } from "../../../utils/Log";
+import { createPost } from "../../../services/postServices";
 
 const CreatePost = () => {
   const {
@@ -28,20 +26,13 @@ const CreatePost = () => {
     watch,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
 
   const [thumbnail, setThumbnail] = useState("");
-  const [body, setBody] = useState("");
   const [tags, setTags] = useState([]);
   const [tag, setTag] = useState("");
-  const [value, setValue] = useState("");
 
-  const editorRef = useRef(null);
-
-  const { isPostLoading, isPostCreated, message } = useSelector(
-    (state) => state.post
-  );
-  const dispatch = useDispatch();
-
+  const { loading } = useSelector((state) => state.settings);
   const onThumbnailImage = (event) => {
     const file = event.target.files[0];
 
@@ -60,10 +51,37 @@ const CreatePost = () => {
     }
   };
 
+  const removeTag = (tag) => {
+    setTags((prevValues) => {
+      return prevValues.filter((prevTag) => prevTag != tag);
+    });
+  };
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    const formData = new FormData();
+    formData.append("cover", data.cover[0]);
+    formData.append("title", data.title);
+    formData.append("body", data.body);
+    formData.append("tags", tags);
+    let { payload, error } = await createPost(formData);
+
+    if (payload) {
+      log("Registration", "info", payload);
+
+      toastService.success("Successfully created");
+      navigate("/user/posts");
+    }
+    if (error) {
+      toastService.error("Post create faild!");
+      log("newPost", "error", error);
+    }
+  };
+
   return (
     <>
       <AppTitle title="New Post" />
-      {isPostLoading ? (
+      {loading ? (
         <Loader />
       ) : (
         <section className="createPost">
@@ -76,7 +94,7 @@ const CreatePost = () => {
             </div>
             <Form className="form" encType="multipart/form-data">
               <div className="col-md-10 offset-md-1">
-                <div className="form__profile-pics">
+                <div className="cover">
                   {thumbnail && (
                     <img
                       src={thumbnail}
@@ -93,6 +111,7 @@ const CreatePost = () => {
                     id="cover"
                     name="cover"
                     register={register}
+                    onChange={onThumbnailImage}
                   />
                 </FormGroup>
                 <FormGroup>
@@ -113,61 +132,34 @@ const CreatePost = () => {
                     })}
                   />
                 </FormGroup>
-
-                {/* <div class="form-group">
-                  <label className="form__label" htmlFor="bio">
-                    Body
-                  </label>
-                  <Editor
-                    apiKey="your-api-key"
-                    value={value}
-                    onInit={(evt, editor) => (editorRef.current = editor)}
-                    onEditorChange={(value, editor) => {
-                      setValue(value);
-                      setBody(editor.getContent());
-                    }}
-                    initialValue="<p>Write your valuable words</p>"
-                    init={{
-                      height: 500,
-                      menubar: false,
-                      plugins: [
-                        "advlist",
-                        "autolink",
-                        "lists",
-                        "link",
-                        "image",
-                        "charmap",
-                        "preview",
-                        "anchor",
-                        "searchreplace",
-                        "visualblocks",
-                        "code",
-                        "fullscreen",
-                        "insertdatetime",
-                        "media",
-                        "table",
-                        "code",
-                        "help",
-                        "wordcount",
-                      ],
-                      toolbar:
-                        "undo redo | blocks | " +
-                        "bold italic forecolor | alignleft aligncenter " +
-                        "alignright alignjustify | bullist numlist outdent indent | " +
-                        "removeformat | help",
-                      content_style:
-                        "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                    }}
+                <FormGroup>
+                  <FormLabel text="Body" htmlFor="body" />
+                  <FormTextArea
+                    className="px-3"
+                    placeholder="Write here.."
+                    name="body"
+                    register={register}
+                    validation={{ required: true }}
+                    errorMessage={getErrorMessage({
+                      errors: errors,
+                      name: "body",
+                      errorTypes: ["required"],
+                      messages: {
+                        required: "Body is required",
+                      },
+                    })}
                   />
-                </div> */}
-
-                <div class="form-group mb-5">
-                  <label className="form__label" htmlFor="tages">
-                    Tages* (Max 10)
-                  </label>
+                </FormGroup>
+                <FormGroup>
+                  <FormLabel text="Tages (Max 6)" htmlFor="tages" />
                   <div className="input-container">
-                    {tags.map((tag) => (
-                      <div className="tag">{tag} &#x2718;</div>
+                    {tags.map((tag, index) => (
+                      <div
+                        className="input-tag"
+                        onClick={() => removeTag(tag)}
+                        key={index}>
+                        # {tag} &#x2718;
+                      </div>
                     ))}
                     <input
                       type="text"
@@ -179,9 +171,14 @@ const CreatePost = () => {
                       onKeyDown={onkeydown}
                     />
                   </div>
-                </div>
+                </FormGroup>
 
-                <Button type="button" text="Create" />
+                <Button
+                  type="button"
+                  text="Create"
+                  className="create-btn"
+                  onClick={handleSubmit(onSubmit)}
+                />
               </div>
             </Form>
           </div>

@@ -20,20 +20,15 @@ export const getUserArticles = async () => {
   }
 };
 
-export const createNewPost = (formData) => async (dispatch) => {
+export const createPost = async (formData) => {
   try {
-    dispatch(postLoadingAction());
-
-    const { data } = await axios.post("/posts/create", formData);
-
-    dispatch(postCreateAction(data));
+    const { data } = await api.post("/articles", formData);
+    return { payload: data.data, error: null };
   } catch (error) {
-    console.log(error.response);
-    if (error.response.status === 500) {
-      dispatch(postErrorAction({ message: "Error ! Please try again later" }));
-    } else {
-      dispatch(postErrorAction(error.response.data));
-    }
+    return {
+      payload: null,
+      error: error?.response?.data,
+    };
   }
 };
 

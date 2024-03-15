@@ -21,6 +21,16 @@
     }
   }
 
+  .cover {
+    width: 100%;
+    img {
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+      aspect-ratio: 3/2;
+    }
+  }
+
   .form {
     width: 100%;
     margin: auto;
@@ -46,10 +56,11 @@
   }
 
   .input-container {
-    border: 1px solid;
+    border: 1px solid #ccc;
     border-radius: 45px;
-    padding: 6px 8px;
     display: flex;
+    padding: 0 10px;
+    align-items: center;
     flex-wrap: wrap;
     gap: 6px;
     cursor: pointer;
@@ -63,11 +74,21 @@
         box-shadow: none;
       }
     }
-    .tag {
+    .input-tag {
       background-color: #000;
       border-radius: 45px;
       padding: 6px 10px;
       color: #fff;
+      margin: 0;
+      font-size: 12px;
     }
+  }
+
+  .create-btn {
+    display: block;
+    margin: auto;
+    background-color: $primary-color;
+    text-transform: uppercase;
+    color: #fff;
   }
 }
