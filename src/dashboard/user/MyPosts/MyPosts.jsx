@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { BsChat } from "react-icons/bs";
 import { AiOutlineFire } from "react-icons/ai";
 import { getUserPosts } from "../../../services/postServices";
+import FormGroup from "../../../components/ui/forms/FormGroup";
+import FormInput from "../../../components/ui/forms/FormInput";
 
 const MyPosts = () => {
   const [posts, setPosts] = useState(null);
@@ -48,9 +50,19 @@ const MyPosts = () => {
       <div className="container">
         <div className="header">
           <h1 className="header__title">Posts</h1>
-          <Link className="header__btn" to="/user/new-post">
-            New Post
-          </Link>
+          <div className="d-flex align-items-center">
+            <FormGroup>
+              <FormInput
+                name="search"
+                className="search-input"
+                placeholder="Search.."
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </FormGroup>
+            <Link className="header__btn" to="/user/new-post">
+              New Post
+            </Link>
+          </div>
         </div>
         <div className="row">
           {posts &&
@@ -108,7 +120,7 @@ const MyPosts = () => {
               &larr;
             </span>
           )}
-          {totalPage && getPaginations(totalPage)}
+          {totalPage > 0 && getPaginations(totalPage)}
           {page < totalPage && (
             <span
               className={`next ${page == totalPage && "active"}`}

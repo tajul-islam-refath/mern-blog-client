@@ -33,6 +33,7 @@ const CreatePost = () => {
   const [tag, setTag] = useState("");
 
   const { loading } = useSelector((state) => state.settings);
+
   const onThumbnailImage = (event) => {
     const file = event.target.files[0];
 
@@ -63,18 +64,18 @@ const CreatePost = () => {
     formData.append("cover", data.cover[0]);
     formData.append("title", data.title);
     formData.append("body", data.body);
-    formData.append("tags", tags);
+    tags.forEach((tag) => formData.append("tags[]", tag));
+
     let { payload, error } = await createPost(formData);
-
     if (payload) {
-      log("Registration", "info", payload);
+      // log("Registration", "info", payload);
 
-      toastService.success("Post successfully created");
+      toastService.success("Post successfully created 🎉");
       navigate("/user/posts");
     }
     if (error) {
       toastService.error("Post create faild!");
-      log("newPost", "error", error);
+      // log("newPost", "error", error);
     }
   };
 

@@ -10,12 +10,14 @@
       text-transform: uppercase;
     }
     &__btn {
+      width: 170px;
       text-decoration: none;
       padding: 8px 25px;
       font-size: 16px;
       border-radius: $button-radius;
       background-color: $primary-color;
       color: #fff;
+      margin-left: 4px;
       &:hover {
         background-color: $secondary-color;
       }
