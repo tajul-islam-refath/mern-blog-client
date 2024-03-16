@@ -8,9 +8,11 @@ import {
   clearPostStateAction,
 } from "../store/slices/postSlice";
 
-export const getUserArticles = async () => {
+export const getUserPosts = async (page = 1, limit = 10, search = "") => {
   try {
-    const { data } = await api.get("/articles/author/self");
+    const { data } = await api.get(
+      `/articles/author/self?page=${page}&limit=${limit}&search=${search}`
+    );
     return { payload: data.data, error: null };
   } catch (error) {
     return {

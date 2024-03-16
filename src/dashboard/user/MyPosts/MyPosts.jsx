@@ -4,22 +4,44 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { BsChat } from "react-icons/bs";
 import { AiOutlineFire } from "react-icons/ai";
-import { getUserArticles } from "../../../services/postServices";
+import { getUserPosts } from "../../../services/postServices";
 
 const MyPosts = () => {
   const [posts, setPosts] = useState(null);
   const [page, setPage] = useState(1);
-
-  const getPosts = async () => {
-    let { payload, error } = await getUserArticles();
-    if (payload) {
-      setPosts(payload.articles);
-    }
-  };
+  const [limit, setLimit] = useState(10);
+  const [search, setSearch] = useState("");
+  const [totalPage, setTotalPage] = useState(null);
 
   useEffect(() => {
+    const getPosts = async () => {
+      let { payload, error } = await getUserPosts(page, limit, search);
+      if (payload) {
+        setPosts(payload.articles);
+        setTotalPage(payload.pagination.totalPage);
+      }
+    };
     getPosts();
-  }, []);
+  }, [page, limit, search]);
+
+  const onChangePage = (pageNumber) => {
+    setPage(pageNumber);
+  };
+
+  const getPaginations = (totalPage) => {
+    let paginations = [];
+    for (let i = 1; i <= totalPage; i++) {
+      paginations.push(
+        <span
+          className={`${page == i && "active"}`}
+          onClick={() => onChangePage(i)}>
+          {i}
+        </span>
+      );
+    }
+
+    return paginations;
+  };
 
   return (
     <div className="my-posts">
@@ -33,19 +55,19 @@ const MyPosts = () => {
         <div className="row">
           {posts &&
             posts.map((post, i) => (
-              <div className="col-md-6">
-                <article className="postcard " key={i}>
+              <div className="col-12 col-md-6" key={i}>
+                <article className="postcard ">
                   <div className="top">
                     <Link className="thumb" to={`/posts/${post._id}`}>
                       <span
                         className="fullimg cover"
                         style={{
-                          backgroundImage: `url(${post.thumbail})`,
+                          backgroundImage: `url(${post?.cover?.url})`,
                         }}></span>
                       <span
                         className="fullimg fakelayout cover"
                         style={{
-                          backgroundImage: `url(${post.thumbail})`,
+                          backgroundImage: `url(${post?.cover?.url})`,
                         }}></span>
                     </Link>
                   </div>
@@ -77,6 +99,23 @@ const MyPosts = () => {
                 </article>
               </div>
             ))}
+        </div>
+        <div className="pagination">
+          {page > 1 && (
+            <span
+              className={`prev ${page == 1 && "active"}`}
+              onClick={() => onChangePage(page - 1)}>
+              &larr;
+            </span>
+          )}
+          {totalPage && getPaginations(totalPage)}
+          {page < totalPage && (
+            <span
+              className={`next ${page == totalPage && "active"}`}
+              onClick={() => onChangePage(page + 1)}>
+              &rarr;
+            </span>
+          )}
         </div>
       </div>
     </div>

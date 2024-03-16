@@ -46,6 +46,7 @@ const CreatePost = () => {
 
   const onkeydown = (e) => {
     if (e.key === "Enter") {
+      e.preventDefault();
       setTags((prev) => [...prev, tag]);
       setTag("");
     }
@@ -58,7 +59,6 @@ const CreatePost = () => {
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
     const formData = new FormData();
     formData.append("cover", data.cover[0]);
     formData.append("title", data.title);
@@ -69,7 +69,7 @@ const CreatePost = () => {
     if (payload) {
       log("Registration", "info", payload);
 
-      toastService.success("Successfully created");
+      toastService.success("Post successfully created");
       navigate("/user/posts");
     }
     if (error) {
@@ -92,7 +92,10 @@ const CreatePost = () => {
                 Back
               </Link>
             </div>
-            <Form className="form" encType="multipart/form-data">
+            <Form
+              className="form"
+              encType="multipart/form-data"
+              onSubmit={handleSubmit(onSubmit)}>
               <div className="col-md-10 offset-md-1">
                 <div className="cover">
                   {thumbnail && (
@@ -121,7 +124,7 @@ const CreatePost = () => {
                     placeholder="Enter title"
                     name="title"
                     register={register}
-                    validation={{ required: true, maxLength: 10 }}
+                    validation={{ required: true }}
                     errorMessage={getErrorMessage({
                       errors: errors,
                       name: "title",
@@ -173,12 +176,7 @@ const CreatePost = () => {
                   </div>
                 </FormGroup>
 
-                <Button
-                  type="button"
-                  text="Create"
-                  className="create-btn"
-                  onClick={handleSubmit(onSubmit)}
-                />
+                <Button type="submit" text="Create" className="create-btn" />
               </div>
             </Form>
           </div>
