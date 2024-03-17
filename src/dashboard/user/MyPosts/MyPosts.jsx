@@ -30,19 +30,29 @@ const MyPosts = () => {
     setPage(pageNumber);
   };
 
-  const getPaginations = (totalPage) => {
-    let paginations = [];
+  // implement debounce for better control over the timing of search requests.
+  const debounceSearch = useRef(null);
+  const onSearch = (e) => {
+    clearTimeout(debounceSearch.current);
+    debounceSearch.current = setTimeout(() => {
+      console.log(e.target.value);
+      setSearch(e.target.value);
+    }, 300);
+  };
+
+  const renderPagination = () => {
+    const paginationItems = [];
     for (let i = 1; i <= totalPage; i++) {
-      paginations.push(
+      paginationItems.push(
         <span
-          className={`${page == i && "active"}`}
+          key={i}
+          className={`${page === i ? "active" : ""}`}
           onClick={() => onChangePage(i)}>
           {i}
         </span>
       );
     }
-
-    return paginations;
+    return paginationItems;
   };
 
   return (
@@ -56,7 +66,7 @@ const MyPosts = () => {
                 name="search"
                 className="search-input"
                 placeholder="Search.."
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={onSearch}
               />
             </FormGroup>
             <Link className="header__btn" to="/user/new-post">
@@ -120,7 +130,7 @@ const MyPosts = () => {
               &larr;
             </span>
           )}
-          {totalPage > 0 && getPaginations(totalPage)}
+          {totalPage > 0 && renderPagination(totalPage)}
           {page < totalPage && (
             <span
               className={`next ${page == totalPage && "active"}`}
