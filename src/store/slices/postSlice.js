@@ -8,42 +8,14 @@ const postSlice = createSlice({
   name: "post",
   initialState,
   reducers: {
-    postLoadingAction: (state, action) => {
-      state.isPostLoading = true;
+    getPostsAction: (state, action) => {
+      state.posts = [...state.posts, ...action.payload];
     },
-    postCreateAction: (state, action) => {
-      state.isPostCreated = true;
-      state.isPostLoading = false;
-      state.message = action.payload.message;
-    },
-
-    getArticlesAction: (state, action) => {
-      state.posts = action.payload;
-    },
-
     singlePostGetAction: (state, action) => {
-      state.isPostLoading = false;
-      state.post = action.payload.post;
-    },
-    postErrorAction: (state, action) => {
-      state.isPostLoading = false;
-      state.message = action.payload.message;
-    },
-    clearPostStateAction: (state, action) => {
-      state.isPostCreated = false;
-      state.isPostLoading = false;
-      state.isPostUpdated = false;
-      state.message = "";
+      state.post = action.payload;
     },
   },
 });
 
-export const {
-  postLoadingAction,
-  postCreateAction,
-  postErrorAction,
-  clearPostStateAction,
-  singlePostGetAction,
-  getArticlesAction,
-} = postSlice.actions;
+export const { singlePostGetAction, getPostsAction } = postSlice.actions;
 export default postSlice.reducer;

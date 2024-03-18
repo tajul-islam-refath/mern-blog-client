@@ -2,200 +2,122 @@
 @import "../../scss/mixins.scss";
 
 .postcard {
-  margin: 20px 20px;
+  width: 650px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
   background: #fff;
-  padding: 50px 30px;
-  box-shadow: $box-shadow;
-  position: relative;
-  z-index: 2;
-  .top {
+  border-radius: 16px;
+}
+
+.postcard__cover {
+  height: 100%;
+  width: 100%;
+}
+
+.postcard__cover img {
+  display: block;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: auto;
+}
+
+.postcard__body {
+  padding: 15px;
+}
+.postcard__title a {
+  font-size: 26px;
+  margin-bottom: 4px;
+  letter-spacing: 0.25px;
+  font-weight: 700;
+  line-height: 1.45px;
+  letter-spacing: 0px;
+  color: $text-primary;
+  text-decoration: none;
+}
+
+.postcard__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &__left {
     display: flex;
-
-    @include break(xsmall) {
-      // #Small devices - Smartphones portrait 📱- 576px and ⬇
-      flex-direction: column;
-    }
-
-    .thumb {
-      min-width: 150px;
-      min-height: 150px;
-      position: relative;
-      @include break(xsmall) {
-        min-height: 250px;
-      }
-      &::before {
-        top: 4px;
-        left: 4px;
-        right: 4px;
-        bottom: 4px;
-        z-index: 2;
-        background: #fff;
-      }
-
-      .fullimg {
-        // background-image: url("../../assets/img/img1.jpg");
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100% !important;
-        z-index: 1;
-        box-shadow: 0 3px 5px -2px rgb(7 10 25 / 20%);
-      }
-
-      .fakelayout {
-        transition: all 0.4s ease;
-        right: auto !important;
-        bottom: auto !important;
-        z-index: 4 !important;
-
-        &::before {
-          content: "";
-          border: 1px solid #fff;
-          position: absolute;
-          left: 3px;
-          top: 3px;
-          right: 3px;
-          bottom: 3px;
-          z-index: 5;
-          transition: all 0.3s ease;
-        }
-      }
-
-      .cover {
-        background-repeat: no-repeat !important;
-        background-position: center center !important;
-        background-size: cover !important;
-      }
-    }
-
-    .info {
-      margin-left: 20px;
-      font-size: 15px;
-      margin-bottom: 5px;
-      letter-spacing: 0.25px;
-      .title a {
-        font-size: 28px;
-        margin-bottom: 5px;
-        word-break: break-word;
-        letter-spacing: 0.25px;
-        font-weight: 700;
-        line-height: 1.45;
-        letter-spacing: 0px;
-        color: $text-primary;
-        text-decoration: none;
-        &:hover {
-          color: #454360;
-          background-size: 100% 13%;
-          background-position: left 80%;
-        }
-
-        @include break(xsmall) {
-          font-size: 18px;
-        }
-      }
-
-      .meta {
-        display: flex;
-        align-items: center;
-        @include break(xsmall) {
-          flex-direction: column;
-          align-items: center;
-        }
-        .datetime {
-          font-size: 16px;
-          color: #596172;
-          @include break(xsmall) {
-            font-size: 18px;
-          }
-        }
-
-        .read-time {
-          color: #596172;
-          margin-left: 15px;
-          &::before {
-            content: "";
-            display: inline-block;
-            width: 8px;
-            height: 2px;
-            background: $primary-color;
-            vertical-align: middle;
-            margin-right: 8px;
-          }
-          @include break(xsmall) {
-            font-size: 18px;
-          }
-        }
-
-        &__row {
-          margin-left: 15px;
-          display: flex;
-          align-items: center;
-          @include break(xsmall) {
-            font-size: 18px;
-          }
-          .card-icon {
-            color: $primary-color;
-            margin-right: 3px;
-            font-size: 18px;
-          }
-        }
-
-        .bookmark-icon {
-          color: $primary-color;
-          margin-left: 8px;
-          font-size: 22px;
-          cursor: pointer;
-        }
-      }
-    }
   }
-
-  .body {
-    margin: 20px 0;
-    &__content {
-      font-size: 18px;
-      line-height: 1.8;
-      font-weight: 500;
-      color: #596172;
-      @include break(xsmall) {
-        font-size: 16px;
-      }
-    }
-  }
-
-  .footer {
-    margin-top: 50px;
+  &__right {
     display: flex;
     align-items: center;
+    gap: 12px;
+  }
+
+  .datetime {
+    font-size: 16px;
+    color: #596172;
     @include break(xsmall) {
-      flex-direction: column;
+      font-size: 18px;
     }
-    .tags {
-      display: flex;
-    }
+  }
 
-    .user {
-      display: flex;
-      align-items: center;
-      @include break(xsmall) {
-        margin-top: 10px;
-      }
-      img {
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        box-shadow: $icon-shadow;
-        object-fit: cover;
-      }
-
-      a {
-        margin-bottom: 0px;
-        text-decoration: none;
-        margin-left: 8px;
-        color: #596172;
-        font-size: 22px;
-      }
+  .read-time {
+    color: #596172;
+    margin-left: 15px;
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 2px;
+      background: $primary-color;
+      vertical-align: middle;
+      margin-right: 8px;
     }
+    @include break(xsmall) {
+      font-size: 18px;
+    }
+  }
+
+  .comment {
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .comment-icon {
+    color: $primary-color;
+    margin-left: 8px;
+    font-size: 22px;
+    cursor: pointer;
+  }
+
+  .bookmark-icon {
+    color: $primary-color;
+    margin-left: 8px;
+    font-size: 22px;
+    cursor: pointer;
+  }
+}
+
+.postcard_user {
+  display: flex;
+  gap: 6px;
+
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: $icon-shadow;
+    object-fit: cover;
+  }
+
+  a {
+    margin-bottom: 0px;
+    text-decoration: none;
+    color: #596172;
+    font-size: 18px;
+    width: 100%;
+    height: auto;
   }
 }

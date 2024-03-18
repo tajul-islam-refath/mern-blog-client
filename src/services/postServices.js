@@ -1,12 +1,19 @@
 import api from "../utils/Interceptors";
-import axios from "axios";
-import {
-  postLoadingAction,
-  postCreateAction,
-  singlePostGetAction,
-  postErrorAction,
-  clearPostStateAction,
-} from "../store/slices/postSlice";
+
+export const getPosts = async ({ page = 1, limit = 10, search = "" }) => {
+  try {
+    const encodedSearch = encodeURIComponent(search); // constructing URLs with query parameters to prevent injection attacks
+    const { data } = await api.get(
+      `/articles?page=${page}&limit=${limit}&search=${encodedSearch}`
+    );
+    return { payload: data.data, error: null };
+  } catch (error) {
+    return {
+      payload: null,
+      error: error?.response?.data,
+    };
+  }
+};
 
 export const getUserPosts = async (page = 1, limit = 10, search = "") => {
   try {
@@ -35,22 +42,14 @@ export const createPost = async (formData) => {
   }
 };
 
-export const getSinglePost = (id) => async (dispatch) => {
+export const getSinglePost = async (id) => {
   try {
-    dispatch(postLoadingAction());
-    const { data } = await axios.get(`/posts/${id}`);
-
-    dispatch(singlePostGetAction(data));
+    const { data } = await api.get(`/posts/${id}`);
+    return { payload: data.data, error: null };
   } catch (error) {
-    console.log(error.response);
-    if (error.response.status === 500) {
-      dispatch(postErrorAction({ message: "Error ! Please try again later" }));
-    } else {
-      dispatch(postErrorAction(error.response.data));
-    }
+    return {
+      payload: null,
+      error: error?.response?.data,
+    };
   }
-};
-
-export const clearPostState = () => (dispatch) => {
-  dispatch(clearPostStateAction());
 };

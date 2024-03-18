@@ -1,13 +1,16 @@
+import "./scss/app.scss";
 import React, { Suspense } from "react";
 import { ToastContainer } from "react-toastify";
-import "./scss/app.scss";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
-import PrivateRoute from "./routes/PrivateRoute.jsx";
 // import loader
 import Loader from "./components/Loader/Loader.jsx";
+import Skeleton from "./components/Skeleton/Skeleton.jsx";
 
-const HomeLayout = React.lazy(() => import("./layout/home/HomeLayout.jsx"));
+import HomeLayout from "./layout/home/HomeLayout.jsx";
+import PrivateRoute from "./routes/PrivateRoute.jsx";
+import Dashboard from "./dashboard/user/Dashboard/Dashboard";
+import HomePageSkeleton from "./components/Skeleton/HomePageSkeleton.jsx";
+
 const Home = React.lazy(() => import("./pages/Home/Home"));
 const Login = React.lazy(() => import("./pages/Auth/Login/Login.jsx"));
 const Registration = React.lazy(() =>
@@ -34,10 +37,6 @@ const EditProfile = React.lazy(() =>
 
 const MyPosts = React.lazy(() => import("./dashboard/user/MyPosts/MyPosts"));
 
-const Dashboard = React.lazy(() =>
-  import("./dashboard/user/Dashboard/Dashboard")
-);
-
 function App() {
   return (
     <div className="App">
@@ -50,45 +49,45 @@ function App() {
         rtl={false}
       />
 
-      <Suspense fallback={<Loader />}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/">
-              <Route index element={<Navigate to="home" replace={true} />} />
-              <Route
-                path="home"
-                element={
-                  <HomeLayout>
-                    <Home />
-                  </HomeLayout>
-                }
-              />
-              <Route path="posts/:postId" element={<SinglePost />} />
-              <Route path="login" element={<Login />} />
-              <Route path="sign-up" element={<Registration />} />
-            </Route>
-            {/* user dashboard */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/">
+            <Route index element={<Navigate to="home" replace={true} />} />
             <Route
-              path="user"
+              path="home"
               element={
-                <PrivateRoute>
-                  <UserDashboard />
-                </PrivateRoute>
-              }>
-              <Route
-                index
-                element={<Navigate to="/user/dashboard" replace={true} />}
-              />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="new-post" element={<CreatePost />} />
-              <Route path="edit-profile" element={<EditProfile />} />
-              <Route path="posts" element={<MyPosts />} />
-            </Route>
-            <Route path="create-profile" element={<CreateProfile />} />
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-        </BrowserRouter>
-      </Suspense>
+                <HomeLayout>
+                  <Suspense fallback={<HomePageSkeleton />}>
+                    <Home />
+                  </Suspense>
+                </HomeLayout>
+              }
+            />
+            <Route path="posts/:postId" element={<SinglePost />} />
+            <Route path="login" element={<Login />} />
+            <Route path="sign-up" element={<Registration />} />
+          </Route>
+          {/* user dashboard */}
+          <Route
+            path="user"
+            element={
+              <PrivateRoute>
+                <UserDashboard />
+              </PrivateRoute>
+            }>
+            <Route
+              index
+              element={<Navigate to="/user/dashboard" replace={true} />}
+            />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="new-post" element={<CreatePost />} />
+            <Route path="edit-profile" element={<EditProfile />} />
+            <Route path="posts" element={<MyPosts />} />
+          </Route>
+          <Route path="create-profile" element={<CreateProfile />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

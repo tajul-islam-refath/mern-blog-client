@@ -13,8 +13,7 @@ let numberOfRequest = 0;
 api.interceptors.request.use(
   (config) => {
     numberOfRequest++;
-    // store.dispatch(loadingStart());
-    console.log("request -- ", numberOfRequest);
+    store.dispatch(loadingStart());
     const token = storage.get("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -22,22 +21,21 @@ api.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.log(error);
     return Promise.reject(error);
   }
 );
 
-axios.interceptors.response.use(
+api.interceptors.response.use(
   (response) => {
     numberOfRequest--;
-    console.log("request -- ", numberOfRequest);
-    if (numberOfRequest === 0) {
+    if (numberOfRequest == 0) {
+      console.log("response");
       store.dispatch(loadingStop());
     }
+
     return response;
   },
   (error) => {
-    console.log(error);
     return Promise.reject(error);
   }
 );
