@@ -4,18 +4,16 @@ import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // import loader
 import Loader from "./components/Loader/Loader.jsx";
-import Skeleton from "./components/Skeleton/Skeleton.jsx";
 
 import HomeLayout from "./layout/home/HomeLayout.jsx";
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 import Dashboard from "./dashboard/user/Dashboard/Dashboard";
 import HomePageSkeleton from "./components/Skeleton/HomePageSkeleton.jsx";
+import Login from "./pages/Auth/Login/Login.jsx";
+import Registration from "./pages/Auth/Registration/Registration";
+import SinglePostSkeleton from "./components/Skeleton/SinglePostSkeleton.jsx";
 
 const Home = React.lazy(() => import("./pages/Home/Home"));
-const Login = React.lazy(() => import("./pages/Auth/Login/Login.jsx"));
-const Registration = React.lazy(() =>
-  import("./pages/Auth/Registration/Registration")
-);
 const SinglePost = React.lazy(() => import("./pages/SinglePost/SinglePost"));
 
 // user Dashboard  pages
@@ -63,7 +61,16 @@ function App() {
                 </HomeLayout>
               }
             />
-            <Route path="posts/:postId" element={<SinglePost />} />
+            <Route
+              path="posts/:postId"
+              element={
+                <Suspense fallback={<SinglePostSkeleton />}>
+                  <HomeLayout>
+                    <SinglePost />
+                  </HomeLayout>
+                </Suspense>
+              }
+            />
             <Route path="login" element={<Login />} />
             <Route path="sign-up" element={<Registration />} />
           </Route>

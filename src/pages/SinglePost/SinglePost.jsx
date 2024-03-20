@@ -1,7 +1,7 @@
 import "./singlepost.scss";
 import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { BsChat } from "react-icons/bs";
 import { AiOutlineFire } from "react-icons/ai";
 import { BsFillBookmarkFill } from "react-icons/bs";
@@ -12,11 +12,15 @@ import AppTitle from "../../components/Common/AppTitle";
 
 import { getSinglePost } from "../../services/postServices";
 import { bookmarkPost, bookmarkDelete } from "../../services/webService";
+import toastService from "../../utils/Toast";
+import { singlePostGetAction } from "../../store/slices/postSlice";
+import SinglePostSkeleton from "../../components/Skeleton/SinglePostSkeleton";
 const SinglePost = () => {
   const { postId } = useParams();
 
   const dispatch = useDispatch();
-  const { post } = useSelector((state) => state.post);
+  const loading = useSelector((state) => state.settings.loading);
+  const post = useSelector((state) => state.post.post);
   const bookmarks = useSelector((state) => state.web.bookmarks);
 
   const bookmarksAdd = () => {
@@ -27,29 +31,44 @@ const SinglePost = () => {
     dispatch(bookmarkDelete({ id: post._id }));
   };
 
-  let log = useRef(true);
-  useEffect(() => {
-    if (log.current) {
-      log.current = false;
-      dispatch(getSinglePost(postId));
+  const fatchPost = async () => {
+    let { payload, error } = await getSinglePost(postId);
+    if (payload) {
+      dispatch(singlePostGetAction(payload.article));
     }
-  }, [postId, dispatch]);
+    if (error) {
+      if (error.status == 400) {
+        toastService.error(error.errors[0].message);
+      } else {
+        toastService.error("Internal server error. Try again!");
+      }
+    }
+  };
+
+  useEffect(() => {
+    fatchPost();
+  }, [postId]);
 
   return (
     <>
-      <AppTitle title={"Far far away.."} />
-      {post && (
-        <section className="singlePost">
-          <article className="article">
-            <div className="top">
-              <div className="thumb">
-                <img src="" alt="" />
-                <img className="fullimg cover" src={post.thumbail} alt="" />
-              </div>
-              <div className="info">
-                <h1 className="title underline-effect">
-                  {<a>{post.title}</a>}
-                </h1>
+      <AppTitle title={`${post?.title || "Loading..."}`} />
+      {post && !loading && (
+        <article className="post">
+          <div className="post__warper">
+            <div className="post__header">
+              <h1 className="post__title underline-effect">
+                {<a>{post.title}</a>}
+              </h1>
+            </div>
+            <div className="post__author underline-effect">
+              <img
+                src={
+                  post.author.profileImage ? post.author.profileImage.url : ""
+                }
+                alt="avatar"
+              />
+              <div className="posr__author__name">
+                <Link>{post.author.username}</Link>
                 <div className="meta">
                   <span className="datetime">
                     {" "}
@@ -57,16 +76,6 @@ const SinglePost = () => {
                   </span>
                   <div className="read-time">
                     <span>{post.readTime}</span>
-                  </div>
-
-                  <div className="meta__row">
-                    <BsChat className="icon" />
-                    <span>1</span>
-                  </div>
-
-                  <div className="meta__row">
-                    <AiOutlineFire className="icon" />
-                    <span>{post.totalViews}</span>
                   </div>
 
                   {bookmarks.includes(post._id) ? (
@@ -83,8 +92,15 @@ const SinglePost = () => {
                 </div>
               </div>
             </div>
-            <div className="body">
-              <div className="body__content">
+          </div>
+
+          <div className="post__cover">
+            <img src="" alt="" />
+            <img className="fullimg cover" src={post?.cover?.url} alt="" />
+          </div>
+          <div className="post__warper">
+            <div className="post__body">
+              <div className="post__content">
                 <div
                   dangerouslySetInnerHTML={{
                     __html: post.body,
@@ -100,9 +116,10 @@ const SinglePost = () => {
                 ))}
               </div>
             </div>
-          </article>
-        </section>
+          </div>
+        </article>
       )}
+      {loading && <SinglePostSkeleton />}
     </>
   );
 };

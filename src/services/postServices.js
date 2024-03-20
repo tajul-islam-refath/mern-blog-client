@@ -44,7 +44,7 @@ export const createPost = async (formData) => {
 
 export const getSinglePost = async (id) => {
   try {
-    const { data } = await api.get(`/posts/${id}`);
+    const { data } = await api.get(`/articles/${id}`);
     return { payload: data.data, error: null };
   } catch (error) {
     return {
