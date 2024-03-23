@@ -7,6 +7,7 @@ import { AiOutlineFire } from "react-icons/ai";
 import { BsFillBookmarkFill } from "react-icons/bs";
 import { BsBookmark } from "react-icons/bs";
 
+import SinglePostSkeleton from "../../components/Skeleton/SinglePostSkeleton";
 import Tag from "../../components/Tag/Tag";
 import AppTitle from "../../components/Common/AppTitle";
 
@@ -14,7 +15,7 @@ import { getSinglePost } from "../../services/postServices";
 import { bookmarkPost, bookmarkDelete } from "../../services/webService";
 import toastService from "../../utils/Toast";
 import { singlePostGetAction } from "../../store/slices/postSlice";
-import SinglePostSkeleton from "../../components/Skeleton/SinglePostSkeleton";
+
 const SinglePost = () => {
   const { postId } = useParams();
 

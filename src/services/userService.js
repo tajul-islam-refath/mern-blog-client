@@ -1,4 +1,5 @@
 import axios from "axios";
+import api from "../utils/Interceptors";
 import {
   userLoadingAction,
   getMyProfileAction,
@@ -8,18 +9,15 @@ import {
   userErrorAction,
 } from "../store/slices/userSlice";
 
-export const getMyProfile = () => async (dispatch) => {
+export const getProfile = async () => {
   try {
-    const { data } = await axios.get("/user/profile/me");
-    console.log(data);
-    localStorage.setItem("myProfile", JSON.stringify(data.profile));
-    dispatch(getMyProfileAction(data));
+    const { data } = await api.get("/users/self");
+    return { payload: data.data, error: null };
   } catch (error) {
-    if (error.response.status === 500) {
-      dispatch(userErrorAction({ message: "Error ! Please try again" }));
-    } else {
-      dispatch(userErrorAction(error.response.data));
-    }
+    return {
+      payload: null,
+      error: error?.response?.data,
+    };
   }
 };
 

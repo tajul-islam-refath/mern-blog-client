@@ -61,7 +61,7 @@ const EditProfile = () => {
 
   return (
     <>
-      <AppTitle title="Edit Profile" />
+      <AppTitle title="Profile" />
       <section className="editProfile">
         <div className="container">
           {profile && (

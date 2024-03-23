@@ -29,9 +29,7 @@ const CreatePost = React.lazy(() =>
   import("./dashboard/user/CreatePost/CreatePost")
 );
 
-const EditProfile = React.lazy(() =>
-  import("./dashboard/user/EditProfile/EditProfile")
-);
+const Profile = React.lazy(() => import("./dashboard/user/Profile/Profile"));
 
 const MyPosts = React.lazy(() => import("./dashboard/user/MyPosts/MyPosts"));
 
@@ -79,7 +77,9 @@ function App() {
             path="user"
             element={
               <PrivateRoute>
-                <UserDashboard />
+                <Suspense fallback={<Loader />}>
+                  <UserDashboard />
+                </Suspense>
               </PrivateRoute>
             }>
             <Route
@@ -88,10 +88,10 @@ function App() {
             />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="new-post" element={<CreatePost />} />
-            <Route path="edit-profile" element={<EditProfile />} />
+            <Route path="profile" element={<Profile />} />
             <Route path="posts" element={<MyPosts />} />
           </Route>
-          <Route path="create-profile" element={<CreateProfile />} />
+
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>

@@ -12,9 +12,6 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    authLoadingAction: (state, action) => {
-      state.isLoading = true;
-    },
     authSendOtpAction: (state, action) => {
       state.otpInfo = {
         hash: action.payload.hash,
@@ -33,8 +30,11 @@ const authSlice = createSlice({
     },
     authLogoutAction: (state, action) => {
       state.isLogedIn = false;
-      state.user = {};
-      state.token = {};
+      state.user = null;
+      state.token = null;
+    },
+    authUserAction: (state, action) => {
+      state.user = action.payload;
     },
     authErrorAction: (state, action) => {
       state.isError = true;
@@ -55,6 +55,7 @@ export const {
   authLoginAction,
   authLogoutAction,
   authRegisterAction,
+  authUserAction,
   authErrorAction,
   authStateResetAction,
   authSendOtpAction,

@@ -8,7 +8,7 @@ import MainNav from "../../components/MainNav/MainNav";
 import Footer from "../../components/Footer/Footer";
 import Search from "../../components/Search/Search";
 
-import { getMyProfile } from "../../services/userService";
+import { getProfile } from "../../services/userService";
 import { getWebContent } from "../../services/webService";
 
 const HomeLayout = ({ children }) => {
@@ -16,12 +16,6 @@ const HomeLayout = ({ children }) => {
 
   const { isLogedIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (isLogedIn) {
-      dispatch(getMyProfile());
-    }
-  }, [dispatch, isLogedIn]);
 
   return (
     <>

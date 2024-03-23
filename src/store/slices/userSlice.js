@@ -1,54 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
+import storage from "../../utils/Storage";
 
 const initialState = {
-  myProfile: localStorage.getItem("myProfile")
-    ? JSON.parse(localStorage.getItem("myProfile"))
-    : null,
-  isLoading: false,
-  isProfileCreated: false,
-  isProfileUpdated: false,
-  message: "",
+  profile: storage.get("dc_user"),
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    userLoadingAction: (state, action) => {
-      state.isLoading = true;
-    },
-    getMyProfileAction: (state, action) => {
-      state.isLoading = false;
-      state.myProfile = action.payload.profile;
-    },
-    createUserProfileAction: (state, action) => {
-      state.isProfileCreated = true;
-      state.isLoading = false;
-      state.myProfile = action.payload.profile;
-      state.message = action.payload.message;
+    userProfileAction: (state, action) => {
+      state.profile = action.payload;
     },
     updateUserProfileAction: (state, action) => {
-      state.isLoading = false;
-      state.isProfileUpdated = true;
-      state.myProfile = action.payload.profile;
-      state.message = action.payload.message;
-    },
-    clearUserStateAction: (state, action) => {
-      state.isLoading = false;
-      state.isProfileCreated = false;
-      state.isProfileUpdated = false;
-      state.message = "";
-    },
-    userErrorAction: (state, action) => {
-      state.isLoading = false;
-      state.message = action.message;
+      state.profile = action.payload;
     },
   },
 });
 
 export const {
   userLoadingAction,
-  getMyProfileAction,
+  userProfileAction,
   createUserProfileAction,
   updateUserProfileAction,
   clearUserStateAction,

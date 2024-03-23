@@ -1,5 +1,5 @@
 import "./home.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import HomePageSkeleton from "../../components/Skeleton/HomePageSkeleton";
@@ -23,7 +23,7 @@ const Home = () => {
     let { payload, error } = await getPosts({ page, limit });
 
     if (payload) {
-      dispatch(getPostsAction(payload?.articles));
+      dispatch(getPostsAction([...posts, ...payload?.articles]));
       setPage(payload?.pagination?.next);
     }
     if (error) {
@@ -33,22 +33,46 @@ const Home = () => {
 
   useEffect(() => {
     fetchPosts();
+    return () => {
+      dispatch(getPostsAction([]));
+    };
   }, []);
 
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const { scrollTop, clientHeight, scrollHeight } =
+  //       document.documentElement;
+  //     if (scrollTop + clientHeight >= scrollHeight - 20 && page) {
+  //       fetchPosts();
+  //     }
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, [page]);
+
+  const observerTarget = useRef(null);
   useEffect(() => {
-    const handleScroll = () => {
-      const { scrollTop, clientHeight, scrollHeight } =
-        document.documentElement;
-      if (scrollTop + clientHeight >= scrollHeight - 20 && page) {
-        fetchPosts();
+    let observer = new IntersectionObserver((entries) => {
+      entries.map((entry) => {
+        if (entry.isIntersecting && page && !loading) {
+          fetchPosts();
+        }
+      });
+    });
+
+    if (observerTarget.current) {
+      observer.observe(observerTarget.current);
+    }
+
+    return () => {
+      if (observerTarget.current) {
+        observer.unobserve(observerTarget.current);
       }
     };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [page]);
+  }, [page, loading]);
 
   return (
     <>
@@ -58,7 +82,7 @@ const Home = () => {
           <PostCard key={i} post={post} />
         ))}
       </section>
-      {loading && <HomePageSkeleton />}
+      <div ref={observerTarget}>{loading && <HomePageSkeleton />}</div>
     </>
   );
 };

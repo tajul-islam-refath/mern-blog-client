@@ -29,7 +29,7 @@ const SideNav = () => {
           </NavLink>
         </li>
         <li className="list__item">
-          <NavLink to="/user/edit-profile" className="list__link">
+          <NavLink to="/user/profile" className="list__link">
             <AiFillEdit className="list__icon" />
             <p className="list__name">Profile</p>
           </NavLink>
