@@ -35,7 +35,6 @@ const MyPosts = () => {
   const onSearch = (e) => {
     clearTimeout(debounceSearch.current);
     debounceSearch.current = setTimeout(() => {
-      console.log(e.target.value);
       setSearch(e.target.value);
     }, 300);
   };

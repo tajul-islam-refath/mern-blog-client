@@ -70,15 +70,24 @@ const Profile = () => {
                   <h1 className="profile__name">{profile?.name || "N/A"}</h1>
                   <h3 className="profile__bio">{profile?.bio || "N/A"}</h3>
                   <div className="profile__icons">
-                    <Link to="" className="profile__icon">
+                    <a
+                      href={profile?.website}
+                      target="_blank"
+                      className="profile__icon">
                       <FaInternetExplorer />
-                    </Link>
-                    <Link to="" className="profile__icon">
+                    </a>
+                    <a
+                      href={profile?.linkdin}
+                      target="_blank"
+                      className="profile__icon">
                       <AiFillLinkedin />
-                    </Link>
-                    <Link to="" className="profile__icon">
+                    </a>
+                    <a
+                      href={profile?.github}
+                      target="_blank"
+                      className="profile__icon">
                       <AiFillGithub />
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </div>

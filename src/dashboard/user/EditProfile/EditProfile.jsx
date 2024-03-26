@@ -1,50 +1,57 @@
 import "./EditProfile.scss";
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { FaInternetExplorer } from "react-icons/fa";
 import { AiFillLinkedin } from "react-icons/ai";
 import { AiFillGithub } from "react-icons/ai";
-import { toast } from "react-toastify";
 
-import avatar from "../../../assets/img/default.png";
+import Button from "../../../components/ui/buttons/Button";
 import AppTitle from "../../../components/Common/AppTitle";
+import avatar from "../../../assets/img/default.png";
 
 import {
   updateUserProfile,
   clearUserState,
 } from "../../../services/userService";
-import Button from "../../../components/ui/buttons/Button";
+
+import toastService from "../../../utils/Toast";
+import { updateUserProfileAction } from "../../../store/slices/userSlice";
 
 const EditProfile = ({ userProfile, setIsEdit }) => {
-  const [profile, setProfile] = useState({ ...userProfile });
+  const [profile, setProfile] = useState({
+    name: userProfile?.name || "",
+    bio: userProfile?.bio || "",
+    location: userProfile?.location || "",
+    website: userProfile?.website || "",
+    linkdin: userProfile?.linkdin || "",
+    github: userProfile?.github || "",
+    image: "",
+  });
 
   const dispatch = useDispatch();
 
-  const onProfileChange = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setProfile((prev) => ({ ...prev, profilePic: e.target.result }));
-    };
-
-    reader.readAsDataURL(file);
-  };
-
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
-    // console.log(profile);
+    let formData = new FormData();
+    formData.append("name", profile?.name);
+    formData.append("bio", profile?.bio);
+    formData.append("website", profile?.website);
+    formData.append("location", profile?.location);
+    formData.append("linkdin", profile?.linkdin);
+    formData.append("github", profile?.github);
+    formData.append("profileImage", profile?.image);
 
-    const updatedProfile = {
-      name: profile.name,
-      title: profile.title,
-      profilePic: profile.profilePic,
-      bio: profile.bio,
-      links: profile.links,
-    };
-    dispatch(updateUserProfile(updatedProfile));
+    let { payload, error } = await updateUserProfile(formData);
+    console.log(payload);
+    if (payload) {
+      toastService.success("Profile update successfully 💖");
+      dispatch(updateUserProfileAction(payload.user));
+      setIsEdit(false);
+    }
+    if (error) {
+      toastService.error("Profile update fail. Try again!");
+    }
   };
-
-  console.log(profile);
 
   return (
     <>
@@ -57,17 +64,24 @@ const EditProfile = ({ userProfile, setIsEdit }) => {
                 <div className="form__profile-image">
                   <img
                     src={
-                      profile?.profileImage ? profile?.profileImage.url : avatar
+                      userProfile?.profileImage
+                        ? userProfile?.profileImage.url
+                        : avatar
                     }
                     alt="Avatar"
                     className="image-thumble"
                   />
                   <input
                     type="file"
-                    name="profilePic"
-                    id="profilePicFile"
+                    name="profileImage"
+                    id="profileImage"
                     accept="image/*"
-                    onChange={onProfileChange}
+                    onChange={(event) =>
+                      setProfile((prev) => ({
+                        ...prev,
+                        image: event.target.files[0],
+                      }))
+                    }
                   />
                 </div>
 
@@ -141,7 +155,7 @@ const EditProfile = ({ userProfile, setIsEdit }) => {
                     name="website"
                     className="form__input form-control"
                     placeholder="Website link"
-                    value={profile.links?.website}
+                    value={profile?.website}
                     onChange={(event) =>
                       setProfile((prev) => ({
                         ...prev,
@@ -160,11 +174,11 @@ const EditProfile = ({ userProfile, setIsEdit }) => {
                     name="linkdin"
                     className="form__input form-control"
                     placeholder="linkdin link"
-                    value={profile.links?.linkdin}
+                    value={profile?.linkdin}
                     onChange={(event) =>
                       setProfile((prev) => ({
                         ...prev,
-                        linkedin: event.target.value,
+                        linkdin: event.target.value,
                       }))
                     }
                   />
@@ -180,7 +194,7 @@ const EditProfile = ({ userProfile, setIsEdit }) => {
                     name="github"
                     className="form__input form-control"
                     placeholder="Website link"
-                    value={profile.links?.github}
+                    value={profile?.github}
                     onChange={(event) =>
                       setProfile((prev) => ({
                         ...prev,
@@ -193,10 +207,10 @@ const EditProfile = ({ userProfile, setIsEdit }) => {
                 <div className="d-flex justify-content-center">
                   <Button
                     type="submit"
-                    className="form__btn dashboard-hover "
+                    className="form__btn"
                     text="Update"></Button>
                   <Button
-                    type="submit"
+                    type="button"
                     text="Cancle"
                     onClick={() => setIsEdit(false)}></Button>
                 </div>

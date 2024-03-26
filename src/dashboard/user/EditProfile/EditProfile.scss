@@ -6,7 +6,6 @@
   .form {
     width: 80%;
     margin: auto;
-    box-shadow: $box-shadow;
     background-color: #fff;
     padding: 10px 15px;
     position: relative;
@@ -23,7 +22,7 @@
       gap: 10px;
 
       img {
-        width: 80;
+        width: 80px;
         height: 80px;
         border-radius: 50%;
         object-fit: cover;
@@ -56,8 +55,6 @@
     }
 
     &__btn {
-      width: 20%;
-      height: 40px;
       display: flex;
       justify-content: center;
       align-items: center;

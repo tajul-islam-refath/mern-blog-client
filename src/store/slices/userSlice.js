@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import storage from "../../utils/Storage";
 
 const initialState = {
-  profile: storage.get("dc_user"),
+  profile: null,
 };
 
 const userSlice = createSlice({

@@ -40,14 +40,13 @@ function Registration() {
     let { payload, error } = await regitation(formData);
 
     if (payload) {
-      log("Registration", "info", payload);
+      // log("Registration", "info", payload);
       const decoded = decodeJwt(payload.token);
       storage.set("token", payload.token);
-      storage.set("dc_user", decoded);
+
       dispatch(
         authRegisterAction({
           token: payload.token,
-          user: decoded,
         })
       );
       toastService.success("Registration Success!");

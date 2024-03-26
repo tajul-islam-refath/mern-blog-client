@@ -21,6 +21,18 @@ export const getProfile = async () => {
   }
 };
 
+export const updateUserProfile = async (formData) => {
+  try {
+    const { data } = await api.put("/users/profile", formData);
+    return { payload: data.data, error: null };
+  } catch (error) {
+    return {
+      payload: null,
+      error: error?.response?.data,
+    };
+  }
+};
+
 export const createUserProfile = (formData) => async (dispatch) => {
   try {
     dispatch(userLoadingAction());
@@ -29,23 +41,6 @@ export const createUserProfile = (formData) => async (dispatch) => {
 
     localStorage.setItem("myProfile", JSON.stringify(data.profile));
     dispatch(createUserProfileAction(data));
-  } catch (error) {
-    if (error.response.status === 500) {
-      dispatch(userErrorAction({ message: "Error ! Please try again" }));
-    } else {
-      dispatch(userErrorAction(error.response.data));
-    }
-  }
-};
-
-export const updateUserProfile = (formData) => async (dispatch) => {
-  try {
-    dispatch(userLoadingAction());
-
-    const { data } = await axios.put("/user/profile/update", formData);
-
-    localStorage.setItem("myProfile", JSON.stringify(data.profile));
-    dispatch(updateUserProfileAction(data));
   } catch (error) {
     if (error.response.status === 500) {
       dispatch(userErrorAction({ message: "Error ! Please try again" }));
