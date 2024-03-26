@@ -13,17 +13,15 @@ import {
   updateUserProfile,
   clearUserState,
 } from "../../../services/userService";
+import Button from "../../../components/ui/buttons/Button";
 
-const EditProfile = () => {
-  const [profile, setProfile] = useState({});
-  const { myProfile, isProfileUpdated, message } = useSelector(
-    (state) => state.user
-  );
+const EditProfile = ({ userProfile, setIsEdit }) => {
+  const [profile, setProfile] = useState({ ...userProfile });
+
   const dispatch = useDispatch();
 
   const onProfileChange = (event) => {
     const file = event.target.files[0];
-    console.log(event.target.name);
     const reader = new FileReader();
     reader.onload = (e) => {
       setProfile((prev) => ({ ...prev, profilePic: e.target.result }));
@@ -46,18 +44,7 @@ const EditProfile = () => {
     dispatch(updateUserProfile(updatedProfile));
   };
 
-  useEffect(() => {
-    if (myProfile) {
-      setProfile(myProfile);
-    }
-  }, [myProfile]);
-
-  useEffect(() => {
-    if (isProfileUpdated) {
-      dispatch(clearUserState());
-      toast(message);
-    }
-  }, [isProfileUpdated, message, dispatch]);
+  console.log(profile);
 
   return (
     <>
@@ -67,11 +54,11 @@ const EditProfile = () => {
           {profile && (
             <form className="form" onSubmit={onSubmit}>
               <div className="col-md-8 offset-md-3">
-                <h4 className="form__title">Update Profile</h4>
-
-                <div className="form__profile-pics">
+                <div className="form__profile-image">
                   <img
-                    src={profile.profilePic ? profile.profilePic : avatar}
+                    src={
+                      profile?.profileImage ? profile?.profileImage.url : avatar
+                    }
                     alt="Avatar"
                     className="image-thumble"
                   />
@@ -106,42 +93,44 @@ const EditProfile = () => {
 
                 <div class="form-group">
                   <label className="form__label" for="title">
-                    Enter A Short Title*
+                    Bio
                   </label>
                   <input
                     type="text"
-                    id="title"
-                    name="title"
-                    className="form__input form-control"
-                    placeholder="Enter a short title"
-                    value={profile.title}
-                    onChange={(event) =>
-                      setProfile((prev) => ({
-                        ...prev,
-                        title: event.target.value,
-                      }))
-                    }
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label className="form__label" for="bio">
-                    Enter A Short Bio*
-                  </label>
-                  <textarea
-                    class="form-control form__input"
                     id="bio"
-                    rows="5"
                     name="bio"
+                    className="form__input form-control"
+                    placeholder="Write about yourself"
+                    value={profile.bio}
                     onChange={(event) =>
                       setProfile((prev) => ({
                         ...prev,
                         bio: event.target.value,
                       }))
                     }
-                    value={profile.bio}></textarea>
+                  />
                 </div>
-                <label className="form__label">Social Links</label>
+
+                <div class="form-group">
+                  <label className="form__label" for="title">
+                    Location
+                  </label>
+                  <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    className="form__input form-control"
+                    placeholder="Location"
+                    value={profile.location}
+                    onChange={(event) =>
+                      setProfile((prev) => ({
+                        ...prev,
+                        location: event.target.value,
+                      }))
+                    }
+                  />
+                </div>
+
                 <div class="form-group icon-box">
                   <div className="form__icon">
                     <FaInternetExplorer />
@@ -156,7 +145,7 @@ const EditProfile = () => {
                     onChange={(event) =>
                       setProfile((prev) => ({
                         ...prev,
-                        links: { website: event.target.value },
+                        website: event.target.value,
                       }))
                     }
                   />
@@ -175,7 +164,7 @@ const EditProfile = () => {
                     onChange={(event) =>
                       setProfile((prev) => ({
                         ...prev,
-                        links: { linkdin: event.target.value },
+                        linkedin: event.target.value,
                       }))
                     }
                   />
@@ -195,15 +184,22 @@ const EditProfile = () => {
                     onChange={(event) =>
                       setProfile((prev) => ({
                         ...prev,
-                        links: { github: event.target.value },
+                        github: event.target.value,
                       }))
                     }
                   />
                 </div>
 
-                <button type="submit" className="form__btn dashboard-hover">
-                  Update
-                </button>
+                <div className="d-flex justify-content-center">
+                  <Button
+                    type="submit"
+                    className="form__btn dashboard-hover "
+                    text="Update"></Button>
+                  <Button
+                    type="submit"
+                    text="Cancle"
+                    onClick={() => setIsEdit(false)}></Button>
+                </div>
               </div>
             </form>
           )}

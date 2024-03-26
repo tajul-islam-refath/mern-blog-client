@@ -1,5 +1,67 @@
 @import "./variables.scss";
 
+/*=============== GOOGLE FONTS ===============*/
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500&family=Poppins:wght@400;500&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  font-family: $second-font;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 48px;
+}
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 26px;
+}
+h3 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+}
+h4 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 21px;
+}
+h5 {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+}
+h6 {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+p.large {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 32px;
+}
+p.medium {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+p {
+  font-size: 15px;
+  line-height: 24px;
+}
+
 .App {
   min-height: 100vh;
   background-color: $background-color;

@@ -1,86 +1,74 @@
 @import "../../../scss/variables.scss";
 
-.Profile {
+.profile {
   padding: 50px 0;
 
-  .form {
+  &__card {
     width: 80%;
     margin: auto;
-    box-shadow: $box-shadow;
     background-color: #fff;
-    padding: 10px 15px;
+    padding: 20px;
+    border-radius: $border-radius;
+    gap: 10px;
+  }
+
+  &__header {
     position: relative;
-    &__title {
-      text-transform: uppercase;
-      text-align: center;
-      margin-bottom: 40px;
-    }
+  }
 
-    &__profile-pics {
-      display: flex;
-      flex-direction: column;
-      img {
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-bottom: 15px;
-      }
+  &__image {
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    border: 4px solid #3f3c3c;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &__action {
+    display: flex;
+    justify-content: flex-end;
+  }
+  &__editBtn {
+    display: block;
+    text-align: end;
+  }
+  &__details {
+    padding-top: 40px;
+  }
+  &__name {
+    font-size: $h1-font-size;
+    margin: 0;
+    text-align: center;
+  }
+  &__bio {
+    font-size: $h3-font-size;
+    margin: 0;
+    text-align: center;
+  }
+  &__icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 8px;
+  }
+  &__icon {
+    background-color: #ccc;
+    width: 28px;
+    height: 28px;
+    font-size: $small-font-size;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #000;
+    &:hover {
+      color: #000;
     }
-
-    .form-group {
-      margin: 20px 0;
-    }
-
-    &__label {
-      font-size: 16px;
-      font-weight: 500;
-      margin-bottom: 4px;
-    }
-
-    &__input {
-      border: 1px solid $dashboard-color-secondary;
-      border-radius: 0;
-      outline: none;
-      &:focus {
-        box-shadow: none;
-        border: 1px solid $dashboard-color-primary;
-      }
-    }
-
-    &__link {
-      text-decoration: none;
-      color: $dashboard-color-primary;
-    }
-
-    &__btn {
-      position: absolute;
-      left: 45%;
-      bottom: -20px;
-      padding: 10px 25px;
-      width: 30%;
-      background-color: $dashboard-color-secondary;
-      border: none;
-      color: #fff;
-      font-size: 18px;
-      &:hover {
-        background-color: $dashboard-color-primary;
-      }
-    }
-
-    .icon-box {
-      display: flex;
-      align-items: center;
-    }
-
-    &__icon {
-      color: #fff;
-      background-color: $dashboard-color-secondary;
-      padding: 8px 8px;
-      cursor: pointer;
-      &:hover {
-        background-color: $dashboard-color-primary;
-      }
-    }
+  }
+  &__icon svg {
+    font-size: $h3-font-size;
   }
 }
