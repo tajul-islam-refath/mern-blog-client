@@ -193,7 +193,7 @@ const EditProfile = ({ userProfile, setIsEdit }) => {
                     id="github"
                     name="github"
                     className="form__input form-control"
-                    placeholder="Website link"
+                    placeholder="Github link"
                     value={profile?.github}
                     onChange={(event) =>
                       setProfile((prev) => ({

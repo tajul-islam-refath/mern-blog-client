@@ -12,6 +12,7 @@ import HomePageSkeleton from "./components/Skeleton/HomePageSkeleton.jsx";
 import Login from "./pages/Auth/Login/Login.jsx";
 import Registration from "./pages/Auth/Registration/Registration";
 import SinglePostSkeleton from "./components/Skeleton/SinglePostSkeleton.jsx";
+import ForgetPassword from "./pages/Auth/ForgetPassword/ForgetPassword.jsx";
 
 const Home = React.lazy(() => import("./pages/Home/Home"));
 const SinglePost = React.lazy(() => import("./pages/SinglePost/SinglePost"));
@@ -71,6 +72,7 @@ function App() {
             />
             <Route path="login" element={<Login />} />
             <Route path="sign-up" element={<Registration />} />
+            <Route path="forget-password" element={<ForgetPassword />} />
           </Route>
           {/* user dashboard */}
           <Route

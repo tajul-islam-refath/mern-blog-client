@@ -1,18 +1,17 @@
 import "./mainnav.scss";
 import { AiOutlineSearch } from "react-icons/ai";
-import { NavLink, Link } from "react-router-dom";
-
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
 import { authLogout } from "../../services/authServices";
 
 const MainNav = () => {
   const { isLogedIn } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const logOut = () => {
     dispatch(authLogout());
+    navigate("/login");
   };
   return (
     <nav className="mainnav">

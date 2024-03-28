@@ -1,0 +1,15 @@
+@import "../../../scss/variables.scss";
+
+.forget-password {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  &__card {
+    background-color: $background-color-card;
+    width: 40%;
+    border-radius: $border-radius;
+    padding: 40px;
+    text-align: center;
+  }
+}
