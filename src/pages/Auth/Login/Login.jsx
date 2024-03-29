@@ -123,6 +123,11 @@ const Login = () => {
               className="login__btn hover-effect"
             />
             <p className="underline-effect text-center my-2">
+              <Link to="/forget-password" className=" login__link">
+                Forget Your Password?
+              </Link>
+            </p>
+            <p className="underline-effect text-center my-2">
               <Link to="/sign-up" className=" login__link">
                 New to DEVCRAFT Community? Create account.
               </Link>
