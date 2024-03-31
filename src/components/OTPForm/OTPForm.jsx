@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
 import "./otpform.scss";
+import React, { useEffect, useRef, useState } from "react";
 
-function OTPForm({ length = 4, onSubmit }) {
+import Button from "../ui/buttons/Button";
+
+function OTPForm({ length = 4, onSubmit, reSendOtp }) {
   const [otp, setOtp] = useState(new Array(length).fill(""));
   const inputRefs = useRef([]);
 
@@ -58,8 +60,9 @@ function OTPForm({ length = 4, onSubmit }) {
       inputRefs.current[0].focus();
     }
   }, []);
+
   return (
-    <div className="otp-form">
+    <div className="otp-form text-center">
       <h1>Enter Your {length} Digit OTP Here</h1>
       {otp.map((value, index) => (
         <input
@@ -73,6 +76,11 @@ function OTPForm({ length = 4, onSubmit }) {
           className="otp-input"
         />
       ))}
+      <Button
+        text="Re-Send OTP"
+        className="my-3 button--primary"
+        onClick={() => reSendOtp()}
+      />
     </div>
   );
 }

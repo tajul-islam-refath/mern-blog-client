@@ -24,7 +24,6 @@ const ForgetPassword = () => {
 
   const onEmailSubmit = async ({ email }) => {
     let { payload, error } = await sendOtpToEmail({ email });
-    console.log(payload);
 
     if (payload) {
       setForm({
@@ -37,6 +36,10 @@ const ForgetPassword = () => {
     if (error) {
       toastService.error("Internal server error!");
     }
+  };
+
+  const reSendOtp = () => {
+    onEmailSubmit(form.email);
   };
 
   const onOTPSubmit = (otp) => {
@@ -75,7 +78,9 @@ const ForgetPassword = () => {
       <div className="forget-password">
         <div className="forget-password__card">
           {step == 1 && <VarifyEmail onEmailSubmit={onEmailSubmit} />}
-          {step == 2 && <OTPForm length={6} onSubmit={onOTPSubmit} />}
+          {step == 2 && (
+            <OTPForm length={6} onSubmit={onOTPSubmit} reSendOtp={reSendOtp} />
+          )}
           {step == 3 && <ResetPassword onFormSubmit={onFormSubmit} />}
         </div>
       </div>
