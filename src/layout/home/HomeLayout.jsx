@@ -19,10 +19,10 @@ const HomeLayout = ({ children }) => {
 
   return (
     <>
+      <MainNav />
       <div className="container">
         <Header>
           {/* <TopBar searchOpen={searchOpen} setSearchOpen={setSearchOpen} /> */}
-          <MainNav />
         </Header>
         <main className="main">{children}</main>
       </div>

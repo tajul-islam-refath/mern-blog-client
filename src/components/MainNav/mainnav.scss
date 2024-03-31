@@ -5,6 +5,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #fff;
+  position: sticky;
+  top: 0px;
+  padding: 0 15px;
   .logo {
     &__name {
       text-decoration: none;
