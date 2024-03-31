@@ -36,24 +36,27 @@ export const login = async (payload) => {
   }
 };
 
-export const authSendOtp = (body) => async (dispatch) => {
+export const resetPassword = async (body) => {
   try {
-    dispatch(authLoadingAction());
-
-    const { data } = await axios.post("/auth/sendOTP", body);
-    localStorage.setItem(
-      "MS_otp",
-      JSON.stringify({ hash: data.hash, email: data.email })
-    );
-
-    dispatch(authSendOtpAction(data));
+    const { data } = await api.post("/auth/forgot-password", body);
+    return { payload: data, error: null };
   } catch (error) {
-    console.log(error.response);
-    if (error.response.status === 500) {
-      dispatch(authErrorAction({ message: "Error ! Please try again" }));
-    } else {
-      dispatch(authErrorAction(error.response.data));
-    }
+    return {
+      payload: null,
+      error: error?.response?.data,
+    };
+  }
+};
+
+export const sendOtpToEmail = async (body) => {
+  try {
+    const { data } = await api.post("/auth/send-otp", body);
+    return { payload: data.data, error: null };
+  } catch (error) {
+    return {
+      payload: null,
+      error: error?.response?.data,
+    };
   }
 };
 

@@ -21,6 +21,10 @@ api.interceptors.request.use(
     return config;
   },
   (error) => {
+    numberOfRequest--;
+    if (numberOfRequest == 0) {
+      store.dispatch(loadingStop());
+    }
     return Promise.reject(error);
   }
 );
@@ -29,13 +33,16 @@ api.interceptors.response.use(
   (response) => {
     numberOfRequest--;
     if (numberOfRequest == 0) {
-      console.log("response");
       store.dispatch(loadingStop());
     }
 
     return response;
   },
   (error) => {
+    numberOfRequest--;
+    if (numberOfRequest == 0) {
+      store.dispatch(loadingStop());
+    }
     return Promise.reject(error);
   }
 );
