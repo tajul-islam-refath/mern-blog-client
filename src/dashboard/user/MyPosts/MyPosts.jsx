@@ -95,8 +95,8 @@ const MyPosts = () => {
                   <div className="info">
                     <h1 className="title underline-effect">
                       <Link to={`/posts/${post._id}`}>
-                        {post.title}
-                        {/* {post.title.slice(0, 30) + "..."} */}
+                        {/* {post.title} */}
+                        {post.title.slice(0, 30) + "..."}
                       </Link>
                     </h1>
                     <div className="meta">

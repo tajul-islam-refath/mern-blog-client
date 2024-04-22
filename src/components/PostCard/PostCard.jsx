@@ -19,9 +19,12 @@ const PostCard = ({ post }) => {
     <>
       {post && (
         <article className="postcard">
-          <div className="postcard__cover">
-            <img src={post.cover.url} alt="cover" />
-          </div>
+          {post.cover.url && (
+            <div className="postcard__cover">
+              <img src={post.cover.url} alt="cover" />
+            </div>
+          )}
+
           <div className="postcard__body">
             <div className="postcard_user underline-effect">
               <img

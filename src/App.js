@@ -37,6 +37,7 @@ const MyPosts = React.lazy(() => import("./dashboard/user/MyPosts/MyPosts"));
 function App() {
   return (
     <div className="App">
+      <div className="background-gradient"></div>
       <ToastContainer
         position="top-right"
         autoClose={5000}

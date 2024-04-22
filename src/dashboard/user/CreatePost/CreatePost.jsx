@@ -1,8 +1,9 @@
 import "./createPost.scss";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import JoditEditor from "jodit-react";
 
 import avatar from "../../../assets/img/thumbnail.jpg";
 import AppTitle from "../../../components/Common/AppTitle";
@@ -26,6 +27,9 @@ const CreatePost = () => {
     watch,
     formState: { errors },
   } = useForm();
+  const [body, setBody] = useState("");
+  const editor = useRef(null);
+
   const navigate = useNavigate();
 
   const [thumbnail, setThumbnail] = useState("");
@@ -63,7 +67,7 @@ const CreatePost = () => {
     const formData = new FormData();
     formData.append("cover", data.cover[0]);
     formData.append("title", data.title);
-    formData.append("body", data.body);
+    formData.append("body", body);
     tags.forEach((tag) => formData.append("tags[]", tag));
 
     let { payload, error } = await createPost(formData);
@@ -136,7 +140,8 @@ const CreatePost = () => {
                     })}
                   />
                 </FormGroup>
-                <FormGroup>
+
+                {/* <FormGroup>
                   <FormLabel text="Body" htmlFor="body" />
                   <FormTextArea
                     className="px-3"
@@ -153,7 +158,18 @@ const CreatePost = () => {
                       },
                     })}
                   />
+                </FormGroup> */}
+                <FormGroup>
+                  <FormLabel text="Post Body" htmlFor="body" />
+                  <JoditEditor
+                    ref={editor}
+                    value={body}
+                    tabIndex={1}
+                    onBlur={(newContent) => setBody(newContent)}
+                    onChange={(newContent) => {}}
+                  />
                 </FormGroup>
+
                 <FormGroup>
                   <FormLabel text="Tages (Max 6)" htmlFor="tages" />
                   <div className="input-container">

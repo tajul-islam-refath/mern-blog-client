@@ -95,10 +95,12 @@ const SinglePost = () => {
             </div>
           </div>
 
-          <div className="post__cover">
-            <img src="" alt="" />
-            <img className="fullimg cover" src={post?.cover?.url} alt="" />
-          </div>
+          {post?.cover?.url && (
+            <div className="post__cover">
+              <img className="fullimg cover" src={post?.cover?.url} alt="" />
+            </div>
+          )}
+
           <div className="post__warper">
             <div className="post__body">
               <div className="post__content">
