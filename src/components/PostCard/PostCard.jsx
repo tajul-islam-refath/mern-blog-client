@@ -7,14 +7,43 @@ import { AiOutlineFire } from "react-icons/ai";
 import { BsFillBookmarkFill } from "react-icons/bs";
 import { BsBookmark } from "react-icons/bs";
 
+import toastService from "../../utils/Toast";
 import avatar from "../../assets/img/avatar-10.jpg";
 import Tag from "../Tag/Tag";
+import {
+  addPostToBookmark,
+  removePostFromBookmark,
+} from "../../services/postServices";
 
 const PostCard = ({ post }) => {
+  const { isLogedIn } = useSelector((state) => state.auth);
   let bookmarks = [];
   const dispatch = useDispatch();
-  const bookmarksAdd = () => {};
-  const bookmarksDelete = () => {};
+
+  const bookmarksAdd = async () => {
+    let { payload, error } = await addPostToBookmark(post._id);
+    if (payload) {
+      // log("Registration", "info", payload);
+
+      toastService.success("Bookmarked successfully  🎉");
+    }
+    if (error) {
+      toastService.error("Bookmarked faild!");
+      // log("newPost", "error", error);
+    }
+  };
+  const bookmarksDelete = async () => {
+    let { payload, error } = await removePostFromBookmark(post._id);
+    if (payload) {
+      // log("Registration", "info", payload);
+
+      toastService.success("Remove from bookmarked 🎉");
+    }
+    if (error) {
+      toastService.error("Remove from bookmarked faild!");
+      // log("newPost", "error", error);
+    }
+  };
   return (
     <>
       {post && (
@@ -61,16 +90,20 @@ const PostCard = ({ post }) => {
                   <AiOutlineFire className="card-icon" />
                   <span>{post.totalViews}</span>
                 </div> */}
-                {bookmarks.includes(post._id) ? (
-                  <BsFillBookmarkFill
-                    className="bookmark-icon "
-                    onClick={() => bookmarksDelete()}
-                  />
-                ) : (
-                  <BsBookmark
-                    className="bookmark-icon "
-                    onClick={() => bookmarksAdd()}
-                  />
+                {isLogedIn && (
+                  <>
+                    {bookmarks.includes(post._id) ? (
+                      <BsFillBookmarkFill
+                        className="bookmark-icon "
+                        onClick={() => bookmarksDelete()}
+                      />
+                    ) : (
+                      <BsBookmark
+                        className="bookmark-icon "
+                        onClick={() => bookmarksAdd()}
+                      />
+                    )}
+                  </>
                 )}
               </div>
             </div>

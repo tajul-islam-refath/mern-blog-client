@@ -53,3 +53,27 @@ export const getSinglePost = async (id) => {
     };
   }
 };
+
+export const addPostToBookmark = async (id) => {
+  try {
+    const { data } = await api.get(`/articles/${id}/bookmark/add`);
+    return { payload: data.data, error: null };
+  } catch (error) {
+    return {
+      payload: null,
+      error: error?.response?.data,
+    };
+  }
+};
+
+export const removePostFromBookmark = async (id) => {
+  try {
+    const { data } = await api.get(`/articles/${id}/bookmark/remove`);
+    return { payload: data.data, error: null };
+  } catch (error) {
+    return {
+      payload: null,
+      error: error?.response?.data,
+    };
+  }
+};

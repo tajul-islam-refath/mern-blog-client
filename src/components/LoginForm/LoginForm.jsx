@@ -47,8 +47,12 @@ const LoginForm = () => {
       navigate(from);
     }
     if (error) {
-      toastService.error("Login Faild!");
       log("Login", "error", error);
+      if (Array.isArray(error.errors)) {
+        toastService.error(error.errors[0].message);
+        return;
+      }
+      toastService.error("Login Faild!");
     }
   };
 
