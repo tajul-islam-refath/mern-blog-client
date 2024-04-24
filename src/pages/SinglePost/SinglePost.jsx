@@ -11,42 +11,64 @@ import SinglePostSkeleton from "../../components/Skeleton/SinglePostSkeleton";
 import Tag from "../../components/Tag/Tag";
 import AppTitle from "../../components/Common/AppTitle";
 
-import { getSinglePost } from "../../services/postServices";
-import { bookmarkPost, bookmarkDelete } from "../../services/webService";
-import toastService from "../../utils/Toast";
 import { singlePostGetAction } from "../../store/slices/postSlice";
+import { getSinglePost } from "../../services/postServices";
+import toastService from "../../utils/Toast";
+
+import {
+  addPostToBookmark,
+  removePostFromBookmark,
+} from "../../services/postServices";
+import { updateBookmarksAction } from "../../store/slices/postSlice";
 
 const SinglePost = () => {
   const { postId } = useParams();
-
   const dispatch = useDispatch();
+
+  const isLogedIn = useSelector((state) => state.auth.isLogedIn);
   const loading = useSelector((state) => state.settings.loading);
   const post = useSelector((state) => state.post.post);
-  const bookmarks = useSelector((state) => state.web.bookmarks);
+  const bookmarks = useSelector((state) => state.post.bookmarks);
 
-  const bookmarksAdd = () => {
-    dispatch(bookmarkPost({ id: post._id }));
-  };
-
-  const bookmarksDelete = () => {
-    dispatch(bookmarkDelete({ id: post._id }));
-  };
-
-  const fatchPost = async () => {
-    let { payload, error } = await getSinglePost(postId);
+  const bookmarksAdd = async () => {
+    let { payload, error } = await addPostToBookmark(postId);
     if (payload) {
-      dispatch(singlePostGetAction(payload.article));
+      // log("Registration", "info", payload);
+      dispatch(updateBookmarksAction(postId));
+      toastService.success("Bookmarked successfully  🎉");
     }
     if (error) {
-      if (error.status == 400) {
-        toastService.error(error.errors[0].message);
-      } else {
-        toastService.error("Internal server error. Try again!");
-      }
+      toastService.error("Bookmarked faild!");
+      // log("newPost", "error", error);
+    }
+  };
+  const bookmarksDelete = async () => {
+    let { payload, error } = await removePostFromBookmark(postId);
+    if (payload) {
+      // log("Registration", "info", payload);
+      dispatch(updateBookmarksAction(postId));
+      toastService.success("Remove from bookmarkes 🎉");
+    }
+    if (error) {
+      toastService.error("Remove from bookmarkes faild!");
+      // log("newPost", "error", error);
     }
   };
 
   useEffect(() => {
+    const fatchPost = async () => {
+      let { payload, error } = await getSinglePost(postId);
+      if (payload) {
+        dispatch(singlePostGetAction(payload.article));
+      }
+      if (error) {
+        if (error.status == 400) {
+          toastService.error(error.errors[0].message);
+        } else {
+          toastService.error("Internal server error. Try again!");
+        }
+      }
+    };
     fatchPost();
   }, [postId]);
 
@@ -79,16 +101,20 @@ const SinglePost = () => {
                     <span>{post.readTime}</span>
                   </div>
 
-                  {bookmarks.includes(post._id) ? (
-                    <BsFillBookmarkFill
-                      className="bookmark-icon "
-                      onClick={() => bookmarksDelete()}
-                    />
-                  ) : (
-                    <BsBookmark
-                      className="bookmark-icon "
-                      onClick={() => bookmarksAdd()}
-                    />
+                  {isLogedIn && (
+                    <>
+                      {bookmarks.includes(post._id) ? (
+                        <BsFillBookmarkFill
+                          className="bookmark-icon "
+                          onClick={() => bookmarksDelete()}
+                        />
+                      ) : (
+                        <BsBookmark
+                          className="bookmark-icon "
+                          onClick={() => bookmarksAdd()}
+                        />
+                      )}
+                    </>
                   )}
                 </div>
               </div>

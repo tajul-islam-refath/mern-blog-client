@@ -14,17 +14,18 @@ import {
   addPostToBookmark,
   removePostFromBookmark,
 } from "../../services/postServices";
+import { updateBookmarksAction } from "../../store/slices/postSlice";
 
 const PostCard = ({ post }) => {
   const { isLogedIn } = useSelector((state) => state.auth);
-  let bookmarks = [];
+  let bookmarks = useSelector((state) => state.post.bookmarks);
   const dispatch = useDispatch();
 
   const bookmarksAdd = async () => {
     let { payload, error } = await addPostToBookmark(post._id);
     if (payload) {
       // log("Registration", "info", payload);
-
+      dispatch(updateBookmarksAction(post._id));
       toastService.success("Bookmarked successfully  🎉");
     }
     if (error) {
@@ -36,7 +37,7 @@ const PostCard = ({ post }) => {
     let { payload, error } = await removePostFromBookmark(post._id);
     if (payload) {
       // log("Registration", "info", payload);
-
+      dispatch(updateBookmarksAction(post._id));
       toastService.success("Remove from bookmarked 🎉");
     }
     if (error) {

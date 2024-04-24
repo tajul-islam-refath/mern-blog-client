@@ -10,12 +10,27 @@ import Search from "../../components/Search/Search";
 
 import { getProfile } from "../../services/userService";
 import { getWebContent } from "../../services/webService";
+import { getBookmarksPost } from "../../services/postServices";
+import { getBookmarksAction } from "../../store/slices/postSlice";
 
 const HomeLayout = ({ children }) => {
   const [searchOpen, setSearchOpen] = useState(false);
 
   const { isLogedIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isLogedIn) {
+      const fetchData = async () => {
+        let { payload, error } = await getBookmarksPost();
+        if (payload) {
+          dispatch(getBookmarksAction(payload.bookmarks));
+        }
+      };
+
+      fetchData();
+    }
+  }, [isLogedIn, dispatch]);
 
   return (
     <>

@@ -54,6 +54,18 @@ export const getSinglePost = async (id) => {
   }
 };
 
+export const getBookmarksPost = async (id) => {
+  try {
+    const { data } = await api.get(`/users/me/bookmarks`);
+    return { payload: data.data, error: null };
+  } catch (error) {
+    return {
+      payload: null,
+      error: error?.response?.data,
+    };
+  }
+};
+
 export const addPostToBookmark = async (id) => {
   try {
     const { data } = await api.get(`/articles/${id}/bookmark/add`);
