@@ -10,12 +10,40 @@ This is a multi-author blog application built using the MERN stack. Where user c
 
 ## Installation
 
-1. Clone the repository:
+1. **Clone the repository**
 
 ```bash
 git clone <repository-url>
-cd project-name
-npm install
+```
+
+2. **If pulled for the first time or the package.json changed run**
+
+```bash
+docker compose build
+```
+
+3. **Starting the environment in background**
+
+```bash
+docker compose up -d
+```
+
+4. **To see the logs of your app**
+
+```bash
+docker compose logs -f web
+```
+
+5. **If you need to install any npm package.**
+
+```bash
+docker compose exec web npm install <pacakge-name>
+```
+
+6. **Stop the containers.**
+
+```bash
+docker compose down
 ```
 
 ## Features
@@ -70,7 +98,7 @@ Welcome contributions! Whether it's fixing a bug, adding a new feature, or impro
 
 7. **Create a Pull Request**: Go to your forked repository on GitHub and click the "New Pull Request" button. Fill out the Pull Request form and submit it to propose your changes.
 
-That's it! Thank you for contributing to our repository of Modern Website Templates! 🙌
+That's it! Thank you for contributing! 🙌
 
 ---
 

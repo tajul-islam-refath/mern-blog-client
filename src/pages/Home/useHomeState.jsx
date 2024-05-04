@@ -16,6 +16,7 @@ const useHomeState = (observerTarget) => {
 
   const fetchPosts = async () => {
     let { payload, error } = await getPosts({ page, limit });
+    console.log(error);
 
     if (payload) {
       dispatch(getPostsAction([...posts, ...payload?.articles]));
@@ -31,12 +32,12 @@ const useHomeState = (observerTarget) => {
     return () => {
       dispatch(getPostsAction([]));
     };
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     let observer = new IntersectionObserver((entries) => {
       entries.map((entry) => {
-        if (entry.isIntersecting && page && !loading) {
+        if (entry.isIntersecting && page) {
           fetchPosts();
         }
       });
@@ -51,7 +52,7 @@ const useHomeState = (observerTarget) => {
         observer.unobserve(observerTarget.current);
       }
     };
-  }, [page, loading]);
+  }, [page]);
 };
 
 export default useHomeState;
