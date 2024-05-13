@@ -54,7 +54,7 @@ docker compose down
 - 🌟 Forget Password With Custom OTP Form
 - 🌟 Bookmarks Blog
 - 🌟 Search And Pagination Into User Dashboard
-- 🌟 Comment Features(comming soon)
+- 🌟 Comment Feature
 - 🌟 Real Time Notification(comming soon)
 
 ## Contributing
