@@ -4,6 +4,7 @@ let initialState = {
   post: null,
   posts: [],
   bookmarks: [],
+  comments: [],
 };
 const postSlice = createSlice({
   name: "post",
@@ -26,6 +27,18 @@ const postSlice = createSlice({
         state.bookmarks.push(action.payload);
       }
     },
+    getCommentsAction: (state, action) => {
+      state.comments = action.payload;
+    },
+    addCommentAction: (state, action) => {
+      state.comments = [action.payload, ...state.comments];
+    },
+    deleteCommentAction: (state, action) => {
+      let filteredComments = state.comments.filter(
+        (item) => item._id != action.payload
+      );
+      state.comments = filteredComments;
+    },
   },
 });
 
@@ -34,5 +47,8 @@ export const {
   getPostsAction,
   getBookmarksAction,
   updateBookmarksAction,
+  getCommentsAction,
+  addCommentAction,
+  deleteCommentAction,
 } = postSlice.actions;
 export default postSlice.reducer;

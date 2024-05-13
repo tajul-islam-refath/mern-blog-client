@@ -112,6 +112,37 @@
     }
   }
 
+  &__comment {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      box-shadow: $icon-shadow;
+      object-fit: cover;
+    }
+    a {
+      margin-bottom: 0px;
+      text-decoration: none;
+      color: #596172;
+      font-size: 18px;
+      width: 100%;
+      height: auto;
+    }
+    .meta {
+      font-size: 18px;
+    }
+    .delete-icon {
+      font-size: 28px;
+      margin-left: auto;
+      cursor: pointer;
+      color: red;
+    }
+  }
+
   .footer {
     margin-top: 50px;
     padding: 50px 30px;

@@ -11,8 +11,11 @@ import SinglePostSkeleton from "../../components/Skeleton/SinglePostSkeleton";
 import Tag from "../../components/Tag/Tag";
 import AppTitle from "../../components/Common/AppTitle";
 
-import { singlePostGetAction } from "../../store/slices/postSlice";
-import { getSinglePost } from "../../services/postServices";
+import {
+  getCommentsAction,
+  singlePostGetAction,
+} from "../../store/slices/postSlice";
+import { getCommentsByPost, getSinglePost } from "../../services/postServices";
 import toastService from "../../utils/Toast";
 
 import {
@@ -20,6 +23,7 @@ import {
   removePostFromBookmark,
 } from "../../services/postServices";
 import { updateBookmarksAction } from "../../store/slices/postSlice";
+import Comment from "./Comment";
 
 const SinglePost = () => {
   const { postId } = useParams();
@@ -69,8 +73,26 @@ const SinglePost = () => {
         }
       }
     };
+
     fatchPost();
   }, [postId]);
+
+  useEffect(() => {
+    const getComments = async () => {
+      let { payload, error } = await getCommentsByPost(postId);
+      if (payload) {
+        dispatch(getCommentsAction(payload.comments));
+      }
+      if (error) {
+        console.log(error);
+      }
+    };
+
+    getComments();
+    return () => {
+      dispatch(getCommentsAction([]));
+    };
+  }, [postId, dispatch]);
 
   return (
     <>
@@ -146,6 +168,8 @@ const SinglePost = () => {
               </div>
             </div>
           </div>
+          {/* comment section  */}
+          <Comment postId={postId} />
         </article>
       )}
       {loading && <SinglePostSkeleton />}

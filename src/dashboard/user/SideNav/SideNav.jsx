@@ -41,12 +41,6 @@ const SideNav = () => {
           </NavLink>
         </li>
         <li className="list__item">
-          <NavLink to="/user/bookmarks" className="list__link">
-            <BsFillBookmarkCheckFill className="list__icon" />
-            <p className="list__name">Bookmarks</p>
-          </NavLink>
-        </li>
-        <li className="list__item">
           <NavLink to="/user/change-password" className="list__link">
             <MdOutlinePassword className="list__icon" />
             <p className="list__name">Change Password</p>

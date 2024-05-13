@@ -89,3 +89,42 @@ export const removePostFromBookmark = async (id) => {
     };
   }
 };
+
+// comment api end-point
+export const getCommentsByPost = async (id) => {
+  try {
+    const { data } = await api.get(`/articles/${id}/comments`);
+    return { payload: data, error: null };
+  } catch (error) {
+    return {
+      payload: null,
+      error: error?.response?.data,
+    };
+  }
+};
+
+export const createNewComment = async (postId, body) => {
+  try {
+    const { data } = await api.post(`/articles/${postId}/comments`, body);
+    return { payload: data, error: null };
+  } catch (error) {
+    return {
+      payload: null,
+      error: error?.response?.data,
+    };
+  }
+};
+
+export const deleteComment = async (postId, commentId) => {
+  try {
+    const { data } = await api.delete(
+      `/articles/${postId}/comments/${commentId}`
+    );
+    return { payload: data, error: null };
+  } catch (error) {
+    return {
+      payload: null,
+      error: error?.response?.data,
+    };
+  }
+};
